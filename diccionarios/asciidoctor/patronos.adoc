@@ -1,0 +1,161 @@
+= Diccionario de Datos - Base de Datos de Compañías
+
+== Tabla: tbl_pe_master
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | uuid | Identificador único de la entidad
+| person_type | varchar(50) | Tipo de persona (jurídica o natural)
+| rtn | varchar(255) | Registro Tributario Nacional
+| legal_name | varchar(255) | Nombre legal de la empresa o persona
+| commercial_name | varchar(255) | Nombre comercial
+| headquarters_address | varchar(255) | Dirección de la sede central
+| localization_points | varchar(255) | Coordenadas de ubicación
+| email | varchar(255) | Correo electrónico
+| phone | varchar(255) | Teléfono fijo
+| mobile_phone | varchar(255) | Teléfono móvil
+| economic_activity | varchar(255) | Actividad económica principal
+| date_created | timestamp | Fecha de creación
+| date_updated | timestamp | Fecha de última modificación
+| created_status | varchar(255) | Estado del registro (ej. CREATED, UPDATED)
+| employees_qty | integer | Número total de empleados
+| localization_id | varchar(255) | ID de localización
+| active | boolean (default true) | Estado de actividad del registro
+| user_id | uuid | Usuario que creó el registro
+|===
+
+== Tabla: tbl_branch_office
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | bigint | Identificador único de la sucursal
+| master_id | uuid | Relación con tbl_pe_master
+| branch_type | varchar(255) | Tipo de sucursal (Ej. AGENCIA)
+| commercial_name | varchar(255) | Nombre comercial de la sucursal
+| address | varchar(255) | Dirección física
+| localization_map | varchar(255) | Coordenadas geográficas
+| localization_id | uuid | Relación con localización
+| operations_license_number | varchar(255) | Número de licencia de operación
+| operations_license_expiration_date | date | Fecha de vencimiento de la licencia
+| rtn | varchar(255) | RTN asociado
+| manager_name | varchar(255) | Nombre del gerente
+| manager_identification_type | varchar(255) | Tipo de identificación del gerente
+| manager_identification_number | varchar(255) | Número de identificación del gerente
+| manager_phone_number | varchar(255) | Teléfono del gerente
+| created_status | varchar(255) | Estado del registro
+| date_created | timestamp | Fecha de creación
+| date_updated | timestamp | Fecha de última actualización
+| operations_license_start_date | date | Fecha de inicio de la licencia de operación
+|===
+
+== Tabla: tbl_company_and_commercial_entity
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | bigint | Identificador único
+| master_id | uuid | Relación con tbl_pe_master
+| productive_cicles | boolean | Tiene ciclos productivos
+| permanent_employees_qty | integer | Cantidad de empleados permanentes
+| temporary_employees_qty | integer | Cantidad de empleados temporales
+| plate_registro_mercantil_number | varchar(255) | Número de placa del registro mercantil
+| registration_date | date | Fecha de inscripción
+| operations_license_number | varchar(255) | Número de licencia
+| operations_license_start_date | date | Inicio de la licencia
+| operations_license_expiration_date | date | Vencimiento de la licencia
+| employer_ihss_number | varchar(255) | Número patronal del IHSS
+| employer_infop_number | varchar(255) | Número INFOP
+| employer_rap_number | varchar(255) | Número RAP
+| date_created | timestamp | Fecha de creación
+| date_updated | timestamp | Fecha de actualización
+|===
+
+== Tabla: tbl_company_files
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | bigint | Identificador único
+| master_id | uuid | Relación con tbl_pe_master
+| title | varchar(255) | Título del documento
+| file_name | varchar(1000) | Nombre del archivo
+| file_url | varchar(1000) | URL del archivo
+| created_status | varchar(255) | Estado de creación del archivo
+| date_created | timestamp | Fecha de creación
+| date_updated | timestamp | Fecha de modificación
+|===
+
+== Tabla: tbl_contact_person
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | bigint | Identificador único
+| master_id | uuid | Relación con tbl_pe_master
+| full_name | varchar(255) | Nombre completo de contacto
+| email | varchar(255) | Correo electrónico
+| phone_number | varchar(255) | Teléfono
+| person_role | varchar(255) | Rol de la persona (ej. Representante)
+| created_status | varchar(255) | Estado del registro
+| created_at | timestamp | Fecha de creación
+| updated_at | timestamp | Fecha de modificación
+|===
+
+== Tabla: tbl_legal_person
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | bigint | Identificador único
+| identification_type | varchar(255) | Tipo de identificación
+| data_of_birth | date | Fecha de nacimiento
+| attorney_license_number | varchar(255) | Número de licencia del abogado
+| start_job_date | date | Fecha de inicio del trabajo
+| end_job_date | date | Fecha de finalización del trabajo
+| master_id | uuid | Relación con tbl_pe_master
+| full_name | varchar(255) | Nombre completo
+| email | varchar(255) | Correo electrónico
+| phone_number | varchar(255) | Teléfono
+| person_role | varchar(255) | Rol en la entidad
+| created_status | varchar(255) | Estado del registro
+| created_at | timestamp | Fecha de creación
+| updated_at | timestamp | Fecha de modificación
+| identification_number | varchar(255) | Número de identificación
+| rtn | varchar(255) | RTN personal
+| job_title | varchar(255) | Cargo que desempeña
+| country_id | varchar(255) | País asociado
+|===
+
+== Tabla: tbl_persona_natural
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | bigint | Identificador único
+| master_id | uuid | Relación con tbl_pe_master
+| identification_type | varchar(255) | Tipo de identificación
+| identification_number | varchar(255) | Número de identificación
+| date_created | timestamp | Fecha de creación
+| date_updated | timestamp | Fecha de modificación
+|===
+
+== Tabla: tbl_temporary_data
+
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id | uuid | Identificador único
+| commercial_name | varchar(225) | Nombre comercial
+| address | varchar(250) | Dirección física
+| rtn | varchar(50) | Registro Tributario Nacional
+| phone | varchar(25) | Teléfono
+| email | varchar(100) | Correo electrónico
+| status | varchar(15) | Estado del registro
+| active | boolean | Si el registro está activo o no
+| created_at | timestamp | Fecha de creación
+| updated_at | timestamp | Fecha de modificación
+| temp_status | boolean | Indica si es un registro temporal
+| legal_name | varchar(225) | Nombre legal asociado
+|===

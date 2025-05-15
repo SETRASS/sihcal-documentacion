@@ -1,0 +1,2917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <meta name="author" content="Marvin Toro">
+    <title>Inspection-Service API Documentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="article toc2 toc-left">
+    <div id="header">
+        <h1>Inspection-Service API Documentation</h1>
+        <div class="details">
+            <span id="author" class="author">Marvin Toro</span><br>
+            <span id="email" class="email"><a href="mailto:marvin_toro@wvi.org">marvin_toro@wvi.org</a></span><br>
+            <span id="revnumber">version 0.0.350,</span>
+            <span id="revdate">2025-05-06</span>
+        </div>
+        <div id="toc" class="toc2">
+            <div id="toctitle">Table of Contents</div>
+            <ul class="sectlevel1">
+                <li><a href="#_introducción">1. Introducción</a></li>
+                <li><a href="#_información_general">2. Información General</a></li>
+                <li><a href="#_endpoints">3. Endpoints</a>
+                    <ul class="sectlevel2">
+                        <li><a href="#_records_controller">3.1. Records Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nuevo_registro">3.1.1. Añadir Nuevo Registro</a></li>
+                                <li><a href="#_añadir_registro_desde_atención">3.1.2. Añadir Registro desde Atención</a></li>
+                                <li><a href="#_reasignar_inspector">3.1.3. Reasignar Inspector</a></li>
+                                <li><a href="#_obtener_registros_filtrados">3.1.4. Obtener Registros Filtrados</a></li>
+                                <li><a href="#_obtener_registros_por_masterid">3.1.5. Obtener Registros por MasterId</a></li>
+                                <li><a href="#_obtener_registros_por_filtros">3.1.6. Obtener Registros por Filtros</a></li>
+                                <li><a href="#_actualizar_registro">3.1.7. Actualizar Registro</a></li>
+                                <li><a href="#_actualizar_estado_de_registro_a_creado">3.1.8. Actualizar Estado de Registro a Creado</a></li>
+                                <li><a href="#_actualizar_estado_de_registro">3.1.9. Actualizar Estado de Registro</a></li>
+                                <li><a href="#_aprobar_registro_para_orden_de_inspección">3.1.10. Aprobar Registro para Orden de Inspección</a></li>
+                                <li><a href="#_obtener_lista_de_tipos_de_solicitud">3.1.11. Obtener Lista de Tipos de Solicitud</a></li>
+                                <li><a href="#_obtener_lista_de_objetivos">3.1.12. Obtener Lista de Objetivos</a></li>
+                                <li><a href="#_obtener_registros_por_staff_con_trabajos">3.1.13. Obtener Registros por Staff con Trabajos</a></li>
+                                <li><a href="#_obtener_registros_por_staff">3.1.14. Obtener Registros por Staff</a></li>
+                                <li><a href="#_obtener_código_de_registro">3.1.15. Obtener Código de Registro</a></li>
+                                <li><a href="#_obtener_todas_las_tablas">3.1.16. Obtener Todas las Tablas</a></li>
+                                <li><a href="#_obtener_registros_filtrados_nuevo">3.1.17. Obtener Registros Filtrados (Nuevo)</a></li>
+                                <li><a href="#_buscar_registro_por_nombre_o_filtros">3.1.18. Buscar Registro por Nombre o Filtros</a></li>
+                                <li><a href="#_buscar_registro_por_nombre_o_apellido">3.1.19. Buscar Registro por Nombre o Apellido</a></li>
+                                <li><a href="#_buscar_registro_por_id">3.1.20. Buscar Registro por ID</a></li>
+                                <li><a href="#_obtener_documentos_por_registro">3.1.21. Obtener Documentos por Registro</a></li>
+                                <li><a href="#_obtener_lista_de_causas">3.1.22. Obtener Lista de Causas</a></li>
+                                <li><a href="#_eliminar_registro">3.1.23. Eliminar Registro</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_record_file_controller">3.2. Record File Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nuevo_archivo_de_registro">3.2.1. Añadir Nuevo Archivo de Registro</a></li>
+                                <li><a href="#_subir_múltiples_archivos">3.2.2. Subir Múltiples Archivos</a></li>
+                                <li><a href="#_actualizar_archivo_de_registro">3.2.3. Actualizar Archivo de Registro</a></li>
+                                <li><a href="#_buscar_archivos_por_registro">3.2.4. Buscar Archivos por Registro</a></li>
+                                <li><a href="#_eliminar_archivo_por_nombre">3.2.5. Eliminar Archivo por Nombre</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_providence_files_controller">3.3. Providence Files Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nuevo_archivo_de_providencia">3.3.1. Añadir Nuevo Archivo de Providencia</a></li>
+                                <li><a href="#_subir_múltiples_archivos_de_providencia">3.3.2. Subir Múltiples Archivos de Providencia</a></li>
+                                <li><a href="#_actualizar_archivo_de_providencia">3.3.3. Actualizar Archivo de Providencia</a></li>
+                                <li><a href="#_buscar_archivos_por_propietario">3.3.4. Buscar Archivos por Propietario</a></li>
+                                <li><a href="#_eliminar_archivo_de_providencia_por_nombre">3.3.5. Eliminar Archivo de Providencia por Nombre</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_inspection_start_order_controller">3.4. Inspection Start Order Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_enviar_a_cita">3.4.1. Enviar a Cita</a></li>
+                                <li><a href="#_buscar_providencia_con_qr">3.4.2. Buscar Providencia con QR</a></li>
+                                <li><a href="#_filtrar_providencias">3.4.3. Filtrar Providencias</a></li>
+                                <li><a href="#_filtrar_providencias_por_criterios">3.4.4. Filtrar Providencias por Criterios</a></li>
+                                <li><a href="#_buscar_providencia_por_número_de_registro_o_trabajador">3.4.5. Buscar Providencia por Número de Registro o Trabajador</a></li>
+                                <li><a href="#_actualizar_estado_de_orden_a_verificado">3.4.6. Actualizar Estado de Orden a Verificado</a></li>
+                                <li><a href="#_actualizar_estado_de_orden_a_aprobado">3.4.7. Actualizar Estado de Orden a Aprobado</a></li>
+                                <li><a href="#_actualizar_diligencia_de_providencia">3.4.8. Actualizar Diligencia de Providencia</a></li>
+                                <li><a href="#_actualizar_asignación_de_inspector">3.4.9. Actualizar Asignación de Inspector</a></li>
+                                <li><a href="#_reasignar_inspectores_en_orden">3.4.10. Reasignar Inspectores en Orden</a></li>
+                                <li><a href="#_asignar_inspectores_a_orden">3.4.11. Asignar Inspectores a Orden</a></li>
+                                <li><a href="#_añadir_orden_de_inspección">3.4.12. Añadir Orden de Inspección</a></li>
+                                <li><a href="#_añadir_providencia_de_no_admisión">3.4.13. Añadir Providencia de No Admisión</a></li>
+                                <li><a href="#_añadir_asignación_especial">3.4.14. Añadir Asignación Especial</a></li>
+                                <li><a href="#_añadir_diligencia_de_providencia">3.4.15. Añadir Diligencia de Providencia</a></li>
+                                <li><a href="#_añadir_providencia_cv">3.4.16. Añadir Providencia CV</a></li>
+                                <li><a href="#_obtener_providencias_por_staff_con_trabajos">3.4.17. Obtener Providencias por Staff con Trabajos</a></li>
+                                <li><a href="#_obtener_providencias_por_staff">3.4.18. Obtener Providencias por Staff</a></li>
+                                <li><a href="#_buscar_providencia_por_id">3.4.19. Buscar Providencia por ID</a></li>
+                                <li><a href="#_imprimir_providencia">3.4.20. Imprimir Providencia</a></li>
+                                <li><a href="#_eliminar_inspectores_asignados">3.4.21. Eliminar Inspectores Asignados</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_appointment_controller">3.5. Appointment Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nueva_cita">3.5.1. Añadir Nueva Cita</a></li>
+                                <li><a href="#_reprogramar_cita">3.5.2. Reprogramar Cita</a></li>
+                                <li><a href="#_reprogramar_cita_desde_acta">3.5.3. Reprogramar Cita desde Acta</a></li>
+                                <li><a href="#_enviar_a_acta">3.5.4. Enviar a Acta</a></li>
+                                <li><a href="#_enviar_a_hoja">3.5.5. Enviar a Hoja</a></li>
+                                <li><a href="#_filtrar_citas_para_calendario">3.5.6. Filtrar Citas para Calendario</a></li>
+                                <li><a href="#_filtrar_citas">3.5.7. Filtrar Citas</a></li>
+                                <li><a href="#_buscar_cita_con_qr">3.5.8. Buscar Cita con QR</a></li>
+                                <li><a href="#_actualizar_cita">3.5.9. Actualizar Cita</a></li>
+                                <li><a href="#_cancelar_cita">3.5.10. Cancelar Cita</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="sect1">
+            <h2 id="_introducción">
+                <a class="anchor" href="#_introducción"></a>1. Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del módulo de Inspección (<code>Inspection-Service</code>). Proporciona endpoints para gestionar datos de trabajadores, empleadores, registros, citas, y más, conforme a la especificación OpenAPI 3.0.1.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_información_general">
+                <a class="anchor" href="#_información_general"></a>2. Información General</h2>
+            <div class="sectionbody">
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Versión</strong>: 0.0.350</p>
+                        </li>
+                        <li>
+                            <p><strong>Contacto</strong>: Marvin Toro (<a href="mailto:marvin_toro@wvi.org">marvin_toro@wvi.org</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Licencia</strong>: Apache 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0.html" class="bare">http://www.apache.org/licenses/LICENSE-2.0.html</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Servidor</strong>: <a href="https://prod.svc-inspection.ecms.setrass.net" class="bare">https://prod.svc-inspection.ecms.setrass.net</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_endpoints">
+                <a class="anchor" href="#_endpoints"></a>3. Endpoints</h2>
+            <div class="sectionbody">
+                <div class="sect2">
+                    <h3 id="_records_controller">
+                        <a class="anchor" href="#_records_controller"></a>3.1. Records Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nuevo_registro">
+                            <a class="anchor" href="#_añadir_nuevo_registro"></a>3.1.1. Añadir Nuevo Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea un nuevo registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/add-new</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "typeRequest": "123e4567-e89b-12d3-a456-426614174000",
+  "regionalOffice": "Madrid",
+  "localOffice": "Madrid Central",
+  "objective": "987fcdeb-12ab-34cd-5678-426614174000",
+  "recordDescription": "Inspección laboral",
+  "staffId": "456e7890-e89b-12d3-a456-426614174000",
+  "causes": [
+    {
+      "id": "789fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Incumplimiento normativo"
+    }
+  ],
+  "departmentCode": "MAD",
+  "municipalityCode": "MAD01"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "recordId": "123e4567-e89b-12d3-a456-426614174001",
+  "numRecord": "REC202505060001",
+  "status": "CREATED",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registro creado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/add-new",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_registro_desde_atención">
+                            <a class="anchor" href="#_añadir_registro_desde_atención"></a>3.1.2. Añadir Registro desde Atención</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea un nuevo registro desde una atención.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/add-new-from-attention</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "attentionId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "typeRequest": "123e4567-e89b-12d3-a456-426614174000",
+  "regionalOffice": "Barcelona",
+  "localOffice": "Barcelona Central",
+  "objective": "987fcdeb-12ab-34cd-5678-426614174001",
+  "recordDescription": "Inspección por denuncia",
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "causes": [
+    {
+      "id": "789fcdeb-12ab-34cd-5678-426614174001",
+      "name": "Condiciones laborales"
+    }
+  ],
+  "departmentCode": "BCN",
+  "municipalityCode": "BCN01"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Registro creado desde atención exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/records/v1/add-new-from-attention",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_reasignar_inspector">
+                            <a class="anchor" href="#_reasignar_inspector"></a>3.1.3. Reasignar Inspector</h4>
+                        <div class="paragraph">
+                            <p><strong>Reasigna un inspector a un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/reassign-inspector/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "reassign_comment": "Reasignación por disponibilidad",
+  "staffId": "456e7890-e89b-12d3-a456-426614174001"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Inspector reasignado exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/records/v1/reassign-inspector/123e4567-e89b-12d3-a456-426614174001",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_registros_filtrados">
+                            <a class="anchor" href="#_obtener_registros_filtrados"></a>3.1.4. Obtener Registros Filtrados</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene registros filtrados por staffId.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/getRecordFilter/{staffId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (path, UUID, required): ID del staff</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "typeRequest": "INSPECCION",
+  "stage": "INICIAL",
+  "status": "PENDIENTE",
+  "startDate": "2025-01-01",
+  "endDate": "2025-12-31"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "PENDIENTE",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros obtenidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/getRecordFilter/456e7890-e89b-12d3-a456-426614174001",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_registros_por_masterid">
+                            <a class="anchor" href="#_obtener_registros_por_masterid"></a>3.1.5. Obtener Registros por MasterId</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene registros por MasterId con paginación.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/getRecordByMasterId/{type}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>type</code> (path, string, required): Tipo de registro - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "masterId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros obtenidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/getRecordByMasterId/INSPECCION/0/10",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_registros_por_filtros">
+                            <a class="anchor" href="#_obtener_registros_por_filtros"></a>3.1.6. Obtener Registros por Filtros</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene registros por filtros específicos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/getRecordByFilters/{staffId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (path, UUID, required): ID del staff</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "typeRequest": "INSPECCION",
+  "status": "ACTIVO",
+  "startDate": "2025-01-01",
+  "endDate": "2025-12-31"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros obtenidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/getRecordByFilters/456e7890-e89b-12d3-a456-426614174001",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_registro">
+                            <a class="anchor" href="#_actualizar_registro"></a>3.1.7. Actualizar Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un registro existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/update/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "recordDescription": "Inspección laboral actualizada",
+  "objective": "987fcdeb-12ab-34cd-5678-426614174002",
+  "causes": [
+    {
+      "id": "789fcdeb-12ab-34cd-5678-426614174002",
+      "name": "Nuevas normativas"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Registro actualizado exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/records/v1/update/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_registro_a_creado">
+                            <a class="anchor" href="#_actualizar_estado_de_registro_a_creado"></a>3.1.8. Actualizar Estado de Registro a Creado</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de un registro a creado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/updateStatusRecordToCreate/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "comment": "Registro confirmado como creado"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "recordId": "123e4567-e89b-12d3-a456-426614174001",
+  "status": "CREATED",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Estado de registro actualizado a creado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/updateStatusRecordToCreate/123e4567-e89b-12d3-a456-426614174001",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_registro">
+                            <a class="anchor" href="#_actualizar_estado_de_registro"></a>3.1.9. Actualizar Estado de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/update-status/{recordId}/{newStatus}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro - <code>newStatus</code> (path, string, required): Nuevo estado</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Estado de registro actualizado exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/records/v1/update-status/123e4567-e89b-12d3-a456-426614174001/ACTIVO",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_aprobar_registro_para_orden_de_inspección">
+                            <a class="anchor" href="#_aprobar_registro_para_orden_de_inspección"></a>3.1.10. Aprobar Registro para Orden de Inspección</h4>
+                        <div class="paragraph">
+                            <p><strong>Aprueba un registro para generar una orden de inspección.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/approveRecordToOrderInspection/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "approvalComment": "Registro aprobado para inspección",
+  "providenceType": "INSPECTION"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Registro aprobado exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/records/v1/approveRecordToOrderInspection/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_lista_de_tipos_de_solicitud">
+                            <a class="anchor" href="#_obtener_lista_de_tipos_de_solicitud"></a>3.1.11. Obtener Lista de Tipos de Solicitud</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene la lista de tipos de solicitud.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/typeRequestList</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "typeRequests": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Inspección Laboral"
+    },
+    {
+      "id": "223e4567-e89b-12d3-a456-426614174001",
+      "name": "Auditoría"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Lista de tipos de solicitud obtenida exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/typeRequestList",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_lista_de_objetivos">
+                            <a class="anchor" href="#_obtener_lista_de_objetivos"></a>3.1.12. Obtener Lista de Objetivos</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene la lista de objetivos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/objectivesList</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "objectives": [
+    {
+      "id": "987fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Verificación de condiciones laborales"
+    },
+    {
+      "id": "987fcdeb-12ab-34cd-5678-426614174001",
+      "name": "Auditoría de cumplimiento"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Lista de objetivos obtenida exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/objectivesList",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_registros_por_staff_con_trabajos">
+                            <a class="anchor" href="#_obtener_registros_por_staff_con_trabajos"></a>3.1.13. Obtener Registros por Staff con Trabajos</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene registros paginados por staffId con filtros de trabajos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/listPageRecordsByjobs/{staffId}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (path, UUID, required): ID del staff - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página - <code>localRegionalOffice</code>                                (query, string, optional): Oficina regional - <code>nominalJob</code> (query, string, optional): Trabajo nominal</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros obtenidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/listPageRecordsByjobs/456e7890-e89b-12d3-a456-426614174001/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_registros_por_staff">
+                            <a class="anchor" href="#_obtener_registros_por_staff"></a>3.1.14. Obtener Registros por Staff</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene registros paginados por staffId.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/listPageRecords/{staffId}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (path, UUID, required): ID del staff - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros obtenidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/listPageRecords/456e7890-e89b-12d3-a456-426614174001/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_código_de_registro">
+                            <a class="anchor" href="#_obtener_código_de_registro"></a>3.1.15. Obtener Código de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene el código de un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/getRecordCode</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>departmentId</code> (query, string, required): ID del departamento - <code>municipalityId</code> (query, string, required): ID del municipio</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "numRecord": "REC202505060001",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Código de registro obtenido exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/getRecordCode",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todas_las_tablas">
+                            <a class="anchor" href="#_obtener_todas_las_tablas"></a>3.1.16. Obtener Todas las Tablas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las tablas relacionadas con registros.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/getAllTables</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "tables": {
+    "typeRequests": [
+      {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "name": "Inspección Laboral"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "987fcdeb-12ab-34cd-5678-426614174000",
+        "name": "Verificación de condiciones laborales"
+      }
+    ],
+    "causes": [
+      {
+        "id": "789fcdeb-12ab-34cd-5678-426614174000",
+        "name": "Incumplimiento normativo"
+      }
+    ]
+  },
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Tablas obtenidas exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/getAllTables",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_registros_filtrados_nuevo">
+                            <a class="anchor" href="#_obtener_registros_filtrados_nuevo"></a>3.1.17. Obtener Registros Filtrados (Nuevo)</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene registros filtrados por parámetros.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/get-new-record-filter/</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (query, UUID, required): ID del staff - <code>typeRequest</code> (query, string, required): Tipo de solicitud - <code>stage</code> (query, string, required): Etapa - <code>status</code>                                (query, string, required): Estado</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "PENDIENTE",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros filtrados obtenidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/get-new-record-filter/",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_registro_por_nombre_o_filtros">
+                            <a class="anchor" href="#_buscar_registro_por_nombre_o_filtros"></a>3.1.18. Buscar Registro por Nombre o Filtros</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca registros por filtros o nombres.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/findRecordBySearch/{filters}/{staffId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filters</code> (path, string, required): Filtros de búsqueda - <code>staffId</code> (path, UUID, required): ID del staff - <code>localRegionalOffice</code> (query, string, optional): Oficina
+                                regional - <code>nominalJob</code> (query, string, optional): Trabajo nominal</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros encontrados exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/findRecordBySearch/inspeccion/456e7890-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_registro_por_nombre_o_apellido">
+                            <a class="anchor" href="#_buscar_registro_por_nombre_o_apellido"></a>3.1.19. Buscar Registro por Nombre o Apellido</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca registros por nombre o apellido.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/findByNameOrLastName/{filters}/{staffId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filters</code> (path, string, required): Filtros de búsqueda - <code>staffId</code> (path, UUID, required): ID del staff</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "records": [
+    {
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "numRecord": "REC202505060001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registros encontrados exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/findByNameOrLastName/inspeccion/456e7890-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_registro_por_id">
+                            <a class="anchor" href="#_buscar_registro_por_id"></a>3.1.20. Buscar Registro por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca un registro por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/findById/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "recordId": "123e4567-e89b-12d3-a456-426614174001",
+  "numRecord": "REC202505060001",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "recordDescription": "Inspección laboral",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Registro encontrado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/findById/123e4567-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_documentos_por_registro">
+                            <a class="anchor" href="#_obtener_documentos_por_registro"></a>3.1.21. Obtener Documentos por Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los documentos asociados a un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/findAllDocumentsByRecordId/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "documents": [
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "fileName": "inspeccion.pdf",
+      "tittle": "Documento de Inspección",
+      "description": "Evidencia de inspección laboral",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Documentos obtenidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/findAllDocumentsByRecordId/123e4567-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_lista_de_causas">
+                            <a class="anchor" href="#_obtener_lista_de_causas"></a>3.1.22. Obtener Lista de Causas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene la lista de causas.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/causesList</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "causes": [
+    {
+      "id": "789fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Incumplimiento normativo"
+    },
+    {
+      "id": "789fcdeb-12ab-34cd-5678-426614174001",
+      "name": "Condiciones laborales"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Lista de causas obtenida exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/causesList",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_registro">
+                            <a class="anchor" href="#_eliminar_registro"></a>3.1.23. Eliminar Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/delete/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Registro eliminado exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/records/v1/delete/123e4567-e89b-12d3-a456-426614174001",
+  "method": "DELETE"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_record_file_controller">
+                        <a class="anchor" href="#_record_file_controller"></a>3.2. Record File Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nuevo_archivo_de_registro">
+                            <a class="anchor" href="#_añadir_nuevo_archivo_de_registro"></a>3.2.1. Añadir Nuevo Archivo de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Sube un nuevo archivo para un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/add-new-record-file</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code>file: &lt;binary file&gt;
+recordId: "123e4567-e89b-12d3-a456-426614174001"
+tittle: "Documento de Inspección"
+description: "Evidencia de inspección laboral"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "fileName": "inspeccion.pdf",
+  "tittle": "Documento de Inspección",
+  "description": "Evidencia de inspección laboral",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo subido exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/add-new-record-file",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_subir_múltiples_archivos">
+                            <a class="anchor" href="#_subir_múltiples_archivos"></a>3.2.2. Subir Múltiples Archivos</h4>
+                        <div class="paragraph">
+                            <p><strong>Sube múltiples archivos para un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/multi-carga-record-files</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (query, string, required): ID del registro - <code>tittle</code> (query, array[string], required): Títulos de los archivos - <code>description</code> (query, array[string],
+                                required): Descripciones de los archivos</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code>files: [&lt;binary file1&gt;, &lt;binary file2&gt;]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "files": [
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "fileName": "inspeccion1.pdf",
+      "tittle": "Documento 1",
+      "description": "Evidencia 1",
+      "createdAt": "2025-05-06T10:00:00Z"
+    },
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174001",
+      "fileName": "inspeccion2.pdf",
+      "tittle": "Documento 2",
+      "description": "Evidencia 2",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivos subidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/multi-carga-record-files",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_archivo_de_registro">
+                            <a class="anchor" href="#_actualizar_archivo_de_registro"></a>3.2.3. Actualizar Archivo de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un archivo existente de un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/update-record-file</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code>fileName: "inspeccion.pdf"
+fileUrl: "https://storage.example.com/inspeccion.pdf"
+newFile: &lt;binary file&gt;
+tittle: "Documento de Inspección Actualizado"
+description: "Evidencia actualizada de inspección laboral"
+recordId: "123e4567-e89b-12d3-a456-426614174001"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "fileName": "inspeccion.pdf",
+  "tittle": "Documento de Inspección Actualizado",
+  "description": "Evidencia actualizada de inspección laboral",
+  "updatedAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo actualizado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/update-record-file",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_archivos_por_registro">
+                            <a class="anchor" href="#_buscar_archivos_por_registro"></a>3.2.4. Buscar Archivos por Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca archivos asociados a un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/find-by-record-id</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (query, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "files": [
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "fileName": "inspeccion.pdf",
+      "tittle": "Documento de Inspección",
+      "description": "Evidencia de inspección laboral",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivos encontrados exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/find-by-record-id",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_archivo_por_nombre">
+                            <a class="anchor" href="#_eliminar_archivo_por_nombre"></a>3.2.5. Eliminar Archivo por Nombre</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina un archivo por su nombre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/delete-by-file-name</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>fileName</code> (query, string, required): Nombre del archivo</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileName": "inspeccion.pdf",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo eliminado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/delete-by-file-name",
+    "method": "DELETE"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_providence_files_controller">
+                        <a class="anchor" href="#_providence_files_controller"></a>3.3. Providence Files Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nuevo_archivo_de_providencia">
+                            <a class="anchor" href="#_añadir_nuevo_archivo_de_providencia"></a>3.3.1. Añadir Nuevo Archivo de Providencia</h4>
+                        <div class="paragraph">
+                            <p><strong>Sube un nuevo archivo para una providencia.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/providence-files/v1/add-new-providence-file</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code>file: &lt;binary file&gt;
+ownerId: "987fcdeb-12ab-34cd-5678-426614174000"
+title: "Providencia de Inspección"
+description: "Documento de providencia"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+  "fileName": "providencia.pdf",
+  "title": "Providencia de Inspección",
+  "description": "Documento de providencia",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo de providencia subido exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/providence-files/v1/add-new-providence-file",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_subir_múltiples_archivos_de_providencia">
+                            <a class="anchor" href="#_subir_múltiples_archivos_de_providencia"></a>3.3.2. Subir Múltiples Archivos de Providencia</h4>
+                        <div class="paragraph">
+                            <p><strong>Sube múltiples archivos para una providencia.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/providence-files/v1/multi-carga-providence-files</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>ownerId</code> (query, string, required): ID del propietario - <code>title</code> (query, array[string], required): Títulos de los archivos - <code>description</code> (query, array[string],
+                                required): Descripciones de los archivos</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code>files: [&lt;binary file1&gt;, &lt;binary file2&gt;]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "files": [
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+      "fileName": "providencia1.pdf",
+      "title": "Providencia 1",
+      "description": "Documento 1",
+      "createdAt": "2025-05-06T10:00:00Z"
+    },
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174003",
+      "fileName": "providencia2.pdf",
+      "title": "Providencia 2",
+      "description": "Documento 2",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivos de providencia subidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/providence-files/v1/multi-carga-providence-files",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_archivo_de_providencia">
+                            <a class="anchor" href="#_actualizar_archivo_de_providencia"></a>3.3.3. Actualizar Archivo de Providencia</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un archivo existente de una providencia.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/providence-files/v1/update-providence-file</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code>fileName: "providencia.pdf"
+fileUrl: "https://storage.example.com/providencia.pdf"
+newFile: &lt;binary file&gt;
+title: "Providencia Actualizada"
+description: "Documento de providencia actualizado"
+ownerId: "987fcdeb-12ab-34cd-5678-426614174000"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+  "fileName": "providencia.pdf",
+  "title": "Providencia Actualizada",
+  "description": "Documento de providencia actualizado",
+  "updatedAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo de providencia actualizado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/providence-files/v1/update-providence-file",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_archivos_por_propietario">
+                            <a class="anchor" href="#_buscar_archivos_por_propietario"></a>3.3.4. Buscar Archivos por Propietario</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca archivos asociados a un propietario.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/providence-files/v1/find-files-by-owner-id</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>ownerId</code> (query, UUID, required): ID del propietario</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "files": [
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+      "fileName": "providencia.pdf",
+      "title": "Providencia de Inspección",
+      "description": "Documento de providencia",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivos encontrados exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/providence-files/v1/find-files-by-owner-id",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_archivo_de_providencia_por_nombre">
+                            <a class="anchor" href="#_eliminar_archivo_de_providencia_por_nombre"></a>3.3.5. Eliminar Archivo de Providencia por Nombre</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina un archivo de providencia por su nombre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/providence-files/v1/delete-by-file-name</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>fileName</code> (query, string, required): Nombre del archivo</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileName": "providencia.pdf",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo de providencia eliminado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/providence-files/v1/delete-by-file-name",
+    "method": "DELETE"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_inspection_start_order_controller">
+                        <a class="anchor" href="#_inspection_start_order_controller"></a>3.4. Inspection Start Order Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_enviar_a_cita">
+                            <a class="anchor" href="#_enviar_a_cita"></a>3.4.1. Enviar a Cita</h4>
+                        <div class="paragraph">
+                            <p><strong>Envía una providencia a una cita.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/send-to-appointment/{recordId}/{providenceId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro - <code>providenceId</code> (path, UUID, required): ID de la providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Providencia enviada a cita exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/send-to-appointment/123e4567-e89b-12d3-a456-426614174001/789fcdeb-12ab-34cd-5678-426614174000",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_providencia_con_qr">
+                            <a class="anchor" href="#_buscar_providencia_con_qr"></a>3.4.2. Buscar Providencia con QR</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una providencia usando un código QR.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/findProvidenceWithQR/{recordId}/{providenceType}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro - <code>providenceType</code> (path, string, required): Tipo de providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">"QR_CODE_987654321"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "recordId": "123e4567-e89b-12d3-a456-426614174001",
+  "providenceType": "INSPECTION",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencia encontrada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/findProvidenceWithQR/123e4567-e89b-12d3-a456-426614174001/INSPECTION",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_providencias">
+                            <a class="anchor" href="#_filtrar_providencias"></a>3.4.3. Filtrar Providencias</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra providencias según criterios.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/filterProvidences</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "status": "ACTIVO",
+  "startDate": "2025-01-01",
+  "endDate": "2025-12-31"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providences": [
+    {
+      "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencias filtradas exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/filterProvidences",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_providencias_por_criterios">
+                            <a class="anchor" href="#_filtrar_providencias_por_criterios"></a>3.4.4. Filtrar Providencias por Criterios</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra providencias por criterios específicos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/ProvidenceFilter</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "status": "ACTIVO",
+  "providenceType": "INSPECTION",
+  "startDate": "2025-01-01",
+  "endDate": "2025-12-31"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providences": [
+    {
+      "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencias filtradas exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/ProvidenceFilter",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_providencia_por_número_de_registro_o_trabajador">
+                            <a class="anchor" href="#_buscar_providencia_por_número_de_registro_o_trabajador"></a>3.4.5. Buscar Providencia por Número de Registro o Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca providencias por número de registro o trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/ProvidenceByRecordNumOrWorker/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro de búsqueda</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "recordNum": "REC202505060001"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providences": [
+    {
+      "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencias encontradas exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/ProvidenceByRecordNumOrWorker/REC202505060001",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_orden_a_verificado">
+                            <a class="anchor" href="#_actualizar_estado_de_orden_a_verificado"></a>3.4.6. Actualizar Estado de Orden a Verificado</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de una orden a verificado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/updateStatusORDERToVerificate/{providenceId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>providenceId</code> (path, UUID, required): ID de la providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "verificationComment": "Verificación completada",
+  "verifiedBy": "456e7890-e89b-12d3-a456-426614174001"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Estado de orden actualizado a verificado",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/updateStatusORDERToVerificate/789fcdeb-12ab-34cd-5678-426614174000",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_orden_a_aprobado">
+                            <a class="anchor" href="#_actualizar_estado_de_orden_a_aprobado"></a>3.4.7. Actualizar Estado de Orden a Aprobado</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de una orden a aprobado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/updateStatusORDERToApprove/{providenceId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>providenceId</code> (path, UUID, required): ID de la providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "approvalComment": "Orden aprobada",
+  "approvedBy": "456e7890-e89b-12d3-a456-426614174001"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Estado de orden actualizado a aprobado",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/updateStatusORDERToApprove/789fcdeb-12ab-34cd-5678-426614174000",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_diligencia_de_providencia">
+                            <a class="anchor" href="#_actualizar_diligencia_de_providencia"></a>3.4.8. Actualizar Diligencia de Providencia</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza la diligencia de una providencia.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/updateProvidenceDiligencePass/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+  "diligenceComment": "Diligencia completada"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Diligencia de providencia actualizada exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/updateProvidenceDiligencePass/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_asignación_de_inspector">
+                            <a class="anchor" href="#_actualizar_asignación_de_inspector"></a>3.4.9. Actualizar Asignación de Inspector</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza la asignación de un inspector.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/updateInspectorAssignment/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "assignmentComment": "Nueva asignación"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Asignación de inspector actualizada exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/updateInspectorAssignment/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_reasignar_inspectores_en_orden">
+                            <a class="anchor" href="#_reasignar_inspectores_en_orden"></a>3.4.10. Reasignar Inspectores en Orden</h4>
+                        <div class="paragraph">
+                            <p><strong>Reasigna inspectores en una orden.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/reAssignInspectorsInOrder/{recordId}/{providenceId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro - <code>providenceId</code> (path, UUID, required): ID de la providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "reassignComment": "Reasignación por disponibilidad"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Inspectores reasignados exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/reAssignInspectorsInOrder/123e4567-e89b-12d3-a456-426614174001/789fcdeb-12ab-34cd-5678-426614174000",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_asignar_inspectores_a_orden">
+                            <a class="anchor" href="#_asignar_inspectores_a_orden"></a>3.4.11. Asignar Inspectores a Orden</h4>
+                        <div class="paragraph">
+                            <p><strong>Asigna inspectores a una orden.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/assignInspectorsToOrder/{recordId}/{providenceId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro - <code>providenceId</code> (path, UUID, required): ID de la providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffIds": [
+    "456e7890-e89b-12d3-a456-426614174001",
+    "456e7890-e89b-12d3-a456-426614174002"
+  ],
+  "assignmentComment": "Asignación inicial"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Inspectores asignados exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/assignInspectorsToOrder/123e4567-e89b-12d3-a456-426614174001/789fcdeb-12ab-34cd-5678-426614174000",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_orden_de_inspección">
+                            <a class="anchor" href="#_añadir_orden_de_inspección"></a>3.4.12. Añadir Orden de Inspección</h4>
+                        <div class="paragraph">
+                            <p><strong>Añade una orden de inspección.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/addProvidenceOrderInspection/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providenceType": "INSPECTION",
+  "comment": "Nueva orden de inspección"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Orden de inspección añadida exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/addProvidenceOrderInspection/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_providencia_de_no_admisión">
+                            <a class="anchor" href="#_añadir_providencia_de_no_admisión"></a>3.4.13. Añadir Providencia de No Admisión</h4>
+                        <div class="paragraph">
+                            <p><strong>Añade una providencia de no admisión.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/addProvidenceNoAdmission/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "reason": "No cumple con requisitos",
+  "comment": "Providencia de no admisión"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Providencia de no admisión añadida exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/addProvidenceNoAdmission/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_asignación_especial">
+                            <a class="anchor" href="#_añadir_asignación_especial"></a>3.4.14. Añadir Asignación Especial</h4>
+                        <div class="paragraph">
+                            <p><strong>Añade una asignación especial de providencia.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/addProvidenceEspecialAssignment/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "comment": "Asignación especial"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Asignación especial añadida exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/addProvidenceEspecialAssignment/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_diligencia_de_providencia">
+                            <a class="anchor" href="#_añadir_diligencia_de_providencia"></a>3.4.15. Añadir Diligencia de Providencia</h4>
+                        <div class="paragraph">
+                            <p><strong>Añade una diligencia de providencia.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/addProvidenceDiligencePass/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+  "diligenceComment": "Diligencia completada"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Diligencia de providencia añadida exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/addProvidenceDiligencePass/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_providencia_cv">
+                            <a class="anchor" href="#_añadir_providencia_cv"></a>3.4.16. Añadir Providencia CV</h4>
+                        <div class="paragraph">
+                            <p><strong>Añade una providencia CV.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/addProvidenceCV/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "cvDetails": "Detalles del CV",
+  "comment": "Providencia CV añadida"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Providencia CV añadida exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/addProvidenceCV/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_providencias_por_staff_con_trabajos">
+                            <a class="anchor" href="#_obtener_providencias_por_staff_con_trabajos"></a>3.4.17. Obtener Providencias por Staff con Trabajos</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene providencias paginadas por staffId con filtros de trabajos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/listPageRecordProvidenceByjobs/{staffId}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (path, UUID, required): ID del staff - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página - <code>localRegionalOffice</code>                                (query, string, optional): Oficina regional - <code>nominalJob</code> (query, string, optional): Trabajo nominal</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providences": [
+    {
+      "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencias obtenidas exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/listPageRecordProvidenceByjobs/456e7890-e89b-12d3-a456-426614174001/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_providencias_por_staff">
+                            <a class="anchor" href="#_obtener_providencias_por_staff"></a>3.4.18. Obtener Providencias por Staff</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene providencias paginadas por staffId.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/listPageOrders/{staffId}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (path, UUID, required): ID del staff - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providences": [
+    {
+      "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "recordId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencias obtenidas exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/listPageOrders/456e7890-e89b-12d3-a456-426614174001/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_providencia_por_id">
+                            <a class="anchor" href="#_buscar_providencia_por_id"></a>3.4.19. Buscar Providencia por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una providencia por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/findById/{providenceId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>providenceId</code> (path, UUID, required): ID de la providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "recordId": "123e4567-e89b-12d3-a456-426614174001",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencia encontrada exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/findById/789fcdeb-12ab-34cd-5678-426614174000",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_imprimir_providencia">
+                            <a class="anchor" href="#_imprimir_providencia"></a>3.4.20. Imprimir Providencia</h4>
+                        <div class="paragraph">
+                            <p><strong>Genera una providencia para impresión.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/Print-Providences/{providenceId}/{providenceType}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>providenceId</code> (path, UUID, required): ID de la providencia - <code>providenceType</code> (path, string, required): Tipo de providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "providenceId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "providenceType": "INSPECTION",
+  "content": "Contenido para impresión",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Providencia lista para impresión",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/inspection_start_orders/v1/Print-Providences/789fcdeb-12ab-34cd-5678-426614174000/INSPECTION",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_inspectores_asignados">
+                            <a class="anchor" href="#_eliminar_inspectores_asignados"></a>3.4.21. Eliminar Inspectores Asignados</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina inspectores asignados a una providencia.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/inspection_start_orders/v1/deleteInspectorsAssigned/{providenceId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>providenceId</code> (path, UUID, required): ID de la providencia</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffIds": [
+    "456e7890-e89b-12d3-a456-426614174001"
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Inspectores eliminados exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/inspection_start_orders/v1/deleteInspectorsAssigned/789fcdeb-12ab-34cd-5678-426614174000",
+  "method": "DELETE"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_appointment_controller">
+                        <a class="anchor" href="#_appointment_controller"></a>3.5. Appointment Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nueva_cita">
+                            <a class="anchor" href="#_añadir_nueva_cita"></a>3.5.1. Añadir Nueva Cita</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea una nueva cita.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/addNew</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "appointmentRequest": {
+    "appointmentType": "CEDULA_DE_CITACION",
+    "appointmentDate": "2025-06-01",
+    "appointmentStartHour": "2025-06-01T09:00:00Z",
+    "appointmentEndHour": "2025-06-01T10:00:00Z",
+    "details": "Cita para inspección laboral"
+  },
+  "cedulaId": "123e4567-e89b-12d3-a456-426614174002",
+  "staffId": "456e7890-e89b-12d3-a456-426614174000"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Cita creada exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/appointments/v1/addNew",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_reprogramar_cita">
+                            <a class="anchor" href="#_reprogramar_cita"></a>3.5.2. Reprogramar Cita</h4>
+                        <div class="paragraph">
+                            <p><strong>Reprograma una cita existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/reschedule/{cedulaId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>cedulaId</code> (path, UUID, required): ID de la cédula</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "appointmentType": "CEDULA_DE_CITACION",
+  "appointmentDate": "2025-06-02",
+  "appointmentStartHour": "2025-06-02T10:00:00Z",
+  "appointmentEndHour": "2025-06-02T11:00:00Z",
+  "details": "Cita reprogramada por conflicto de horario",
+  "reprogrammingComment": "Solicitud del empleador"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Cita reprogramada exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/appointments/v1/reschedule/123e4567-e89b-12d3-a456-426614174002",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_reprogramar_cita_desde_acta">
+                            <a class="anchor" href="#_reprogramar_cita_desde_acta"></a>3.5.3. Reprogramar Cita desde Acta</h4>
+                        <div class="paragraph">
+                            <p><strong>Reprograma una cita desde un acta.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/rescheduleFromActa/{cedulaId}/{actaId}/{actaTypeOrigin}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>cedulaId</code> (path, UUID, required): ID de la cédula - <code>actaId</code> (path, UUID, required): ID del acta - <code>actaTypeOrigin</code> (path, string, required): Tipo de origen del
+                                acta</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "appointmentType": "CEDULA_DE_CITACION",
+  "appointmentDate": "2025-06-03",
+  "appointmentStartHour": "2025-06-03T09:00:00Z",
+  "appointmentEndHour": "2025-06-03T10:00:00Z",
+  "details": "Cita reprogramada desde acta",
+  "reprogrammingComment": "Solicitud desde acta"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Cita reprogramada desde acta exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/appointments/v1/rescheduleFromActa/123e4567-e89b-12d3-a456-426614174002/987fcdeb-12ab-34cd-5678-426614174000/ACTA",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_enviar_a_acta">
+                            <a class="anchor" href="#_enviar_a_acta"></a>3.5.4. Enviar a Acta</h4>
+                        <div class="paragraph">
+                            <p><strong>Envía una cita a un acta.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/sendToActas/{recordId}/{cedulaId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro - <code>cedulaId</code> (path, UUID, required): ID de la cédula</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Cita enviada a acta exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/appointments/v1/sendToActas/123e4567-e89b-12d3-a456-426614174001/123e4567-e89b-12d3-a456-426614174002",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_enviar_a_hoja">
+                            <a class="anchor" href="#_enviar_a_hoja"></a>3.5.5. Enviar a Hoja</h4>
+                        <div class="paragraph">
+                            <p><strong>Envía una cita a una hoja.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/sendToSheet</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "cedulaId": "123e4567-e89b-12d3-a456-426614174002",
+  "sheetDetails": "Detalles de la hoja"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Cita enviada a hoja exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/appointments/v1/sendToSheet",
+  "method": "POST"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_citas_para_calendario">
+                            <a class="anchor" href="#_filtrar_citas_para_calendario"></a>3.5.6. Filtrar Citas para Calendario</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra citas para mostrar en un calendario.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/filterToCalendar</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "startDate": "2025-06-01",
+  "endDate": "2025-06-30"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "appointments": [
+    {
+      "cedulaId": "123e4567-e89b-12d3-a456-426614174002",
+      "appointmentType": "CEDULA_DE_CITACION",
+      "appointmentDate": "2025-06-01",
+      "status": "PROGRAMADA"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Citas filtradas para calendario exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/appointments/v1/filterToCalendar",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_citas">
+                            <a class="anchor" href="#_filtrar_citas"></a>3.5.7. Filtrar Citas</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra citas según criterios.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/filterAppointments</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "staffId": "456e7890-e89b-12d3-a456-426614174001",
+  "status": "PROGRAMADA",
+  "startDate": "2025-06-01",
+  "endDate": "2025-06-30"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "appointments": [
+    {
+      "cedulaId": "123e4567-e89b-12d3-a456-426614174002",
+      "appointmentType": "CEDULA_DE_CITACION",
+      "appointmentDate": "2025-06-01",
+      "status": "PROGRAMADA"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Citas filtradas exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/appointments/v1/filterAppointments",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_cita_con_qr">
+                            <a class="anchor" href="#_buscar_cita_con_qr"></a>3.5.8. Buscar Cita con QR</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una cita usando un código QR.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/findAppointmentWithQR/{recordId}/{recordCedulaId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro - <code>recordCedulaId</code> (path, UUID, required): ID de la cédula</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">"QR_CODE_123456789"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "cedulaId": "123e4567-e89b-12d3-a456-426614174002",
+  "appointmentType": "CEDULA_DE_CITACION",
+  "appointmentDate": "2025-06-01",
+  "status": "PROGRAMADA",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Cita encontrada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/appointments/v1/findAppointmentWithQR/123e4567-e89b-12d3-a456-426614174001/123e4567-e89b-12d3-a456-426614174002",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_cita">
+                            <a class="anchor" href="#_actualizar_cita"></a>3.5.9. Actualizar Cita</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza una cita existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/update/{cedulaId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>cedulaId</code> (path, UUID, required): ID de la cédula</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "appointmentType": "CEDULA_DE_CITACION",
+  "appointmentDate": "2025-06-01",
+  "appointmentStartHour": "2025-06-01T09:00:00Z",
+  "appointmentEndHour": "2025-06-01T10:00:00Z",
+  "details": "Cita actualizada"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Cita actualizada exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/appointments/v1/update/123e4567-e89b-12d3-a456-426614174002",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_cancelar_cita">
+                            <a class="anchor" href="#_cancelar_cita"></a>3.5.10. Cancelar Cita</h4>
+                        <div class="paragraph">
+                            <p><strong>Cancela una cita existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/appointments/v1/cancelAppointment/{cedulaId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>cedulaId</code> (path, UUID, required): ID de la cédula</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments highlight"><code data-lang="json">{
+  "code": "200",
+  "message": "Cita cancelada exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/appointments/v1/cancelAppointment/123e4567-e89b-12d3-a456-426614174002",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Version 0.0.350<br> Last updated 2025-05-06 10:14:09 -0600
+        </div>
+    </div>
+</body>
+
+</html>

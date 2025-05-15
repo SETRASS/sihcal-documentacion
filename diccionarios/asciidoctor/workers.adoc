@@ -1,0 +1,63 @@
+=== Tabla: tbl_workers
+
+[cols="1,1,1,4"]
+|===
+|Nombre Campo        |Tipo de Dato         |Restricciones       |Descripción
+
+|id                  |uuid                 |PK, NOT NULL         |Identificador del trabajador
+|userid              |uuid                 |                     |ID del usuario en el sistema
+|name                |varchar(150)         |NOT NULL             |Nombre del trabajador
+|last_name           |varchar(150)         |NOT NULL             |Apellido del trabajador
+|identity_type       |varchar(30)          |NOT NULL             |Tipo de documento de identidad
+|identity_number     |varchar(30)          |NOT NULL             |Número de documento de identidad
+|rtn                 |varchar(50)          |                     |RTN del trabajador
+|gender              |varchar(15)          |NOT NULL             |Género del trabajador
+|birthday            |timestamp            |NOT NULL             |Fecha de nacimiento
+|phone               |varchar(25)          |NOT NULL             |Número de teléfono
+|email               |varchar(150)         |NOT NULL             |Correo electrónico
+|civil_status        |varchar(25)          |                     |Estado civil
+|disability          |varchar(50)          |                     |Tipo de discapacidad
+|ethnic_group        |varchar(30)          |                     |Grupo étnico
+|country             |varchar(50)          |NOT NULL             |País
+|departamento        |varchar(50)          |                     |Departamento
+|municipio           |varchar(50)          |                     |Municipio
+|education_level     |varchar(50)          |                     |Nivel educativo
+|profession          |varchar(50)          |                     |Profesión
+|status              |varchar(15)          |                     |Estado del registro
+|active              |boolean              |                     |Registro activo
+|created_at          |timestamp            |                     |Fecha de creación
+|updated_at          |timestamp            |                     |Fecha de modificación
+|address             |text                 |                     |Dirección física
+|===
+
+=== Tabla: tbl_worker_files
+
+[cols="1,1,1,4"]
+|===
+|Nombre Campo        |Tipo de Dato         |Restricciones       |Descripción
+
+|id                  |uuid                 |PK, NOT NULL         |Identificador del archivo
+|worker_id           |uuid                 |FK                   |ID del trabajador relacionado
+|file_name           |varchar(255)         |                     |Nombre del archivo
+|file_url            |varchar(1000)        |                     |Ruta o URL del archivo
+|title               |varchar(255)         |                     |Título descriptivo del archivo
+|active              |boolean              |DEFAULT true         |Si el archivo está activo
+|status              |varchar(15)          |DEFAULT 'CREATED'    |Estado del archivo
+|created_at          |timestamp            |                     |Fecha de creación
+|updated_at          |timestamp            |                     |Fecha de modificación
+|===
+
+=== Tabla: tbl_audits
+
+[cols="1,1,1,4"]
+|===
+|Nombre Campo        |Tipo de Dato         |Restricciones       |Descripción
+
+|id                  |uuid                 |PK, NOT NULL         |Identificador de la auditoría
+|type                |varchar(50)          |NOT NULL             |Tipo de entidad auditada
+|type_id             |uuid                 |NOT NULL             |Identificador de la entidad auditada
+|staff_id            |uuid                 |NOT NULL             |ID del trabajador que realiza la acción
+|date_time           |timestamp            |                     |Fecha y hora de la auditoría
+|action              |varchar(50)          |NOT NULL             |Acción realizada
+|details             |varchar(255)         |                     |Detalles adicionales de la auditoría
+|===

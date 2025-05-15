@@ -1,0 +1,660 @@
+== tbl_sheets_employer
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID de registro
+
+| record_code
+| character varying(20)
+| Código de registro
+
+| business_name
+| character varying(100)
+| Nombre del negocio
+
+| employer_name
+| character varying(75)
+| Nombre del empleador
+
+| interviewee_name
+| character varying(75)
+| Nombre del entrevistado
+
+| address
+| character varying(100)
+| Dirección
+
+| economic_activity
+| character varying(110)
+| Actividad económica
+
+| number_workers
+| character varying(10)
+| Número de trabajadores
+
+| men
+| character varying(5)
+| Número de hombres
+
+| women
+| character varying(5)
+| Número de mujeres
+
+| hondurans
+| character varying(10)
+| Número de hondureños
+
+| foreigns
+| character varying(10)
+| Número de extranjeros
+
+| many_workers_disabilities
+| character varying(10)
+| Número de trabajadores con discapacidades
+
+| employer_status
+| character varying(10)
+| Estado del empleador
+
+| active
+| boolean
+| Activo (por defecto: true)
+
+| status
+| character varying(15)
+| Estado (por defecto: 'CREATED')
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+
+| date
+| date
+| Fecha de registro
+
+| work_card_foreigners
+| character varying(5)
+| Tarjeta de trabajo para extranjeros
+
+| minors_work
+| character varying(5)
+| Trabajo de menores
+
+| work_pregnant
+| character varying(5)
+| Trabajo en embarazo
+
+| lactation_hours
+| character varying(5)
+| Horas de lactancia
+
+| lactation_area
+| character varying(5)
+| Área de lactancia
+
+| written_contract
+| character varying(5)
+| Contrato escrito
+
+| payroll
+| character varying(5)
+| Nómina
+
+| has_internal_regulations
+| character varying(5)
+| Tiene regulaciones internas
+
+| hygiene_safety_commission
+| character varying(5)
+| Comisión de higiene y seguridad
+
+| fulfills_functions
+| character varying(5)
+| Cumple funciones
+
+| activities_reported_setrass
+| character varying(5)
+| Actividades reportadas a SETRASS
+
+| legalized_security_delegate
+| character varying(5)
+| Delegado de seguridad legalizado
+
+| register_professional_risks
+| character varying(5)
+| Registro de riesgos profesionales
+
+| compensate_workers_risks
+| character varying(5)
+| Compensación por riesgos laborales
+
+| pregnancy_test
+| character varying(5)
+| Test de embarazo
+
+| polygraph_test_applied
+| character varying(5)
+| Test de polígrafo aplicado
+
+| hiv_test_requested
+| character varying(5)
+| Test de VIH solicitado
+
+| workers_disabilities
+| character varying(5)
+| Discapacidades de los trabajadores
+
+| work_overtime
+| character varying(5)
+| Trabajo en horas extras
+
+| enjoy_rest_day
+| character varying(5)
+| Disfruta del día de descanso
+
+| paid_days_off
+| character varying(5)
+| Días de descanso remunerados
+
+| enjoy_vacation
+| character varying(5)
+| Disfruta de las vacaciones
+
+| maternity_leave
+| character varying(5)
+| Permiso de maternidad
+
+| work_accidents
+| character varying(5)
+| Accidentes laborales
+
+| fire_action_plan
+| character varying(5)
+| Plan de acción ante incendios
+
+| have_doctor
+| character varying(5)
+| Tiene médico
+
+| medical_dispensary
+| character varying(5)
+| Dispensario médico
+
+| first_aid_kit
+| character varying(5)
+| Botiquín de primeros auxilios
+
+| free_water
+| character varying(5)
+| Agua potable gratuita
+
+| employer_identification_type
+| character varying(20)
+| Tipo de identificación del empleador
+
+| employer_identification_num
+| character varying(25)
+| Número de identificación del empleador
+
+| employer_rtn
+| character varying(25)
+| RTN del empleador
+
+| employer_last_name
+| character varying(100)
+| Apellido del empleador
+
+| name_legal_representative
+| character varying(150)
+| Nombre del representante legal
+
+| employer_phone_num
+| character varying(30)
+| Teléfono del empleador
+
+| interviewee_last_name
+| character varying(100)
+| Apellido del entrevistado
+
+| interviewee_identification_type
+| character varying(20)
+| Tipo de identificación del entrevistado
+
+| interviewee_identification_num
+| character varying(25)
+| Número de identificación del entrevistado
+
+| interviewee_position
+| character varying(100)
+| Cargo del entrevistado
+
+| start_operation
+| date
+| Fecha de inicio de operaciones
+
+| work_center_phone
+| character varying(30)
+| Teléfono del centro de trabajo
+
+| colony_location
+| character varying(250)
+| Ubicación de la colonia
+
+| street_number
+| character varying(150)
+| Número de calle
+
+| municipality
+| character varying(75)
+| Municipio
+
+| department
+| character varying(75)
+| Departamento
+
+| hondurans_kids
+| character varying(10)
+| Niños hondureños
+
+| hondurans_men
+| character varying(10)
+| Hombres hondureños
+
+| hondurans_women
+| character varying(10)
+| Mujeres hondureñas
+
+| foreign_kids
+| character varying(10)
+| Niños extranjeros
+
+| foreign_men
+| character varying(10)
+| Hombres extranjeros
+
+| foreign_women
+| character varying(10)
+| Mujeres extranjeras
+
+| start_age_working_minors
+| character varying(10)
+| Edad de inicio para trabajo de menores
+
+| final_age_working_minors
+| character varying(10)
+| Edad final para trabajo de menores
+
+| minors_boys
+| character varying(10)
+| Niños menores de edad
+
+| minors_girls
+| character varying(10)
+| Niñas menores de edad
+
+| minors_observations
+| character varying(250)
+| Observaciones sobre menores
+
+| workers_disabilities_men
+| character varying(10)
+| Hombres trabajadores con discapacidades
+
+| workers_disabilities_women
+| character varying(10)
+| Mujeres trabajadoras con discapacidades
+
+| workers_disabilities_kids
+| character varying(10)
+| Niños trabajadores con discapacidades
+
+| company_employee_book
+| character varying(5)
+| Libro de empleados de la empresa
+
+| workers_affiliated_ihss
+| character varying(5)
+| Trabajadores afiliados al IHSS
+
+| applies_general_regulations
+| character varying(5)
+| Aplica regulaciones generales
+
+| permanent_safety_health_program
+| character varying(5)
+| Programa de seguridad y salud permanente
+
+| workers_personal_protection
+| character varying(5)
+| Protección personal de los trabajadores
+
+| accident_reported
+| character varying(5)
+| Accidente reportado
+
+| work_overtime_amount
+| character varying(5)
+| Cantidad de trabajo en horas extras
+
+| paid_thirteenth_month
+| character varying(5)
+| Pago de decimotercer mes
+
+| paid_fourteenth_month
+| character varying(5)
+| Pago de decimocuarto mes
+
+| minor_authorization_social_protection
+| character varying(5)
+| Autorización para trabajo de menores en protección social
+
+| minors_employment_contracts
+| character varying(5)
+| Contratos de empleo para menores
+
+| minors_contract_authorized_infop
+| character varying(5)
+| Contrato autorizado INFOP
+
+| minors_functions_perform
+| character varying(5)
+| Funciones desempeñadas por menores
+
+| minors_functions_perform_explain
+| character varying(250)
+| Explicación de funciones desempeñadas por menores
+
+| minors_attend_educational_centers
+| character varying(5)
+| Asisten a centros educativos
+
+| minors_education_level
+| character varying(15)
+| Nivel educativo de los menores
+
+| functions_pregnancy_explain
+| character varying(250)
+| Explicación sobre funciones de embarazo
+
+| minors_work_pregnancy
+| character varying(5)
+| Trabajo de menores en embarazo
+
+| many_minors_work_pregnancy
+| character varying(10)
+| Número de menores trabajando en embarazo
+
+| time_minors_work_pregnancy
+| character varying(75)
+| Tiempo de trabajo de menores en embarazo
+
+| general_hygiene_instalations
+| character varying(5)
+| Instalaciones de higiene generales
+
+| meets_monthly
+| character varying(5)
+| Cumple con reuniones mensuales
+
+| work_overtime_remunerated
+| character varying(5)
+| Trabajo en horas extras remuneradas
+
+| holidays_double_pay
+| character varying(5)
+| Vacaciones con doble pago
+
+| correlative_code
+| character varying(30)
+| Código correlativo
+
+| observations
+| character varying(400)
+| Observaciones
+
+| record_sheet_id
+| uuid
+| ID de la hoja de registro
+
+| has_general_regulation_to_prevent_work_accidents
+| character varying(75)
+| Tiene regulación general para prevenir accidentes laborales
+
+| hygiene_safety_commission_approved_by_setrass
+| character varying(75)
+| Comisión de higiene y seguridad aprobada por SETRASS
+
+| payment_method
+| character varying(75)
+| Método de pago
+
+| payment_period
+| character varying(75)
+| Periodo de pago
+
+| authorization_certificate_for_minors_work
+| character varying(75)
+| Certificado de autorización para trabajo de menores
+
+|===
+
+== Tabla: tbl_sheets_employer_work_day
+
+[cols="1,1,5"]
+|===
+| Campo                | Tipo                         | Descripción
+| id                   | uuid                         | Identificador único de la entrada de la jornada laboral.
+| id_sheet_data        | uuid                         | Referencia a la entrada de la hoja de datos del empleador.
+| day                  | character varying(100)       | Día de la jornada laboral.
+| start_time           | character varying(100)       | Hora de inicio de la jornada laboral.
+| end_time             | character varying(100)       | Hora de fin de la jornada laboral.
+| status               | character varying(15)        | Estado de la jornada laboral.
+| active               | boolean                      | Indica si el registro está activo (por defecto: true).
+| created_at           | timestamp                    | Fecha de creación del registro.
+| updated_at           | timestamp                    | Fecha de última actualización del registro.
+| type                 | character varying(5)         | Tipo de jornada laboral (puede ser por ejemplo, ordinaria o extraordinaria).
+|===
+
+== Tabla: tbl_sheets_files
+[cols="1,1,5"]
+|===
+| Campo                | Tipo                         | Descripción
+| id                   | uuid                         | Identificador único del archivo.
+| id_sheet_data        | uuid                         | Referencia a la entrada de la hoja de datos del empleador.
+| file_name            | character varying(255)       | Nombre del archivo.
+| file_url             | character varying(1000)      | URL del archivo.
+| description          | character varying(255)       | Descripción del archivo.
+| active               | boolean                      | Indica si el archivo está activo (por defecto: true).
+| status               | character varying(15)        | Estado del archivo (por defecto: 'CREATED').
+| created_at           | timestamp                    | Fecha de creación del archivo.
+| updated_at           | timestamp                    | Fecha de última actualización del archivo.
+| evidence_date        | date                         | Fecha de evidencia del archivo.
+| name                 | character varying(100)       | Nombre adicional asociado al archivo.
+|===
+
+== Tabla: tbl_sheets_worker
+
+[cols="1,1,5"]
+|===
+| Campo                        | Tipo                         | Descripción
+
+| id                           | uuid                         | Identificador único del trabajador.
+
+| record_id                    | uuid                         | Identificador del registro relacionado con el trabajador.
+
+| record_code                  | character varying(20)        | Código del registro del trabajador.
+
+| name                         | character varying(50)        | Nombre del trabajador.
+
+| last_name                    | character varying(50)        | Apellido del trabajador.
+
+| age                          | character varying(10)        | Edad del trabajador.
+
+| sex                          | character varying(10)        | Sexo del trabajador.
+
+| nationality                  | character varying(30)        | Nacionalidad del trabajador.
+
+| worker_position              | character varying(50)        | Cargo o puesto de trabajo del trabajador.
+
+| payment_method               | character varying(15)        | Método de pago del trabajador.
+
+| rest_day_off                 | character varying(100)       | Día de descanso del trabajador.
+
+| start_work_schedule          | character varying(10)        | Hora de inicio del horario laboral del trabajador.
+
+| final_work_schedule          | character varying(10)        | Hora de finalización del horario laboral del trabajador.
+
+| owe_vacation_period          | character varying(15)        | Periodo de vacaciones adeudadas.
+
+| lunch_time_amount            | character varying(10)        | Cantidad de tiempo destinado a almuerzo.
+
+| receive_aggression_from      | character varying(30)        | Persona o grupo de personas que agreden al trabajador.
+
+| receive_aggression_position  | character varying(30)        | Cargo o puesto de la persona que agredió al trabajador.
+
+| receive_aggression_explain   | character varying(100)       | Descripción del incidente de agresión hacia el trabajador.
+
+| medical_test_frequency       | character varying(15)        | Frecuencia de exámenes médicos para el trabajador.
+
+| medical_test_observations    | character varying(100)       | Observaciones sobre los exámenes médicos del trabajador.
+
+| worker_status                | character varying(100)       | Estado del trabajador (activo, inactivo, etc.).
+
+| active                       | boolean                      | Indica si el trabajador está activo (por defecto: true).
+
+| status                       | character varying(15)        | Estado del registro del trabajador (por defecto: 'CREATED').
+
+| created_at                   | timestamp                    | Fecha de creación del registro del trabajador.
+
+| updated_at                   | timestamp                    | Fecha de última actualización del registro del trabajador.
+
+| dni                          | character varying(50)        | Documento Nacional de Identidad del trabajador.
+
+| start_date                   | date                         | Fecha de inicio del trabajo del trabajador.
+
+| identification_type_w        | character varying(30)        | Tipo de identificación del trabajador.
+
+| mail                         | character varying(100)       | Correo electrónico del trabajador.
+
+| phone_num                    | character varying(50)        | Número de teléfono del trabajador.
+
+| disability_type              | character varying(50)        | Tipo de discapacidad del trabajador, si aplica.
+
+| final_lunch_time_amount      | character varying(50)        | Tiempo final para el almuerzo.
+
+| ihss_deduction_amount        | character varying(50)        | Monto de deducción por IHSS.
+
+| individual_contract          | character varying(5)         | Indica si el trabajador tiene un contrato individual.
+
+| rest_day                     | character varying(5)         | Indica si el trabajador disfruta de un día de descanso.
+
+| enjoy_holidays               | character varying(5)         | Indica si el trabajador disfruta de vacaciones.
+
+| holidays_double_pay          | character varying(5)         | Indica si las vacaciones se pagan al doble.
+
+| extra_work                   | character varying(5)         | Indica si el trabajador realiza horas extras.
+
+| last_year_bonus              | character varying(5)         | Indica si el trabajador recibió bono el año pasado.
+
+| last_year_fourteenth         | character varying(5)         | Indica si el trabajador recibió el bono de catorce el año pasado.
+
+| owe_vacation                 | character varying(5)         | Indica si el trabajador debe vacaciones.
+
+| lunch_time                   | character varying(5)         | Indica si el trabajador tiene tiempo para almorzar.
+
+| kids_in_school               | character varying(5)         | Indica si el trabajador tiene hijos en la escuela.
+
+| kids_in_school_bonus         | character varying(5)         | Indica si el trabajador recibe un bono por hijos en la escuela.
+
+| has_ihss                     | character varying(5)         | Indica si el trabajador tiene afiliación al IHSS.
+
+| ihss_deduction               | character varying(5)         | Indica si hay deducción por IHSS.
+
+| demanded_pregnat_test        | character varying(5)         | Indica si se ha solicitado una prueba de embarazo.
+
+| demanded_vih_test            | character varying(5)         | Indica si se ha solicitado una prueba de VIH.
+
+| poligraph_test               | character varying(5)         | Indica si se ha realizado un test de polígrafo.
+
+| receive_aggression            | character varying(5)         | Indica si el trabajador ha sufrido agresión.
+
+| know_company_regulations     | character varying(5)         | Indica si el trabajador conoce las regulaciones de la empresa.
+
+| knows_general_regulation     | character varying(5)         | Indica si el trabajador conoce las regulaciones generales.
+
+| supply_free_work_clothe      | character varying(5)         | Indica si se provee vestimenta de trabajo gratuita.
+
+| personal_protection_tools    | character varying(5)         | Indica si se proporcionan herramientas de protección personal.
+
+| bathrooms_by_sex             | character varying(5)         | Indica si los baños están separados por sexo.
+
+| full_food_court              | character varying(5)         | Indica si hay un comedor completo para los empleados.
+
+| free_water                   | character varying(5)         | Indica si se ofrece agua gratuita.
+
+| first_aid_kit                | character varying(5)         | Indica si hay un botiquín de primeros auxilios disponible.
+
+| medical_test                 | character varying(5)         | Indica si el trabajador debe someterse a pruebas médicas.
+
+| disability                   | character varying(5)         | Indica si el trabajador tiene alguna discapacidad.
+
+| rest_day_pay                 | character varying(5)         | Indica si el trabajador recibe pago por el día de descanso.
+
+| sales_bonuses                | character varying(5)         | Indica si el trabajador recibe bonos por ventas.
+
+| compensation_in_kind         | character varying(5)         | Indica si el trabajador recibe compensación en especie.
+
+| compensation_food            | character varying(5)         | Indica si el trabajador recibe compensación por comida.
+
+| rest_day_deduct              | character varying(50)        | Monto deducido por el día de descanso.
+
+| observations                 | character varying(400)       | Observaciones adicionales sobre el trabajador.
+
+| correlative_code             | character varying(30)        | Código correlativo del trabajador.
+
+| worker_salary                | doubleprecision              | Salario del trabajador.
+
+| reduce_day_pay_amount        | doubleprecision              | Monto por reducción de salario por días de descanso.
+
+| extra_work_amount            | doubleprecision              | Monto por trabajo extra.
+
+| last_year_bonus_amount       | doubleprecision              | Monto por bono del año pasado.
+
+| last_year_fourteenth_amount  | doubleprecision              | Monto por bono de catorce del año pasado.
+
+| compensation_kind_amount     | doubleprecision              | Monto por compensación en especie.
+
+| compensation_food_amount     | doubleprecision              | Monto por compensación de comida.
+
+| amount_received_commissions  | doubleprecision              | Monto recibido en comisiones.
+
+| amount_received_bonuses      | doubleprecision              | Monto recibido en bonos.
+
+| kids_in_school_amount        | doubleprecision              | Monto relacionado con los hijos del trabajador en la escuela.
+
+| record_sheet_id              | uuid                         | Referencia al registro de la hoja de datos.
+
+| transportation_compensation  | character varying(75)        | Compensación por transporte.
+
+| payment_period               | character varying(75)        | Periodo de pago del trabajador.
+
+| deduction_for_uniform_or_work_clothes | doubleprecision       | Deducción por uniforme o ropa de trabajo.
+
+| how_deduct_for_free_protective_equipment | doubleprecision    | Cómo se deduce el equipo de protección gratuito.
+
+| requested_recover_consultation_hours_at_ihss | character varying(75) | Horas solicitadas para consulta en IHSS.
+
+| transportation_compensation_amount | doubleprecision          | Monto de la compensación por transporte.
+|===
+

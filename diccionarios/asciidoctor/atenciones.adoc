@@ -1,0 +1,61 @@
+== Diccionario de Datos
+
+=== Tabla: tbl_attentions
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre de Campo |Descripción |Tipo |Requerido |Comentarios
+|id |Identificador único |uuid |Sí |Clave primaria
+|user_id |ID del usuario que creó la atención |uuid |Sí |
+|status |Estado actual del registro |varchar(15) |No |Por defecto 'CREATED'
+|created_at |Fecha de creación |timestamp |No |
+|updated_at |Fecha de última actualización |timestamp |No |
+|type |Tipo de atención |uuid |Sí |Llave foránea hacia `tbl_attention_type`
+|application_type |Tipo de aplicación |uuid |Sí |Llave foránea hacia `tbl_application_type`
+|user_updated |Usuario que actualizó |uuid |No |
+|organization_id |Organización relacionada |uuid |Sí |
+|form_id |ID del formulario relacionado |uuid |No |
+|===
+
+=== Tabla: tbl_application_type
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre de Campo |Descripción |Tipo |Requerido |Comentarios
+|id |Identificador único |uuid |Sí |Clave primaria
+|name |Nombre del tipo de aplicación |varchar(150) |Sí |
+|===
+
+=== Tabla: tbl_attention_files
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre de Campo |Descripción |Tipo |Requerido |Comentarios
+|id |Identificador único del archivo |uuid |Sí |Clave primaria
+|attention_id |ID de la atención relacionada |uuid |No |Llave foránea hacia `tbl_attentions`
+|file_name |Nombre del archivo |varchar(255) |No |
+|file_url |URL del archivo |varchar(1000) |No |
+|title |Título descriptivo del archivo |varchar(255) |No |
+|active |Si está activo o no |boolean |No |Por defecto `true`
+|status |Estado del archivo |varchar(15) |No |Por defecto `'CREATED'`
+|created_at |Fecha de creación |timestamp |No |
+|updated_at |Fecha de última modificación |timestamp |No |
+|===
+
+=== Tabla: tbl_attention_type
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre de Campo |Descripción |Tipo |Requerido |Comentarios
+|id |Identificador único |uuid |Sí |Clave primaria
+|name |Nombre del tipo de atención |varchar(150) |Sí |
+|===
+
+=== Tabla: tbl_attention_type_list
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre de Campo |Descripción |Tipo |Requerido |Comentarios
+|attention_id |ID de atención |uuid |Sí |Llave foránea hacia `tbl_attentions`
+|attention_type |ID de tipo de atención |uuid |Sí |Llave foránea hacia `tbl_attention_type`
+|===

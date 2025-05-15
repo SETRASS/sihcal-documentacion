@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <meta name="author" content="Angel Darid Diaz">
+    <title>Salary History Catalog Service API Documentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="article toc2 toc-left">
+    <div id="header">
+        <h1>Salary History Catalog Service API Documentation</h1>
+        <div class="details">
+            <span id="author" class="author">Angel Darid Diaz</span><br>
+            <span id="email" class="email"><a href="mailto:angel_diaz_sanchez@wvi.org">angel_diaz_sanchez@wvi.org</a></span><br>
+            <span id="revnumber">version 0.0.19,</span>
+            <span id="revdate">2025-05-06</span>
+        </div>
+        <div id="toc" class="toc2">
+            <div id="toctitle">Table of Contents</div>
+            <ul class="sectlevel1">
+                <li><a href="#_introducción">1. Introducción</a></li>
+                <li><a href="#_información_general">2. Información General</a></li>
+                <li><a href="#_endpoints">3. Endpoints</a>
+                    <ul class="sectlevel2">
+                        <li><a href="#_ea_catalog_controller_v1">3.1. EA Catalog Controller V1</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_obtener_todos_los_catálogos_de_actividades_económicas">3.1.1. Obtener Todos los Catálogos de Actividades Económicas</a></li>
+                                <li><a href="#_obtener_catálogos_de_actividades_económicas_por_nombre">3.1.2. Obtener Catálogos de Actividades Económicas por Nombre</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_employee_qty_waves_controller_v1">3.2. Employee Qty Waves Controller V1</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_obtener_todos_los_rangos_de_cantidad_de_empleados">3.2.1. Obtener Todos los Rangos de Cantidad de Empleados</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_salary_rate_per_year_controller_v1">3.3. Salary Rate Per Year Controller V1</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_obtener_tabla_de_tasas_salariales_por_año">3.3.1. Obtener Tabla de Tasas Salariales por Año</a></li>
+                                <li><a href="#_obtener_salario_mínimo_por_año_y_actividad_económica">3.3.2. Obtener Salario Mínimo por Año y Actividad Económica</a></li>
+                                <li><a href="#_obtener_salario_mínimo_por_año_actividad_económica_y_tamaño_de_empresa">3.3.3. Obtener Salario Mínimo por Año, Actividad Económica y Tamaño de Empresa</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_salary_rate_per_year_educational_bonus_controller_v1">3.4. Salary Rate Per Year Educational Bonus Controller V1</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_obtener_tasas_salariales_con_bono_educativo">3.4.1. Obtener Tasas Salariales con Bono Educativo</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="sect1">
+            <h2 id="_introducción">
+                <a class="anchor" href="#_introducción"></a>1. Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del servicio <code>Salary History Catalog Service</code>, que proporciona endpoints para gestionar datos relacionados con el historial salarial, catálogos de actividades económicas, cantidades de empleados
+                        por rangos y bonos educativos. Conforme a la especificación Swagger 2.0.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_información_general">
+                <a class="anchor" href="#_información_general"></a>2. Información General</h2>
+            <div class="sectionbody">
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Versión</strong>: 0.0.19</p>
+                        </li>
+                        <li>
+                            <p><strong>Contacto</strong>: Angel Darid Diaz (<a href="mailto:angel_diaz_sanchez@wvi.org">angel_diaz_sanchez@wvi.org</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Servidor</strong>: <a href="https://prod.svc-salary-history.ecms.setrass.net" class="bare">https://prod.svc-salary-history.ecms.setrass.net</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_endpoints">
+                <a class="anchor" href="#_endpoints"></a>3. Endpoints</h2>
+            <div class="sectionbody">
+                <div class="sect2">
+                    <h3 id="_ea_catalog_controller_v1">
+                        <a class="anchor" href="#_ea_catalog_controller_v1"></a>3.1. EA Catalog Controller V1</h3>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_catálogos_de_actividades_económicas">
+                            <a class="anchor" href="#_obtener_todos_los_catálogos_de_actividades_económicas"></a>3.1.1. Obtener Todos los Catálogos de Actividades Económicas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los catálogos de actividades económicas disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/salary-history/ea-catalog/v1/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Industria Manufacturera",
+    "description": "Actividades relacionadas con la producción de bienes",
+    "active": true,
+    "versionTag": "1.0"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_catálogos_de_actividades_económicas_por_nombre">
+                            <a class="anchor" href="#_obtener_catálogos_de_actividades_económicas_por_nombre"></a>3.1.2. Obtener Catálogos de Actividades Económicas por Nombre</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene catálogos de actividades económicas filtrados por nombre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/salary-history/ea-catalog/v1/getAllByName/{name}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>name</code> (path, string, required): Nombre de la actividad económica</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Industria Manufacturera",
+    "description": "Actividades relacionadas con la producción de bienes",
+    "active": true,
+    "versionTag": "1.0"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_employee_qty_waves_controller_v1">
+                        <a class="anchor" href="#_employee_qty_waves_controller_v1"></a>3.2. Employee Qty Waves Controller V1</h3>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_rangos_de_cantidad_de_empleados">
+                            <a class="anchor" href="#_obtener_todos_los_rangos_de_cantidad_de_empleados"></a>3.2.1. Obtener Todos los Rangos de Cantidad de Empleados</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los rangos de cantidad de empleados disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/salary-history/employee-qty-waves/v1/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": 1,
+    "description": "Pequeña Empresa",
+    "minQty": 1,
+    "maxQty": 50
+  },
+  {
+    "id": 2,
+    "description": "Mediana Empresa",
+    "minQty": 51,
+    "maxQty": 250
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_salary_rate_per_year_controller_v1">
+                        <a class="anchor" href="#_salary_rate_per_year_controller_v1"></a>3.3. Salary Rate Per Year Controller V1</h3>
+                    <div class="sect3">
+                        <h4 id="_obtener_tabla_de_tasas_salariales_por_año">
+                            <a class="anchor" href="#_obtener_tabla_de_tasas_salariales_por_año"></a>3.3.1. Obtener Tabla de Tasas Salariales por Año</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una tabla de tasas salariales por año.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/salary-history/salary-rate-per-year/v1/getTable</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "year": 2023,
+    "salaryRates": [
+      {
+        "economicActivity": "Industria Manufacturera",
+        "companyEmployeeWeight": "Pequeña",
+        "perHour": 10.5,
+        "perDay": 84.0,
+        "perMonth": 1800.0
+      }
+    ]
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_salario_mínimo_por_año_y_actividad_económica">
+                            <a class="anchor" href="#_obtener_salario_mínimo_por_año_y_actividad_económica"></a>3.3.2. Obtener Salario Mínimo por Año y Actividad Económica</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene el salario mínimo por año y actividad económica.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/salary-history/salary-rate-per-year/v1/min-salary-per-years-and-ea/{eaId}/years/{years}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>eaId</code> (path, string, required): ID de la actividad económica - <code>years</code> (path, string, required): Año(s) a consultar</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "economicActivityId": "123e4567-e89b-12d3-a456-426614174000",
+    "economicActivityName": "Industria Manufacturera",
+    "minSalary": 1800.0,
+    "year": 2023
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_salario_mínimo_por_año_actividad_económica_y_tamaño_de_empresa">
+                            <a class="anchor" href="#_obtener_salario_mínimo_por_año_actividad_económica_y_tamaño_de_empresa"></a>3.3.3. Obtener Salario Mínimo por Año, Actividad Económica y Tamaño de Empresa</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene el salario mínimo por año, actividad económica y tamaño de empresa.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/salary-history/salary-rate-per-year/v1/min-salary-per-years-and-ea-and-companySize/{eaId}/years/{years}/companySize/{companySize}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>eaId</code> (path, string, required): ID de la actividad económica - <code>years</code> (path, string, required): Año(s) a consultar - <code>companySize</code> (path, integer, required):
+                                Tamaño de la empresa (número de empleados)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "economicActivityId": "123e4567-e89b-12d3-a456-426614174000",
+    "economicActivityName": "Industria Manufacturera",
+    "minSalary": 1800.0,
+    "year": 2023
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_salary_rate_per_year_educational_bonus_controller_v1">
+                        <a class="anchor" href="#_salary_rate_per_year_educational_bonus_controller_v1"></a>3.4. Salary Rate Per Year Educational Bonus Controller V1</h3>
+                    <div class="sect3">
+                        <h4 id="_obtener_tasas_salariales_con_bono_educativo">
+                            <a class="anchor" href="#_obtener_tasas_salariales_con_bono_educativo"></a>3.4.1. Obtener Tasas Salariales con Bono Educativo</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene tasas salariales por año con bono educativo según actividad económica, años y cantidad.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/salary-history/salary-rate-per-year-educational-bonus/v1/salary-per-years-educational-bonus/{eaId}/years/{years}/quantity/{quantity}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>eaId</code> (path, string, required): ID de la actividad económica - <code>years</code> (path, string, required): Año(s) a consultar - <code>quantity</code> (path, integer, required): Cantidad
+                                de empleados</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "economicActivityId": "123e4567-e89b-12d3-a456-426614174000",
+    "economicActivityName": "Industria Manufacturera",
+    "minSalary": 1800.0,
+    "amountEduc": 200.0,
+    "year": 2023
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Version 0.0.19<br> Last updated 2025-05-06 11:52:29 -0600
+        </div>
+    </div>
+</body>
+
+</html>

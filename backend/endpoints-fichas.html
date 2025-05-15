@@ -1,0 +1,2811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <meta name="author" content="Marvin Toro">
+    <title>FICHAS Inspection-Service API Documentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="article toc2 toc-left">
+    <div id="header">
+        <h1>FICHAS Inspection-Service API Documentation</h1>
+        <div class="details">
+            <span id="author" class="author">Marvin Toro</span><br>
+            <span id="email" class="email"><a href="mailto:marvin_toro@wvi.org">marvin_toro@wvi.org</a></span><br>
+            <span id="revnumber">version 0.0.350,</span>
+            <span id="revdate">2025-05-06</span>
+        </div>
+        <div id="toc" class="toc2">
+            <div id="toctitle">Table of Contents</div>
+            <ul class="sectlevel1">
+                <li><a href="#_introducción">1. Introducción</a></li>
+                <li><a href="#_información_general">2. Información General</a></li>
+                <li><a href="#_endpoints">3. Endpoints</a>
+                    <ul class="sectlevel2">
+                        <li><a href="#_worker_controller">3.1. Worker Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nuevo_trabajador">3.1.1. Añadir Nuevo Trabajador</a></li>
+                                <li><a href="#_actualizar_trabajador">3.1.2. Actualizar Trabajador</a></li>
+                                <li><a href="#_actualizar_trabajador_con_verificación_dni">3.1.3. Actualizar Trabajador con Verificación DNI</a></li>
+                                <li><a href="#_actualizar_estado_de_ficha_de_trabajador">3.1.4. Actualizar Estado de Ficha de Trabajador</a></li>
+                                <li><a href="#_aprobar_fichas_de_trabajadores">3.1.5. Aprobar Fichas de Trabajadores</a></li>
+                                <li><a href="#_añadir_nueva_ficha_de_trabajador_put">3.1.6. Añadir Nueva Ficha de Trabajador (PUT)</a></li>
+                                <li><a href="#_obtener_fichas_de_trabajadores_paginadas">3.1.7. Obtener Fichas de Trabajadores Paginadas</a></li>
+                                <li><a href="#_obtener_fichas_de_trabajadores_por_id_de_ficha_de_registro">3.1.8. Obtener Fichas de Trabajadores por ID de Ficha de Registro</a></li>
+                                <li><a href="#_buscar_trabajador_por_nombre_apellido_o_dni">3.1.9. Buscar Trabajador por Nombre, Apellido o DNI</a></li>
+                                <li><a href="#_buscar_trabajador_por_nombre_apellido_o_dni_con_id_de_ficha_de_registro">3.1.10. Buscar Trabajador por Nombre, Apellido o DNI con ID de Ficha de Registro</a></li>
+                                <li><a href="#_buscar_trabajador_por_id">3.1.11. Buscar Trabajador por ID</a></li>
+                                <li><a href="#_filtrar_fichas_de_trabajadores">3.1.12. Filtrar Fichas de Trabajadores</a></li>
+                                <li><a href="#_filtrar_fichas_de_trabajadores_por_id_de_ficha_de_registro">3.1.13. Filtrar Fichas de Trabajadores por ID de Ficha de Registro</a></li>
+                                <li><a href="#_eliminar_trabajador_lógicamente">3.1.14. Eliminar Trabajador Lógicamente</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_employer_controller">3.2. Employer Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nuevo_empleador">3.2.1. Añadir Nuevo Empleador</a></li>
+                                <li><a href="#_añadir_nueva_ficha_de_empleador_put">3.2.2. Añadir Nueva Ficha de Empleador (PUT)</a></li>
+                                <li><a href="#_actualizar_empleador">3.2.3. Actualizar Empleador</a></li>
+                                <li><a href="#_actualizar_empleador_con_verificación_dni">3.2.4. Actualizar Empleador con Verificación DNI</a></li>
+                                <li><a href="#_actualizar_estado_de_ficha_de_empleador">3.2.5. Actualizar Estado de Ficha de Empleador</a></li>
+                                <li><a href="#_aprobar_fichas_de_empleadores">3.2.6. Aprobar Fichas de Empleadores</a></li>
+                                <li><a href="#_obtener_fichas_de_empleadores_paginadas">3.2.7. Obtener Fichas de Empleadores Paginadas</a></li>
+                                <li><a href="#_obtener_fichas_de_empleadores_por_id_de_ficha_de_registro">3.2.8. Obtener Fichas de Empleadores por ID de Ficha de Registro</a></li>
+                                <li><a href="#_buscar_empleador_por_id">3.2.9. Buscar Empleador por ID</a></li>
+                                <li><a href="#_buscar_empleador_por_eba">3.2.10. Buscar Empleador por EBA</a></li>
+                                <li><a href="#_buscar_empleador_por_eba_con_id_de_ficha_de_registro">3.2.11. Buscar Empleador por EBA con ID de Ficha de Registro</a></li>
+                                <li><a href="#_filtrar_fichas_de_empleadores">3.2.12. Filtrar Fichas de Empleadores</a></li>
+                                <li><a href="#_filtrar_fichas_de_empleadores_por_id_de_ficha_de_registro">3.2.13. Filtrar Fichas de Empleadores por ID de Ficha de Registro</a></li>
+                                <li><a href="#_eliminar_empleador_lógicamente">3.2.14. Eliminar Empleador Lógicamente</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_worker_registration_constancy_controller">3.3. Worker Registration Constancy Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_buscar_constancia_de_inscripción_de_trabajador_por_masterid">3.3.1. Buscar Constancia de Inscripción de Trabajador por MasterId</a></li>
+                                <li><a href="#_buscar_constancia_de_inscripción_de_trabajador_con_qr">3.3.2. Buscar Constancia de Inscripción de Trabajador con QR</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_employer_registration_constancy_controller">3.4. Employer Registration Constancy Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_buscar_constancia_de_inscripción_de_empleador_por_masterid">3.4.1. Buscar Constancia de Inscripción de Empleador por MasterId</a></li>
+                                <li><a href="#_buscar_constancia_de_inscripción_de_empleador_con_qr">3.4.2. Buscar Constancia de Inscripción de Empleador con QR</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_workers_disabilities_controller">3.5. Workers Disabilities Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nueva_discapacidad_de_trabajador">3.5.1. Añadir Nueva Discapacidad de Trabajador</a></li>
+                                <li><a href="#_añadir_lista_de_discapacidades_de_trabajadores">3.5.2. Añadir Lista de Discapacidades de Trabajadores</a></li>
+                                <li><a href="#_actualizar_discapacidad_de_trabajador">3.5.3. Actualizar Discapacidad de Trabajador</a></li>
+                                <li><a href="#_obtener_discapacidades_de_trabajadores_paginadas">3.5.4. Obtener Discapacidades de Trabajadores Paginadas</a></li>
+                                <li><a href="#_obtener_discapacidades_de_trabajadores_por_id_de_empleador">3.5.5. Obtener Discapacidades de Trabajadores por ID de Empleador</a></li>
+                                <li><a href="#_obtener_todas_las_discapacidades_por_id_de_empleador">3.5.6. Obtener Todas las Discapacidades por ID de Empleador</a></li>
+                                <li><a href="#_buscar_discapacidad_de_trabajador_por_id">3.5.7. Buscar Discapacidad de Trabajador por ID</a></li>
+                                <li><a href="#_eliminar_discapacidad_de_trabajador_lógicamente">3.5.8. Eliminar Discapacidad de Trabajador Lógicamente</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_sheets_file_controller">3.6. Sheets File Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nueva_lista_de_archivos_de_ficha">3.6.1. Añadir Nueva Lista de Archivos de Ficha</a></li>
+                                <li><a href="#_actualizar_archivo_de_ficha">3.6.2. Actualizar Archivo de Ficha</a></li>
+                                <li><a href="#_obtener_archivos_de_ficha">3.6.3. Obtener Archivos de Ficha</a></li>
+                                <li><a href="#_buscar_archivo_de_ficha_por_descripción">3.6.4. Buscar Archivo de Ficha por Descripción</a></li>
+                                <li><a href="#_eliminar_archivo_de_ficha">3.6.5. Eliminar Archivo de Ficha</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_record_sheet_controller">3.7. Record Sheet Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_buscar_ficha_de_registro_por_id">3.7.1. Buscar Ficha de Registro por ID</a></li>
+                                <li><a href="#_buscar_fichas_de_registro_por_filtros">3.7.2. Buscar Fichas de Registro por Filtros</a></li>
+                                <li><a href="#_filtrar_fichas_de_registro_por_estado_y_staff">3.7.3. Filtrar Fichas de Registro por Estado y Staff</a></li>
+                                <li><a href="#_obtener_fichas_de_registro_paginadas">3.7.4. Obtener Fichas de Registro Paginadas</a></li>
+                                <li><a href="#_actualizar_estado_de_ficha_de_registro">3.7.5. Actualizar Estado de Ficha de Registro</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_record_file_controller">3.8. Record File Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nuevo_archivo_de_registro">3.8.1. Añadir Nuevo Archivo de Registro</a></li>
+                                <li><a href="#_subir_múltiples_archivos">3.8.2. Subir Múltiples Archivos</a></li>
+                                <li><a href="#_actualizar_archivo_de_registro">3.8.3. Actualizar Archivo de Registro</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_records_controller">3.9. Records Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_actualizar_estado_de_registro_a_creado">3.9.1. Actualizar Estado de Registro a Creado</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_audit_controller">3.10. Audit Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_listar_auditorías_paginadas">3.10.1. Listar Auditorías Paginadas</a></li>
+                                <li><a href="#_filtrar_auditorías_por_búsqueda">3.10.2. Filtrar Auditorías por Búsqueda</a></li>
+                                <li><a href="#_filtrar_auditorías_por_criterios">3.10.3. Filtrar Auditorías por Criterios</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_sheets_work_day_controller">3.11. Sheets Work Day Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_añadir_nueva_lista_de_jornadas_laborales">3.11.1. Añadir Nueva Lista de Jornadas Laborales</a></li>
+                                <li><a href="#_actualizar_jornada_laboral">3.11.2. Actualizar Jornada Laboral</a></li>
+                                <li><a href="#_obtener_archivos_de_jornada_laboral">3.11.3. Obtener Archivos de Jornada Laboral</a></li>
+                                <li><a href="#_verificar_existencia_de_jornada_laboral">3.11.4. Verificar Existencia de Jornada Laboral</a></li>
+                                <li><a href="#_eliminar_jornada_laboral_lógicamente">3.11.5. Eliminar Jornada Laboral Lógicamente</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="sect1">
+            <h2 id="_introducción">
+                <a class="anchor" href="#_introducción"></a>1. Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del módulo de Inspección (<code>FICHAS Inspection-Service</code>). Proporciona endpoints para gestionar datos de trabajadores, empleadores, registros, fichas, y más, conforme a la especificación OpenAPI
+                        3.0.1.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_información_general">
+                <a class="anchor" href="#_información_general"></a>2. Información General</h2>
+            <div class="sectionbody">
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Versión</strong>: 0.0.350</p>
+                        </li>
+                        <li>
+                            <p><strong>Contacto</strong>: Marvin Toro (<a href="mailto:marvin_toro@wvi.org">marvin_toro@wvi.org</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Licencia</strong>: Apache 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0.html" class="bare">http://www.apache.org/licenses/LICENSE-2.0.html</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Servidor</strong>: <a href="https://prod.svc-inspection.ecms.setrass.net" class="bare">https://prod.svc-inspection.ecms.setrass.net</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_endpoints">
+                <a class="anchor" href="#_endpoints"></a>3. Endpoints</h2>
+            <div class="sectionbody">
+                <div class="sect2">
+                    <h3 id="_worker_controller">
+                        <a class="anchor" href="#_worker_controller"></a>3.1. Worker Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nuevo_trabajador">
+                            <a class="anchor" href="#_añadir_nuevo_trabajador"></a>3.1.1. Añadir Nuevo Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea un nuevo trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/add-new-worker</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Juan Pérez",
+  "dni": "12345678A",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Juan Pérez",
+  "dni": "12345678A",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Trabajador creado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/add-new-worker",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_trabajador">
+                            <a class="anchor" href="#_actualizar_trabajador"></a>3.1.2. Actualizar Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un trabajador existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/update-worker/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "name": "Juan Pérez Actualizado",
+  "dni": "12345678A",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Juan Pérez Actualizado",
+  "dni": "12345678A",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Trabajador actualizado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/update-worker/123e4567-e89b-12d3-a456-426614174000",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_trabajador_con_verificación_dni">
+                            <a class="anchor" href="#_actualizar_trabajador_con_verificación_dni"></a>3.1.3. Actualizar Trabajador con Verificación DNI</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un trabajador con verificación de DNI.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/update-worker-with-dni-check/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "name": "Juan Pérez Actualizado",
+  "dni": "12345678A",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Juan Pérez Actualizado",
+  "dni": "12345678A",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Trabajador actualizado con DNI verificado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/update-worker-with-dni-check/123e4567-e89b-12d3-a456-426614174000",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_ficha_de_trabajador">
+                            <a class="anchor" href="#_actualizar_estado_de_ficha_de_trabajador"></a>3.1.4. Actualizar Estado de Ficha de Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de una ficha de trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/updateStatus-SheetWorker/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">"INACTIVO"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Estado de ficha de trabajador actualizado",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/sheets-workerData/v1/updateStatus-SheetWorker/123e4567-e89b-12d3-a456-426614174000",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_aprobar_fichas_de_trabajadores">
+                            <a class="anchor" href="#_aprobar_fichas_de_trabajadores"></a>3.1.5. Aprobar Fichas de Trabajadores</h4>
+                        <div class="paragraph">
+                            <p><strong>Aprueba múltiples fichas de trabajadores.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/list-approve-sheets-workers</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  "123e4567-e89b-12d3-a456-426614174000",
+  "223e4567-e89b-12d3-a456-426614174001"
+]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Fichas de trabajadores aprobadas exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/sheets-workerData/v1/list-approve-sheets-workers",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_nueva_ficha_de_trabajador_put">
+                            <a class="anchor" href="#_añadir_nueva_ficha_de_trabajador_put"></a>3.1.6. Añadir Nueva Ficha de Trabajador (PUT)</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea o actualiza una ficha de trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/add-newU-sheet-worker</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PUT</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Juan Pérez",
+  "dni": "12345678A",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Juan Pérez",
+  "dni": "12345678A",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Ficha de trabajador creada/actualizada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/add-newU-sheet-worker",
+    "method": "PUT"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_fichas_de_trabajadores_paginadas">
+                            <a class="anchor" href="#_obtener_fichas_de_trabajadores_paginadas"></a>3.1.7. Obtener Fichas de Trabajadores Paginadas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene fichas de trabajadores con paginación.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/listPageWorkerSheets/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workers": [
+    {
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan Pérez",
+      "dni": "12345678A",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de trabajadores obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/listPageWorkerSheets/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_fichas_de_trabajadores_por_id_de_ficha_de_registro">
+                            <a class="anchor" href="#_obtener_fichas_de_trabajadores_por_id_de_ficha_de_registro"></a>3.1.8. Obtener Fichas de Trabajadores por ID de Ficha de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene fichas de trabajadores asociadas a una ficha de registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/listPageWorkerSheetsByRecordSheetId/{page}/{size}/{recordSheetId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página - <code>recordSheetId</code> (path, UUID, required): ID de la ficha
+                                de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workers": [
+    {
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan Pérez",
+      "dni": "12345678A",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de trabajadores obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/listPageWorkerSheetsByRecordSheetId/0/10/123e4567-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_trabajador_por_nombre_apellido_o_dni">
+                            <a class="anchor" href="#_buscar_trabajador_por_nombre_apellido_o_dni"></a>3.1.9. Buscar Trabajador por Nombre, Apellido o DNI</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca trabajadores por nombre, apellido o DNI.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/findByNameLastDni/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro de búsqueda</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workers": [
+    {
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan Pérez",
+      "dni": "12345678A",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Trabajadores encontrados",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/findByNameLastDni/Juan",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_trabajador_por_nombre_apellido_o_dni_con_id_de_ficha_de_registro">
+                            <a class="anchor" href="#_buscar_trabajador_por_nombre_apellido_o_dni_con_id_de_ficha_de_registro"></a>3.1.10. Buscar Trabajador por Nombre, Apellido o DNI con ID de Ficha de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca trabajadores por nombre, apellido o DNI asociados a una ficha de registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/find-by-name-last-dni-by-record-sheet-id/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro de búsqueda - <code>recordSheetId</code> (query, UUID, required): ID de la ficha de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workers": [
+    {
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan Pérez",
+      "dni": "12345678A",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Trabajadores encontrados",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/find-by-name-last-dni-by-record-sheet-id/Juan",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_trabajador_por_id">
+                            <a class="anchor" href="#_buscar_trabajador_por_id"></a>3.1.11. Buscar Trabajador por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca un trabajador por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/findById/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "Juan Pérez",
+  "dni": "12345678A",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Trabajador encontrado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/findById/123e4567-e89b-12d3-a456-426614174000",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_fichas_de_trabajadores">
+                            <a class="anchor" href="#_filtrar_fichas_de_trabajadores"></a>3.1.12. Filtrar Fichas de Trabajadores</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra fichas de trabajadores por estado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/filter-sheetWorker</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>workerStatus</code> (query, string, optional): Estado del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workers": [
+    {
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan Pérez",
+      "dni": "12345678A",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de trabajadores filtradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/filter-sheetWorker",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_fichas_de_trabajadores_por_id_de_ficha_de_registro">
+                            <a class="anchor" href="#_filtrar_fichas_de_trabajadores_por_id_de_ficha_de_registro"></a>3.1.13. Filtrar Fichas de Trabajadores por ID de Ficha de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra fichas de trabajadores por estado y ID de ficha de registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/filter-sheet-worker-by-record-sheet-id</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>workerStatus</code> (query, string, optional): Estado del trabajador - <code>recordSheetId</code> (query, UUID, required): ID de la ficha de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workers": [
+    {
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan Pérez",
+      "dni": "12345678A",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de trabajadores filtradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workerData/v1/filter-sheet-worker-by-record-sheet-id",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_trabajador_lógicamente">
+                            <a class="anchor" href="#_eliminar_trabajador_lógicamente"></a>3.1.14. Eliminar Trabajador Lógicamente</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina un trabajador de forma lógica.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workerData/v1/deleteLogic/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Trabajador eliminado lógicamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/sheets-workerData/v1/deleteLogic/123e4567-e89b-12d3-a456-426614174000",
+  "method": "DELETE"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_employer_controller">
+                        <a class="anchor" href="#_employer_controller"></a>3.2. Employer Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nuevo_empleador">
+                            <a class="anchor" href="#_añadir_nuevo_empleador"></a>3.2.1. Añadir Nuevo Empleador</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea un nuevo empleador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/add-new-employer</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "name": "Empresa XYZ",
+  "eba": "EB123456",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "name": "Empresa XYZ",
+  "eba": "EB123456",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Empleador creado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/add-new-employer",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_nueva_ficha_de_empleador_put">
+                            <a class="anchor" href="#_añadir_nueva_ficha_de_empleador_put"></a>3.2.2. Añadir Nueva Ficha de Empleador (PUT)</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea o actualiza una ficha de empleador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/add-newU-sheet-employer</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PUT</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "name": "Empresa XYZ",
+  "eba": "EB123456",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "name": "Empresa XYZ",
+  "eba": "EB123456",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Ficha de empleador creada/actualizada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/add-newU-sheet-employer",
+    "method": "PUT"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_empleador">
+                            <a class="anchor" href="#_actualizar_empleador"></a>3.2.3. Actualizar Empleador</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un empleador existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/update-employer/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "name": "Empresa XYZ Actualizada",
+  "eba": "EB123456",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "name": "Empresa XYZ Actualizada",
+  "eba": "EB123456",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Empleador actualizado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/update-employer/987fcdeb-12ab-34cd-5678-426614174000",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_empleador_con_verificación_dni">
+                            <a class="anchor" href="#_actualizar_empleador_con_verificación_dni"></a>3.2.4. Actualizar Empleador con Verificación DNI</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un empleador con verificación de DNI.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/update-employer-with-dni-check/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "name": "Empresa XYZ Actualizada",
+  "eba": "EB123456",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "name": "Empresa XYZ Actualizada",
+  "eba": "EB123456",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Empleador actualizado con DNI verificado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/update-employer-with-dni-check/987fcdeb-12ab-34cd-5678-426614174000",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_ficha_de_empleador">
+                            <a class="anchor" href="#_actualizar_estado_de_ficha_de_empleador"></a>3.2.5. Actualizar Estado de Ficha de Empleador</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de una ficha de empleador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/updateStatus-SheetEmployer/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">"INACTIVO"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Estado de ficha de empleador actualizado",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/Employer-Data/v1/updateStatus-SheetEmployer/987fcdeb-12ab-34cd-5678-426614174000",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_aprobar_fichas_de_empleadores">
+                            <a class="anchor" href="#_aprobar_fichas_de_empleadores"></a>3.2.6. Aprobar Fichas de Empleadores</h4>
+                        <div class="paragraph">
+                            <p><strong>Aprueba múltiples fichas de empleadores.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/list-approve-sheets-employers</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  "987fcdeb-12ab-34cd-5678-426614174000",
+  "987fcdeb-12ab-34cd-5678-426614174001"
+]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Fichas de empleadores aprobadas exitosamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/Employer-Data/v1/list-approve-sheets-employers",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_fichas_de_empleadores_paginadas">
+                            <a class="anchor" href="#_obtener_fichas_de_empleadores_paginadas"></a>3.2.7. Obtener Fichas de Empleadores Paginadas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene fichas de empleadores con paginación.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/listPageEmplyerSheets/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employers": [
+    {
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Empresa XYZ",
+      "eba": "EB123456",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de empleadores obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/listPageEmplyerSheets/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_fichas_de_empleadores_por_id_de_ficha_de_registro">
+                            <a class="anchor" href="#_obtener_fichas_de_empleadores_por_id_de_ficha_de_registro"></a>3.2.8. Obtener Fichas de Empleadores por ID de Ficha de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene fichas de empleadores asociadas a una ficha de registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/listPageEmployerSheetsByRecordSheetId/{page}/{size}/{recordSheetId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página - <code>recordSheetId</code> (path, UUID, required): ID de la ficha
+                                de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employers": [
+    {
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Empresa XYZ",
+      "eba": "EB123456",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de empleadores obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/listPageEmployerSheetsByRecordSheetId/0/10/123e4567-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_empleador_por_id">
+                            <a class="anchor" href="#_buscar_empleador_por_id"></a>3.2.9. Buscar Empleador por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca un empleador por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/findById/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "name": "Empresa XYZ",
+  "eba": "EB123456",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Empleador encontrado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/findById/987fcdeb-12ab-34cd-5678-426614174000",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_empleador_por_eba">
+                            <a class="anchor" href="#_buscar_empleador_por_eba"></a>3.2.10. Buscar Empleador por EBA</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca empleadores por EBA.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/findByEmployerEBA/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro de búsqueda (EBA)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employers": [
+    {
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Empresa XYZ",
+      "eba": "EB123456",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Empleadores encontrados",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/findByEmployerEBA/EB123456",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_empleador_por_eba_con_id_de_ficha_de_registro">
+                            <a class="anchor" href="#_buscar_empleador_por_eba_con_id_de_ficha_de_registro"></a>3.2.11. Buscar Empleador por EBA con ID de Ficha de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca empleadores por EBA asociados a una ficha de registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/find-by-employer-EBA-by-record_sheet_id/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro de búsqueda (EBA) - <code>recordSheetId</code> (query, UUID, required): ID de la ficha de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employers": [
+    {
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Empresa XYZ",
+      "eba": "EB123456",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Empleadores encontrados",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/find-by-employer-EBA-by-record_sheet_id/EB123456",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_fichas_de_empleadores">
+                            <a class="anchor" href="#_filtrar_fichas_de_empleadores"></a>3.2.12. Filtrar Fichas de Empleadores</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra fichas de empleadores por estado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/filter-sheet-employer</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>employerStatus</code> (query, string, optional): Estado del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employers": [
+    {
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Empresa XYZ",
+      "eba": "EB123456",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de empleadores filtradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/filter-sheet-employer",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_fichas_de_empleadores_por_id_de_ficha_de_registro">
+                            <a class="anchor" href="#_filtrar_fichas_de_empleadores_por_id_de_ficha_de_registro"></a>3.2.13. Filtrar Fichas de Empleadores por ID de Ficha de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra fichas de empleadores por estado y ID de ficha de registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/filter-sheet-employer-by-record-sheet-id</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>employerStatus</code> (query, string, optional): Estado del empleador - <code>recordSheetId</code> (query, UUID, required): ID de la ficha de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "employers": [
+    {
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "name": "Empresa XYZ",
+      "eba": "EB123456",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de empleadores filtradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Employer-Data/v1/filter-sheet-employer-by-record-sheet-id",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_empleador_lógicamente">
+                            <a class="anchor" href="#_eliminar_empleador_lógicamente"></a>3.2.14. Eliminar Empleador Lógicamente</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina un empleador de forma lógica.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Employer-Data/v1/deleteLogic/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Empleador eliminado lógicamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/Employer-Data/v1/deleteLogic/987fcdeb-12ab-34cd-5678-426614174000",
+  "method": "DELETE"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_worker_registration_constancy_controller">
+                        <a class="anchor" href="#_worker_registration_constancy_controller"></a>3.3. Worker Registration Constancy Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_buscar_constancia_de_inscripción_de_trabajador_por_masterid">
+                            <a class="anchor" href="#_buscar_constancia_de_inscripción_de_trabajador_por_masterid"></a>3.3.1. Buscar Constancia de Inscripción de Trabajador por MasterId</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una constancia de inscripción de trabajador por MasterId.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/sheetsWorker/registration-constancy/v1/find/{masterId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>masterId</code> (path, UUID, required): ID del maestro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "constancyId": "123e4567-e89b-12d3-a456-426614174002",
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Constancia encontrada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/sheetsWorker/registration-constancy/v1/find/123e4567-e89b-12d3-a456-426614174000",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_constancia_de_inscripción_de_trabajador_con_qr">
+                            <a class="anchor" href="#_buscar_constancia_de_inscripción_de_trabajador_con_qr"></a>3.3.2. Buscar Constancia de Inscripción de Trabajador con QR</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una constancia de inscripción de trabajador usando un código QR.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/sheetsWorker/registration-constancy/v1/findConstancyWithQR/{masterId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>masterId</code> (path, UUID, required): ID del maestro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">"QR_CODE_123456789"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "constancyId": "123e4567-e89b-12d3-a456-426614174002",
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Constancia encontrada con QR",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/sheetsWorker/registration-constancy/v1/findConstancyWithQR/123e4567-e89b-12d3-a456-426614174000",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_employer_registration_constancy_controller">
+                        <a class="anchor" href="#_employer_registration_constancy_controller"></a>3.4. Employer Registration Constancy Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_buscar_constancia_de_inscripción_de_empleador_por_masterid">
+                            <a class="anchor" href="#_buscar_constancia_de_inscripción_de_empleador_por_masterid"></a>3.4.1. Buscar Constancia de Inscripción de Empleador por MasterId</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una constancia de inscripción de empleador por MasterId.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/sheetsEmployer/registration-constancy/v1/find/{masterId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>masterId</code> (path, UUID, required): ID del maestro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "constancyId": "987fcdeb-12ab-34cd-5678-426614174002",
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Constancia encontrada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/sheetsEmployer/registration-constancy/v1/find/987fcdeb-12ab-34cd-5678-426614174000",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_constancia_de_inscripción_de_empleador_con_qr">
+                            <a class="anchor" href="#_buscar_constancia_de_inscripción_de_empleador_con_qr"></a>3.4.2. Buscar Constancia de Inscripción de Empleador con QR</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una constancia de inscripción de empleador usando un código QR.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/sheetsEmployer/registration-constancy/v1/findConstancyWithQR/{masterId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>masterId</code> (path, UUID, required): ID del maestro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">"QR_CODE_987654321"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "constancyId": "987fcdeb-12ab-34cd-5678-426614174002",
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Constancia encontrada con QR",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/sheetsEmployer/registration-constancy/v1/findConstancyWithQR/987fcdeb-12ab-34cd-5678-426614174000",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_workers_disabilities_controller">
+                        <a class="anchor" href="#_workers_disabilities_controller"></a>3.5. Workers Disabilities Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nueva_discapacidad_de_trabajador">
+                            <a class="anchor" href="#_añadir_nueva_discapacidad_de_trabajador"></a>3.5.1. Añadir Nueva Discapacidad de Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea una nueva discapacidad de trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/add-new-worker-disability</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "description": "Discapacidad física",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "description": "Discapacidad física",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Discapacidad de trabajador creada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workers-disabilities/v1/add-new-worker-disability",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_añadir_lista_de_discapacidades_de_trabajadores">
+                            <a class="anchor" href="#_añadir_lista_de_discapacidades_de_trabajadores"></a>3.5.2. Añadir Lista de Discapacidades de Trabajadores</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea múltiples discapacidades de trabajadores.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/add-new-list-workers-disabilities</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+    "workerId": "123e4567-e89b-12d3-a456-426614174000",
+    "description": "Discapacidad física",
+    "status": "ACTIVO"
+  },
+  {
+    "disabilityId": "789fcdeb-12ab-34cd-5678-426614174001",
+    "workerId": "123e4567-e89b-12d3-a456-426614174001",
+    "description": "Discapacidad auditiva",
+    "status": "ACTIVO"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilities": [
+    {
+      "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "description": "Discapacidad física",
+      "status": "ACTIVO"
+    },
+    {
+      "disabilityId": "789fcdeb-12ab-34cd-5678-426614174001",
+      "workerId": "123e4567-e89b-12d3-a456-426614174001",
+      "description": "Discapacidad auditiva",
+      "status": "ACTIVO"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Discapacidades de trabajadores creadas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workers-disabilities/v1/add-new-list-workers-disabilities",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_discapacidad_de_trabajador">
+                            <a class="anchor" href="#_actualizar_discapacidad_de_trabajador"></a>3.5.3. Actualizar Discapacidad de Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza una discapacidad de trabajador existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/update-worker/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID de la discapacidad</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "description": "Discapacidad física actualizada",
+  "status": "ACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "description": "Discapacidad física actualizada",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Discapacidad de trabajador actualizada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workers-disabilities/v1/update-worker/789fcdeb-12ab-34cd-5678-426614174000",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_discapacidades_de_trabajadores_paginadas">
+                            <a class="anchor" href="#_obtener_discapacidades_de_trabajadores_paginadas"></a>3.5.4. Obtener Discapacidades de Trabajadores Paginadas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene discapacidades de trabajadores con paginación.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/listPageWorkerSheets/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilities": [
+    {
+      "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "description": "Discapacidad física",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Discapacidades de trabajadores obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workers-disabilities/v1/listPageWorkerSheets/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_discapacidades_de_trabajadores_por_id_de_empleador">
+                            <a class="anchor" href="#_obtener_discapacidades_de_trabajadores_por_id_de_empleador"></a>3.5.5. Obtener Discapacidades de Trabajadores por ID de Empleador</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene discapacidades de trabajadores asociadas a un empleador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/listPageWorkerSheetsR/{page}/{size}/{idEmployerData}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página - <code>idEmployerData</code> (path, UUID, required): ID del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilities": [
+    {
+      "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "workerId": "123e4567-e89b-12d3-a456-426614174000",
+      "description": "Discapacidad física",
+      "status": "ACTIVO"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Discapacidades de trabajadores obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workers-disabilities/v1/listPageWorkerSheetsR/0/10/987fcdeb-12ab-34cd-5678-426614174000",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todas_las_discapacidades_por_id_de_empleador">
+                            <a class="anchor" href="#_obtener_todas_las_discapacidades_por_id_de_empleador"></a>3.5.6. Obtener Todas las Discapacidades por ID de Empleador</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las discapacidades asociadas a un empleador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/get-list-workers-disabilities/{idEmployerData}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>idEmployerData</code> (path, UUID, required): ID del empleador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+    "workerId": "123e4567-e89b-12d3-a456-426614174000",
+    "description": "Discapacidad física",
+    "status": "ACTIVO"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_discapacidad_de_trabajador_por_id">
+                            <a class="anchor" href="#_buscar_discapacidad_de_trabajador_por_id"></a>3.5.7. Buscar Discapacidad de Trabajador por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una discapacidad de trabajador por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/findById/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID de la discapacidad</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilityId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "workerId": "123e4567-e89b-12d3-a456-426614174000",
+  "description": "Discapacidad física",
+  "status": "ACTIVO",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Discapacidad de trabajador encontrada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-workers-disabilities/v1/findById/789fcdeb-12ab-34cd-5678-426614174000",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_discapacidad_de_trabajador_lógicamente">
+                            <a class="anchor" href="#_eliminar_discapacidad_de_trabajador_lógicamente"></a>3.5.8. Eliminar Discapacidad de Trabajador Lógicamente</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina una discapacidad de trabajador de forma lógica.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-workers-disabilities/v1/deleteLogic/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID de la discapacidad</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Discapacidad de trabajador eliminada lógicamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/sheets-workers-disabilities/v1/deleteLogic/789fcdeb-12ab-34cd-5678-426614174000",
+    "method": "DELETE"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_sheets_file_controller">
+                        <a class="anchor" href="#_sheets_file_controller"></a>3.6. Sheets File Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nueva_lista_de_archivos_de_ficha">
+                            <a class="anchor" href="#_añadir_nueva_lista_de_archivos_de_ficha"></a>3.6.1. Añadir Nueva Lista de Archivos de Ficha</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea múltiples archivos para una ficha.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-files/v1/add-new-list-sheet-files</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+    "sheetId": "123e4567-e89b-12d3-a456-426614174001",
+    "fileName": "documento1.pdf",
+    "description": "Documento de soporte"
+  },
+  {
+    "fileId": "789fcdeb-12ab-34cd-5678-426614174003",
+    "sheetId": "123e4567-e89b-12d3-a456-426614174001",
+    "fileName": "documento2.pdf",
+    "description": "Evidencia adicional"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "files": [
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+      "sheetId": "123e4567-e89b-12d3-a456-426614174001",
+      "fileName": "documento1.pdf",
+      "description": "Documento de soporte"
+    },
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174003",
+      "sheetId": "123e4567-e89b-12d3-a456-426614174001",
+      "fileName": "documento2.pdf",
+      "description": "Evidencia adicional"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivos de ficha creados",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-files/v1/add-new-list-sheet-files",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_archivo_de_ficha">
+                            <a class="anchor" href="#_actualizar_archivo_de_ficha"></a>3.6.2. Actualizar Archivo de Ficha</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un archivo de ficha existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-files/v1/update-sheet-file/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del archivo</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "fileName": "documento1_actualizado.pdf",
+  "description": "Documento de soporte actualizado"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+  "sheetId": "123e4567-e89b-12d3-a456-426614174001",
+  "fileName": "documento1_actualizado.pdf",
+  "description": "Documento de soporte actualizado",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo de ficha actualizado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-files/v1/update-sheet-file/789fcdeb-12ab-34cd-5678-426614174002",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_archivos_de_ficha">
+                            <a class="anchor" href="#_obtener_archivos_de_ficha"></a>3.6.3. Obtener Archivos de Ficha</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los archivos asociados a una ficha.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-files/v1/get-files/{idSheetData}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>idSheetData</code> (path, UUID, required): ID de la ficha</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+    "sheetId": "123e4567-e89b-12d3-a456-426614174001",
+    "fileName": "documento1.pdf",
+    "description": "Documento de soporte"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_archivo_de_ficha_por_descripción">
+                            <a class="anchor" href="#_buscar_archivo_de_ficha_por_descripción"></a>3.6.4. Buscar Archivo de Ficha por Descripción</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca un archivo de ficha por su descripción.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-files/v1/find-sheet-file-by-description/{idSheetData}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>idSheetData</code> (path, UUID, required): ID de la ficha</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174002",
+  "sheetId": "123e4567-e89b-12d3-a456-426614174001",
+  "fileName": "documento1.pdf",
+  "description": "Documento de soporte",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo de ficha encontrado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/sheets-files/v1/find-sheet-file-by-description/123e4567-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_archivo_de_ficha">
+                            <a class="anchor" href="#_eliminar_archivo_de_ficha"></a>3.6.5. Eliminar Archivo de Ficha</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina un archivo de ficha.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/sheets-files/v1/deleteSheetFile/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID del archivo</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Archivo de ficha eliminado",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/sheets-files/v1/deleteSheetFile/789fcdeb-12ab-34cd-5678-426614174002",
+  "method": "DELETE"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_record_sheet_controller">
+                        <a class="anchor" href="#_record_sheet_controller"></a>3.7. Record Sheet Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_buscar_ficha_de_registro_por_id">
+                            <a class="anchor" href="#_buscar_ficha_de_registro_por_id"></a>3.7.1. Buscar Ficha de Registro por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca una ficha de registro por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record_sheets/v1/findRecordSheetById/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID de la ficha de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "recordSheetId": "123e4567-e89b-12d3-a456-426614174001",
+  "status": "ACTIVO",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Ficha de registro encontrada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record_sheets/v1/findRecordSheetById/123e4567-e89b-12d3-a456-426614174001",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_fichas_de_registro_por_filtros">
+                            <a class="anchor" href="#_buscar_fichas_de_registro_por_filtros"></a>3.7.2. Buscar Fichas de Registro por Filtros</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca fichas de registro por filtros y staff asignado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record_sheets/v1/search/{assignedStaffId}/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>assignedStaffId</code> (path, UUID, required): ID del staff asignado - <code>filter</code> (path, string, required): Filtro de búsqueda</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "recordSheets": [
+    {
+      "recordSheetId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de registro encontradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record_sheets/v1/search/456e7890-e89b-12d3-a456-426614174001/filtro",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_fichas_de_registro_por_estado_y_staff">
+                            <a class="anchor" href="#_filtrar_fichas_de_registro_por_estado_y_staff"></a>3.7.3. Filtrar Fichas de Registro por Estado y Staff</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra fichas de registro por estado y staff asignado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record_sheets/v1/filterRecordSheetStatusByAssignedStaffId</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>status</code> (query, string, optional): Estado de la ficha - <code>assignedStaffId</code> (query, UUID, required): ID del staff asignado</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "recordSheets": [
+    {
+      "recordSheetId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de registro filtradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record_sheets/v1/filterRecordSheetStatusByAssignedStaffId",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_fichas_de_registro_paginadas">
+                            <a class="anchor" href="#_obtener_fichas_de_registro_paginadas"></a>3.7.4. Obtener Fichas de Registro Paginadas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene fichas de registro paginadas por staff asignado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record_sheets/v1/ListPageRecordSheet/{assignedStaffId}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>assignedStaffId</code> (path, UUID, required): ID del staff asignado - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño
+                                de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "recordSheets": [
+    {
+      "recordSheetId": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Fichas de registro obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record_sheets/v1/ListPageRecordSheet/456e7890-e89b-12d3-a456-426614174001/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_ficha_de_registro">
+                            <a class="anchor" href="#_actualizar_estado_de_ficha_de_registro"></a>3.7.5. Actualizar Estado de Ficha de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de una ficha de registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record_sheets/v1/updateStatus/{recordSheetId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordSheetId</code> (path, UUID, required): ID de la ficha de registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "newStatus": "INACTIVO"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Estado de ficha de registro actualizado",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/record_sheets/v1/updateStatus/123e4567-e89b-12d3-a456-426614174001",
+  "method": "PATCH"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_record_file_controller">
+                        <a class="anchor" href="#_record_file_controller"></a>3.8. Record File Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nuevo_archivo_de_registro">
+                            <a class="anchor" href="#_añadir_nuevo_archivo_de_registro"></a>3.8.1. Añadir Nuevo Archivo de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Sube un nuevo archivo para un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/add-new-record-file</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code>file: &lt;binary file&gt;
+recordId: "123e4567-e89b-12d3-a456-426614174001"
+tittle: "Documento de Inspección"
+description: "Evidencia de inspección laboral"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "fileName": "inspeccion.pdf",
+  "tittle": "Documento de Inspección",
+  "description": "Evidencia de inspección laboral",
+  "createdAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo subido exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/add-new-record-file",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_subir_múltiples_archivos">
+                            <a class="anchor" href="#_subir_múltiples_archivos"></a>3.8.2. Subir Múltiples Archivos</h4>
+                        <div class="paragraph">
+                            <p><strong>Sube múltiples archivos para un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/multi-carga-record-files</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (query, string, required): ID del registro - <code>tittle</code> (query, array[string], required): Títulos de los archivos - <code>description</code> (query, array[string],
+                                required): Descripciones de los archivos</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code>files: [&lt;binary file1&gt;, &lt;binary file2&gt;]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "files": [
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+      "fileName": "inspeccion1.pdf",
+      "tittle": "Documento 1",
+      "description": "Evidencia 1",
+      "createdAt": "2025-05-06T10:00:00Z"
+    },
+    {
+      "fileId": "789fcdeb-12ab-34cd-5678-426614174001",
+      "fileName": "inspeccion2.pdf",
+      "tittle": "Documento 2",
+      "description": "Evidencia 2",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivos subidos exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/multi-carga-record-files",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_archivo_de_registro">
+                            <a class="anchor" href="#_actualizar_archivo_de_registro"></a>3.8.3. Actualizar Archivo de Registro</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un archivo existente de un registro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/record-files/v1/update-record-file</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong> (multipart/form-data):</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code>fileName: "inspeccion.pdf"
+fileUrl: "https://storage.example.com/inspeccion.pdf"
+newFile: &lt;binary file&gt;
+tittle: "Documento de Inspección Actualizado"
+description: "Evidencia actualizada de inspección laboral"
+recordId: "123e4567-e89b-12d3-a456-426614174001"</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "fileId": "789fcdeb-12ab-34cd-5678-426614174000",
+  "fileName": "inspeccion.pdf",
+  "tittle": "Documento de Inspección Actualizado",
+  "description": "Evidencia actualizada de inspección laboral",
+  "updatedAt": "2025-05-06T10:00:00Z",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Archivo actualizado exitosamente",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/record-files/v1/update-record-file",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_records_controller">
+                        <a class="anchor" href="#_records_controller"></a>3.9. Records Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_actualizar_estado_de_registro_a_creado">
+                            <a class="anchor" href="#_actualizar_estado_de_registro_a_creado"></a>3.9.1. Actualizar Estado de Registro a Creado</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el estado de un registro a creado.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/records/v1/updateStatusRecordToCreate/{recordId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>recordId</code> (path, UUID, required): ID del registro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "comment": "Registro confirmado como creado"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "recordId": "123e4567-e89b-12d3-a456-426614174001",
+  "status": "CREATED",
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Estado de registro actualizado a creado",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/records/v1/updateStatusRecordTo |Create/123e4567-e89b-12d3-a456-426614174001",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_audit_controller">
+                        <a class="anchor" href="#_audit_controller"></a>3.10. Audit Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_listar_auditorías_paginadas">
+                            <a class="anchor" href="#_listar_auditorías_paginadas"></a>3.10.1. Listar Auditorías Paginadas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene auditorías con paginación.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/audits/v1/listAudits/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "audits": [
+    {
+      "auditId": "123e4567-e89b-12d3-a456-426614174003",
+      "description": "Auditoría laboral",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Auditorías obtenidas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/audits/v1/listAudits/0/10",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_auditorías_por_búsqueda">
+                            <a class="anchor" href="#_filtrar_auditorías_por_búsqueda"></a>3.10.2. Filtrar Auditorías por Búsqueda</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra auditorías por un filtro de búsqueda.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/audits/v1/list-filter-search/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro de búsqueda</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "audits": [
+    {
+      "auditId": "123e4567-e89b-12d3-a456-426614174003",
+      "description": "Auditoría laboral",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Auditorías filtradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/audits/v1/list-filter-search/auditoria",
+    "method": "GET"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_auditorías_por_criterios">
+                            <a class="anchor" href="#_filtrar_auditorías_por_criterios"></a>3.10.3. Filtrar Auditorías por Criterios</h4>
+                        <div class="paragraph">
+                            <p><strong>Filtra auditorías por criterios específicos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/audits/v1/list-filters-search</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "status": "ACTIVO",
+  "startDate": "2025-01-01",
+  "endDate": "2025-12-31"
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "audits": [
+    {
+      "auditId": "123e4567-e89b-12d3-a456-426614174003",
+      "description": "Auditoría laboral",
+      "status": "ACTIVO",
+      "createdAt": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "total": 1,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Auditorías filtradas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/audits/v1/list-filters-search",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_sheets_work_day_controller">
+                        <a class="anchor" href="#_sheets_work_day_controller"></a>3.11. Sheets Work Day Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_añadir_nueva_lista_de_jornadas_laborales">
+                            <a class="anchor" href="#_añadir_nueva_lista_de_jornadas_laborales"></a>3.11.1. Añadir Nueva Lista de Jornadas Laborales</h4>
+                        <div class="paragraph">
+                            <p><strong>Crea múltiples jornadas laborales para un empleador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Sheet-Work-Day/v1/add-new-list-sheet-workDay</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "workDayId": "789fcdeb-12ab-34cd-5678-426614174004",
+    "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+    "date": "2025-05-06",
+    "hours": 8
+  },
+  {
+    "workDayId": "789fcdeb-12ab-34cd-5678-426614174005",
+    "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+    "date": "2025-05-07",
+    "hours": 8
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workDays": [
+    {
+      "workDayId": "789fcdeb-12ab-34cd-5678-426614174004",
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "date": "2025-05-06",
+      "hours": 8
+    },
+    {
+      "workDayId": "789fcdeb-12ab-34cd-5678-426614174005",
+      "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+      "date": "2025-05-07",
+      "hours": 8
+    }
+  ],
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Jornadas laborales creadas",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Sheet-Work-Day/v1/add-new-list-sheet-workDay",
+    "method": "POST"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_jornada_laboral">
+                            <a class="anchor" href="#_actualizar_jornada_laboral"></a>3.11.2. Actualizar Jornada Laboral</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza una jornada laboral existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Sheet-Work-Day/v1/update-sheet-work-day/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID de la jornada laboral</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Request Body</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "date": "2025-05-06",
+  "hours": 9
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workDayId": "789fcdeb-12ab-34cd-5678-426614174004",
+  "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+  "date": "2025-05-06",
+  "hours": 9,
+  "responseAdvisor": {
+    "code": "200",
+    "message": "Jornada laboral actualizada",
+    "timestamp": "2025-05-06T10:00:00Z",
+    "path": "/inspection/Sheet-Work-Day/v1/update-sheet-work-day/789fcdeb-12ab-34cd-5678-426614174004",
+    "method": "PATCH"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_archivos_de_jornada_laboral">
+                            <a class="anchor" href="#_obtener_archivos_de_jornada_laboral"></a>3.11.3. Obtener Archivos de Jornada Laboral</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los archivos de jornadas laborales asociadas a una ficha.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Sheet-Work-Day/v1/get-files-employer-work-day/{idSheetData}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>idSheetData</code> (path, UUID, required): ID de la ficha</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "workDayId": "789fcdeb-12ab-34cd-5678-426614174004",
+    "employerId": "987fcdeb-12ab-34cd-5678-426614174000",
+    "date": "2025-05-06",
+    "hours": 8
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_verificar_existencia_de_jornada_laboral">
+                            <a class="anchor" href="#_verificar_existencia_de_jornada_laboral"></a>3.11.4. Verificar Existencia de Jornada Laboral</h4>
+                        <div class="paragraph">
+                            <p><strong>Verifica la existencia de una jornada laboral.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Sheet-Work-Day/v1/check-existence-sheets-workday/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID de la jornada laboral</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">true</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_jornada_laboral_lógicamente">
+                            <a class="anchor" href="#_eliminar_jornada_laboral_lógicamente"></a>3.11.5. Eliminar Jornada Laboral Lógicamente</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina una jornada laboral de forma lógica.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/Sheet-Work-Day/v1/deleteLogic-employer-work-day/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, UUID, required): ID de la jornada laboral</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "code": "200",
+  "message": "Jornada laboral eliminada lógicamente",
+  "timestamp": "2025-05-06T10:00:00Z",
+  "path": "/inspection/Sheet-Work-Day/v1/deleteLogic-employer-work-day/789fcdeb-12ab-34cd-5678-426614174004",
+  "method": "DELETE"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Version 0.0.350<br> Last updated 2025-05-06 10:48:36 -0600
+        </div>
+    </div>
+</body>
+
+</html>

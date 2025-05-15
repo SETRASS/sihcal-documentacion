@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <meta name="author" content="Angel Diaz Sanchez">
+    <title>Lookups Service API Documentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="article toc2 toc-left">
+    <div id="header">
+        <h1>Lookups Service API Documentation</h1>
+        <div class="details">
+            <span id="author" class="author">Angel Diaz Sanchez</span><br>
+            <span id="email" class="email"><a href="mailto:angel_diaz_sanchez@wvi.org">angel_diaz_sanchez@wvi.org</a></span><br>
+            <span id="revnumber">version 0.0.43,</span>
+            <span id="revdate">2025-05-06</span>
+        </div>
+        <div id="toc" class="toc2">
+            <div id="toctitle">Table of Contents</div>
+            <ul class="sectlevel1">
+                <li><a href="#_introducción">1. Introducción</a></li>
+                <li><a href="#_información_general">2. Información General</a></li>
+                <li><a href="#_endpoints">3. Endpoints</a>
+                    <ul class="sectlevel2">
+                        <li><a href="#_offices_controller_v1">3.1. Offices Controller V1</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_obtener_todas_las_oficinas">3.1.1. Obtener Todas las Oficinas</a></li>
+                                <li><a href="#_obtener_oficinas_por_id_padre">3.1.2. Obtener Oficinas por ID Padre</a></li>
+                                <li><a href="#_obtener_oficina_por_número_iso">3.1.3. Obtener Oficina por Número ISO</a></li>
+                                <li><a href="#_obtener_oficina_por_nombre_y_tipo">3.1.4. Obtener Oficina por Nombre y Tipo</a></li>
+                                <li><a href="#_obtener_jerarquía_de_oficinas">3.1.5. Obtener Jerarquía de Oficinas</a></li>
+                                <li><a href="#_obtener_información_de_oficina_por_id">3.1.6. Obtener Información de Oficina por ID</a></li>
+                                <li><a href="#_obtener_información_de_oficina_por_nombre">3.1.7. Obtener Información de Oficina por Nombre</a></li>
+                                <li><a href="#_obtener_información_de_oficina_regional_por_nombre">3.1.8. Obtener Información de Oficina Regional por Nombre</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_general_data_controller_v1">3.2. General Data Controller V1</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_obtener_todos_los_datos_generales_del_personal">3.2.1. Obtener Todos los Datos Generales del Personal</a></li>
+                                <li><a href="#_obtener_todos_los_países">3.2.2. Obtener Todos los Países</a></li>
+                                <li><a href="#_obtener_todos_los_departamentos">3.2.3. Obtener Todos los Departamentos</a></li>
+                                <li><a href="#_obtener_discapacidad_por_id">3.2.4. Obtener Discapacidad por ID</a></li>
+                                <li><a href="#_obtener_todos_los_niveles_educativos">3.2.5. Obtener Todos los Niveles Educativos</a></li>
+                                <li><a href="#_obtener_nivel_educativo_por_id">3.2.6. Obtener Nivel Educativo por ID</a></li>
+                                <li><a href="#_obtener_grupo_étnico_por_id">3.2.7. Obtener Grupo Étnico por ID</a></li>
+                                <li><a href="#_obtener_posición_funcional_por_id">3.2.8. Obtener Posición Funcional por ID</a></li>
+                                <li><a href="#_obtener_género_por_id">3.2.9. Obtener Género por ID</a></li>
+                                <li><a href="#_obtener_dirección_general_por_id">3.2.10. Obtener Dirección General por ID</a></li>
+                                <li><a href="#_obtener_tipo_de_identificación_por_id">3.2.11. Obtener Tipo de Identificación por ID</a></li>
+                                <li><a href="#_obtener_modalidad_por_id">3.2.12. Obtener Modalidad por ID</a></li>
+                                <li><a href="#_obtener_todos_los_municipios">3.2.13. Obtener Todos los Municipios</a></li>
+                                <li><a href="#_obtener_municipio_por_id">3.2.14. Obtener Municipio por ID</a></li>
+                                <li><a href="#_obtener_todas_las_posiciones_nominales">3.2.15. Obtener Todas las Posiciones Nominales</a></li>
+                                <li><a href="#_obtener_posición_nominal_por_id">3.2.16. Obtener Posición Nominal por ID</a></li>
+                                <li><a href="#_obtener_posiciones_nominales_por_nombre">3.2.17. Obtener Posiciones Nominales por Nombre</a></li>
+                                <li><a href="#_obtener_unidad_de_trabajo_por_id">3.2.18. Obtener Unidad de Trabajo por ID</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_location_controller_v1">3.3. Location Controller V1</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_obtener_todas_las_ubicaciones">3.3.1. Obtener Todas las Ubicaciones</a></li>
+                                <li><a href="#_obtener_departamento_y_municipio_por_código">3.3.2. Obtener Departamento y Municipio por Código</a></li>
+                                <li><a href="#_obtener_departamento_por_id_de_municipio">3.3.3. Obtener Departamento por ID de Municipio</a></li>
+                                <li><a href="#_obtener_municipios_por_id_padre">3.3.4. Obtener Municipios por ID Padre</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="sect1">
+            <h2 id="_introducción">
+                <a class="anchor" href="#_introducción"></a>1. Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del servicio <code>Lookups Service</code>, que proporciona endpoints para gestionar datos de oficinas, ubicaciones, y datos generales de personal. Conforme a la especificación Swagger 2.0.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_información_general">
+                <a class="anchor" href="#_información_general"></a>2. Información General</h2>
+            <div class="sectionbody">
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Versión</strong>: 0.0.43</p>
+                        </li>
+                        <li>
+                            <p><strong>Contacto</strong>: Angel Diaz Sanchez (<a href="mailto:angel_diaz_sanchez@wvi.org">angel_diaz_sanchez@wvi.org</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Servidor</strong>: <a href="https://prod.svc-lookups.ecms.setrass.net" class="bare">https://prod.svc-lookups.ecms.setrass.net</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_endpoints">
+                <a class="anchor" href="#_endpoints"></a>3. Endpoints</h2>
+            <div class="sectionbody">
+                <div class="sect2">
+                    <h3 id="_offices_controller_v1">
+                        <a class="anchor" href="#_offices_controller_v1"></a>3.1. Offices Controller V1</h3>
+                    <div class="sect3">
+                        <h4 id="_obtener_todas_las_oficinas">
+                            <a class="anchor" href="#_obtener_todas_las_oficinas"></a>3.1.1. Obtener Todas las Oficinas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las oficinas disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "isoNumber": "ISO123",
+    "office": "Oficina Central",
+    "officeType": "PRINCIPAL",
+    "parentId": null
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_oficinas_por_id_padre">
+                            <a class="anchor" href="#_obtener_oficinas_por_id_padre"></a>3.1.2. Obtener Oficinas por ID Padre</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las oficinas asociadas a un ID padre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/office/{IdParent}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>IdParent</code> (path, string, required): ID del padre</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "223e4567-e89b-12d3-a456-426614174001",
+    "isoNumber": "ISO124",
+    "office": "Oficina Secundaria",
+    "officeType": "SECUNDARIA",
+    "parentId": "123e4567-e89b-12d3-a456-426614174000"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_oficina_por_número_iso">
+                            <a class="anchor" href="#_obtener_oficina_por_número_iso"></a>3.1.3. Obtener Oficina por Número ISO</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una oficina por su número ISO.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/officeByIsoNumber/{IsoNumber}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>IsoNumber</code> (path, string, required): Número ISO de la oficina</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "isoNumber": "ISO123",
+  "office": "Oficina Central",
+  "officeType": "PRINCIPAL",
+  "parentId": null
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_oficina_por_nombre_y_tipo">
+                            <a class="anchor" href="#_obtener_oficina_por_nombre_y_tipo"></a>3.1.4. Obtener Oficina por Nombre y Tipo</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una oficina por su nombre y tipo.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/officeByNameAndType/{officeName}/{officeType}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>officeName</code> (path, string, required): Nombre de la oficina - <code>officeType</code> (path, string, required): Tipo de oficina</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "isoNumber": "ISO123",
+  "office": "Oficina Central",
+  "officeType": "PRINCIPAL",
+  "parentId": null
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_jerarquía_de_oficinas">
+                            <a class="anchor" href="#_obtener_jerarquía_de_oficinas"></a>3.1.5. Obtener Jerarquía de Oficinas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene la jerarquía de oficinas según filtros.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/officeHierarchy/{filters}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filters</code> (path, string, required): Filtros para la jerarquía</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "office": {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "isoNumber": "ISO123",
+      "office": "Oficina Central",
+      "officeType": "PRINCIPAL",
+      "parentId": null
+    },
+    "childrenOffice": []
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_información_de_oficina_por_id">
+                            <a class="anchor" href="#_obtener_información_de_oficina_por_id"></a>3.1.6. Obtener Información de Oficina por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene información detallada de una oficina por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/officeInformation/{IdOffice}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>IdOffice</code> (path, string, required): ID de la oficina</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "id_office": "OFF123",
+  "office": "Oficina Central",
+  "office_type": "PRINCIPAL",
+  "address": "Calle Principal 123",
+  "phone": "+1234567890",
+  "cell_phone": "+1234567891",
+  "manager_name": "Juan Pérez",
+  "department": "Departamento Central",
+  "municipality": "Municipio Central"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_información_de_oficina_por_nombre">
+                            <a class="anchor" href="#_obtener_información_de_oficina_por_nombre"></a>3.1.7. Obtener Información de Oficina por Nombre</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene información detallada de una oficina por su nombre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/officeInformationName/{NameOffice}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>NameOffice</code> (path, string, required): Nombre de la oficina</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "id_office": "OFF123",
+  "office": "Oficina Central",
+  "office_type": "PRINCIPAL",
+  "address": "Calle Principal 123",
+  "phone": "+1234567890",
+  "cell_phone": "+1234567891",
+  "manager_name": "Juan Pérez",
+  "department": "Departamento Central",
+  "municipality": "Municipio Central"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_información_de_oficina_regional_por_nombre">
+                            <a class="anchor" href="#_obtener_información_de_oficina_regional_por_nombre"></a>3.1.8. Obtener Información de Oficina Regional por Nombre</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene información detallada de una oficina regional por su nombre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/Offices/v1/officeInformationNameRegional/{NameOffice}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>NameOffice</code> (path, string, required): Nombre de la oficina regional</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "id_office": "OFF123",
+  "office": "Oficina Regional",
+  "office_type": "REGIONAL",
+  "address": "Calle Regional 456",
+  "phone": "+1234567890",
+  "cell_phone": "+1234567891",
+  "manager_name": "María López",
+  "department": "Departamento Regional",
+  "municipality": "Municipio Regional"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_general_data_controller_v1">
+                        <a class="anchor" href="#_general_data_controller_v1"></a>3.2. General Data Controller V1</h3>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_datos_generales_del_personal">
+                            <a class="anchor" href="#_obtener_todos_los_datos_generales_del_personal"></a>3.2.1. Obtener Todos los Datos Generales del Personal</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los datos generales del personal.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "disabilities": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174001",
+      "type_disability": "Física"
+    }
+  ],
+  "educationLevels": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174002",
+      "education_level": "Universitario"
+    }
+  ],
+  "ethnicGroups": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174003",
+      "type_ethnic_group": "Indígena"
+    }
+  ],
+  "functionalPositions": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174004",
+      "functional_position": "Analista"
+    }
+  ],
+  "genders": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174005",
+      "gender": "Masculino"
+    }
+  ],
+  "generalDirectorates": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174006",
+      "general_direction": "Dirección General"
+    }
+  ],
+  "idTypes": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174007",
+      "id_type": "DNI"
+    }
+  ],
+  "modalities": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174008",
+      "modality": "Presencial"
+    }
+  ],
+  "municipalities": [
+    [
+      {
+        "id": "123e4567-e89b-12d3-a456-426614174009",
+        "name": "Municipio Central",
+        "locationType": "MUNICIPALITY"
+      }
+    ]
+  ],
+  "nominalPositions": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174010",
+      "nominal_position": "Gerente"
+    }
+  ],
+  "workUnits": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174011",
+      "work_unit": "Unidad Administrativa"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_países">
+                            <a class="anchor" href="#_obtener_todos_los_países"></a>3.2.2. Obtener Todos los Países</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los países disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/country/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "countries": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174012",
+      "name": "País Ejemplo"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_departamentos">
+                            <a class="anchor" href="#_obtener_todos_los_departamentos"></a>3.2.3. Obtener Todos los Departamentos</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los departamentos disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/departamento/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "departments": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174013",
+      "name": "Departamento Central"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_discapacidad_por_id">
+                            <a class="anchor" href="#_obtener_discapacidad_por_id"></a>3.2.4. Obtener Discapacidad por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una discapacidad por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/disability/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID de la discapacidad</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174001",
+  "type_disability": "Física"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_niveles_educativos">
+                            <a class="anchor" href="#_obtener_todos_los_niveles_educativos"></a>3.2.5. Obtener Todos los Niveles Educativos</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los niveles educativos disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/educationlevel/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "educationLevels": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174002",
+      "education_level": "Universitario"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_nivel_educativo_por_id">
+                            <a class="anchor" href="#_obtener_nivel_educativo_por_id"></a>3.2.6. Obtener Nivel Educativo por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un nivel educativo por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/educationlevel/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID del nivel educativo</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174002",
+  "education_level": "Universitario"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_grupo_étnico_por_id">
+                            <a class="anchor" href="#_obtener_grupo_étnico_por_id"></a>3.2.7. Obtener Grupo Étnico por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un grupo étnico por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/ethnicGroup/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID del grupo étnico</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174003",
+  "type_ethnic_group": "Indígena"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_posición_funcional_por_id">
+                            <a class="anchor" href="#_obtener_posición_funcional_por_id"></a>3.2.8. Obtener Posición Funcional por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una posición funcional por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/functionalPosition/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID de la posición funcional</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174004",
+  "functional_position": "Analista"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_género_por_id">
+                            <a class="anchor" href="#_obtener_género_por_id"></a>3.2.9. Obtener Género por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un género por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/gender/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID del género</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174005",
+  "gender": "Masculino"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_dirección_general_por_id">
+                            <a class="anchor" href="#_obtener_dirección_general_por_id"></a>3.2.10. Obtener Dirección General por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una dirección general por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/generaldiractorate/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID de la dirección general</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174006",
+  "general_direction": "Dirección General"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_tipo_de_identificación_por_id">
+                            <a class="anchor" href="#_obtener_tipo_de_identificación_por_id"></a>3.2.11. Obtener Tipo de Identificación por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un tipo de identificación por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/idType/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID del tipo de identificación</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174007",
+  "id_type": "DNI"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_modalidad_por_id">
+                            <a class="anchor" href="#_obtener_modalidad_por_id"></a>3.2.12. Obtener Modalidad por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una modalidad por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/modality/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID de la modalidad</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174008",
+  "modality": "Presencial"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_municipios">
+                            <a class="anchor" href="#_obtener_todos_los_municipios"></a>3.2.13. Obtener Todos los Municipios</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los municipios disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/municipality/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "municipalities": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174009",
+      "name": "Municipio Central",
+      "locationType": "MUNICIPALITY"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_municipio_por_id">
+                            <a class="anchor" href="#_obtener_municipio_por_id"></a>3.2.14. Obtener Municipio por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un municipio por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/municipality/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID del municipio</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174009",
+  "name": "Municipio Central",
+  "locationType": "MUNICIPALITY"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todas_las_posiciones_nominales">
+                            <a class="anchor" href="#_obtener_todas_las_posiciones_nominales"></a>3.2.15. Obtener Todas las Posiciones Nominales</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las posiciones nominales disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/nominalPosition/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174010",
+    "nominal_position": "Gerente"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_posición_nominal_por_id">
+                            <a class="anchor" href="#_obtener_posición_nominal_por_id"></a>3.2.16. Obtener Posición Nominal por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una posición nominal por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/nominalPosition/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID de la posición nominal</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174010",
+  "nominal_position": "Gerente"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_posiciones_nominales_por_nombre">
+                            <a class="anchor" href="#_obtener_posiciones_nominales_por_nombre"></a>3.2.17. Obtener Posiciones Nominales por Nombre</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene posiciones nominales por su nombre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/nominalPositionName/{Name}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Name</code> (path, string, required): Nombre de la posición nominal</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174010",
+    "nominal_position": "Gerente"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_unidad_de_trabajo_por_id">
+                            <a class="anchor" href="#_obtener_unidad_de_trabajo_por_id"></a>3.2.18. Obtener Unidad de Trabajo por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una unidad de trabajo por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/general-staff-data/v1/workUnit/{Id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>Id</code> (path, string, required): ID de la unidad de trabajo</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174011",
+  "work_unit": "Unidad Administrativa"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_location_controller_v1">
+                        <a class="anchor" href="#_location_controller_v1"></a>3.3. Location Controller V1</h3>
+                    <div class="sect3">
+                        <h4 id="_obtener_todas_las_ubicaciones">
+                            <a class="anchor" href="#_obtener_todas_las_ubicaciones"></a>3.3.1. Obtener Todas las Ubicaciones</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las ubicaciones disponibles.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/locations/v1/all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "location": {
+      "id": "123e4567-e89b-12d3-a456-426614174014",
+      "code": "DEP001",
+      "isoName": "ISO_DEP001",
+      "name": "Departamento Central",
+      "locationType": "DEPARTMENT",
+      "parentId": null
+    },
+    "children": []
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_departamento_y_municipio_por_código">
+                            <a class="anchor" href="#_obtener_departamento_y_municipio_por_código"></a>3.3.2. Obtener Departamento y Municipio por Código</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un departamento y municipio por sus códigos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/locations/v1/get-department-and-municipio-by-code/{departmentCode}/{municipalityCode}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>departmentCode</code> (path, string, required): Código del departamento - <code>municipalityCode</code> (path, string, required): Código del municipio</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "departamento": {
+    "id": "123e4567-e89b-12d3-a456-426614174014",
+    "code": "DEP001",
+    "isoName": "ISO_DEP001",
+    "name": "Departamento Central",
+    "locationType": "DEPARTMENT",
+    "parentId": null
+  },
+  "municipio": {
+    "id": "123e4567-e89b-12d3-a456-426614174015",
+    "code": "MUN001",
+    "isoName": "ISO_MUN001",
+    "name": "Municipio Central",
+    "locationType": "MUNICIPALITY",
+    "parentId": "123e4567-e89b-12d3-a456-426614174014"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_departamento_por_id_de_municipio">
+                            <a class="anchor" href="#_obtener_departamento_por_id_de_municipio"></a>3.3.3. Obtener Departamento por ID de Municipio</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene el departamento asociado a un ID de municipio.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/locations/v1/getDepartmentByMunicipalityId/{IdMunicipality}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>IdMunicipality</code> (path, string, required): ID del municipio</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "id": "123e4567-e89b-12d3-a456-426614174014",
+  "code": "DEP001",
+  "isoName": "ISO_DEP001",
+  "name": "Departamento Central",
+  "locationType": "DEPARTMENT",
+  "parentId": null
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_municipios_por_id_padre">
+                            <a class="anchor" href="#_obtener_municipios_por_id_padre"></a>3.3.4. Obtener Municipios por ID Padre</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los municipios asociados a un ID padre.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/locations/v1/municipality/{IdParent}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>IdParent</code> (path, string, required): ID del padre (departamento)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174015",
+    "code": "MUN001",
+    "isoName": "ISO_MUN001",
+    "name": "Municipio Central",
+    "locationType": "MUNICIPALITY",
+    "parentId": "123e4567-e89b-12d3-a456-426614174014"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Version 0.0.43<br> Last updated 2025-05-06 11:01:40 -0600
+        </div>
+    </div>
+</body>
+
+</html>

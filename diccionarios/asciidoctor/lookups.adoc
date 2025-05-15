@@ -1,0 +1,147 @@
+= Diccionario de Datos - Tablas de Referencia
+
+== Tabla: tbl_disability
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador único de la discapacidad |character varying(50) |PK, NOT NULL
+|type_disability |Tipo de discapacidad |character varying(50) |
+|===
+
+== Tabla: tbl_education_level
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador único del nivel educativo |character varying(50) |PK, NOT NULL
+|education_level |Nivel educativo |character varying(50) |
+|===
+
+== Tabla: tbl_ethnic_group
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador del grupo étnico |character varying(50) |PK, NOT NULL
+|type_ethnic_group |Tipo de grupo étnico |character varying(30) |
+|===
+
+== Tabla: tbl_functional_position
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador del puesto funcional |character varying(50) |PK, NOT NULL
+|functional_position |Nombre del puesto funcional |character varying(80) |
+|===
+
+== Tabla: tbl_gender
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador del género |character varying(50) |PK, NOT NULL
+|gender |Género |character varying(15) |
+|===
+
+== Tabla: tbl_general_direction
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador de la dirección general |character varying(50) |PK, NOT NULL
+|general_direction |Nombre de la dirección general |character varying(60) |
+|===
+
+== Tabla: tbl_id_type
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador del tipo de documento |character varying(50) |PK, NOT NULL
+|id_type |Tipo de documento de identificación |character varying(30) |
+|===
+
+== Tabla: tbl_locations
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador de la ubicación |character varying(50) |PK, NOT NULL
+|code |Código |character varying(25) |
+|iso_name |Nombre ISO |character varying(10) |
+|location_type |Tipo de ubicación |character varying(30) |
+|name |Nombre |character varying(100) |
+|parent_id |Identificador de la ubicación padre |character varying(50) |FK
+|===
+
+== Tabla: tbl_modality
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador de la modalidad |character varying(50) |PK, NOT NULL
+|modality |Nombre de la modalidad |character varying(30) |
+|===
+
+== Tabla: tbl_nominal_position
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador del puesto nominal |character varying(50) |PK, NOT NULL
+|nominal_position |Nombre del puesto nominal |character varying(80) |
+|===
+
+== Tabla: tbl_office
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador de la oficina |character varying(50) |PK, NOT NULL
+|office_type |Tipo de oficina |character varying(50) |
+|office |Nombre de la oficina |character varying(50) |
+|parent_id |Oficina padre |character varying(50) |FK
+|iso_number |Número ISO |character varying(10) |
+|===
+
+== Tabla: tbl_offices_information
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador único |uuid |PK, NOT NULL
+|id_office |ID de la oficina |character varying(10) |
+|office |Nombre de la oficina |character varying(250) |
+|office_type |Tipo de oficina |character varying(250) |
+|department |Departamento |character varying(250) |
+|municipality |Municipio |character varying(250) |
+|manager_name |Nombre del responsable |character varying(250) |
+|address |Dirección |text |
+|phone |Teléfono |character varying(50) |
+|cell_phone |Celular |character varying(50) |
+|===
+
+== Tabla: tbl_work_unit
+
+[cols="1,2,1,1", options="header"]
+|===
+|Campo |Descripción |Tipo de Dato |Restricciones
+
+|id |Identificador de la unidad de trabajo |character varying(50) |PK, NOT NULL
+|work_unit |Nombre de la unidad de trabajo |character varying(80) |
+|===
+

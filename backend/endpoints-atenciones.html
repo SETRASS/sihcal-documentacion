@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <title>API del Servicio de Atenciones</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+
+</head>
+
+<body class="article toc2">
+    <div id="header">
+        <h1>API del Servicio de Atenciones</h1>
+    </div>
+    <div id="toc" class="toc2">
+        <div id="toctitle">Tabla de Contenidos</div>
+        <ul class="sectlevel1">
+            <li><a href="#_introducción">1. Introducción</a></li>
+            <li><a href="#_descripción_general">2. Descripción General</a></li>
+            <li><a href="#_controlador_de_archivos_de_atención_v1">3. Controlador de Archivos de Atención V1</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_agregar_nuevos_archivos_a_una_atención">3.1. Agregar Nuevos Archivos a una Atención</a></li>
+                    <li><a href="#_agregar_lista_de_archivos_de_atención">3.2. Agregar Lista de Archivos de Atención</a></li>
+                    <li><a href="#_eliminar_archivo_de_atención">3.3. Eliminar Archivo de Atención</a></li>
+                    <li><a href="#_obtener_archivos_de_una_atención">3.4. Obtener Archivos de una Atención</a></li>
+                    <li><a href="#_actualizar_archivo_de_atención">3.5. Actualizar Archivo de Atención</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_archivos_de_atención_avanzado_v1">4. Controlador de Archivos de Atención Avanzado V1</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_cargar_nuevo_archivo_de_atención">4.1. Cargar Nuevo Archivo de Atención</a></li>
+                    <li><a href="#_eliminar_archivo_por_nombre">4.2. Eliminar Archivo por Nombre</a></li>
+                    <li><a href="#_buscar_archivos_por_id_de_propietario">4.3. Buscar Archivos por ID de Propietario</a></li>
+                    <li><a href="#_carga_múltiple_de_archivos_de_atención">4.4. Carga Múltiple de Archivos de Atención</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_atenciones_v1">5. Controlador de Atenciones V1</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_registrar_conciliación_desde_una_atención">5.1. Registrar Conciliación desde una Atención</a></li>
+                    <li><a href="#_imprimir_atención">5.2. Imprimir Atención</a></li>
+                    <li><a href="#_registrar_comentario_desde_una_atención">5.3. Registrar Comentario desde una Atención</a></li>
+                    <li><a href="#_agregar_nueva_atención">5.4. Agregar Nueva Atención</a></li>
+                    <li><a href="#_obtener_todos_los_tipos_de_solicitantes">5.5. Obtener Todos los Tipos de Solicitantes</a></li>
+                    <li><a href="#_obtener_todos_los_tipos_de_atención">5.6. Obtener Todos los Tipos de Atención</a></li>
+                    <li><a href="#_eliminar_atención_lógicamente">5.7. Eliminar Atención Lógicamente</a></li>
+                    <li><a href="#_imprimir_atención_con_código_qr">5.8. Imprimir Atención con Código QR</a></li>
+                    <li><a href="#_buscar_por_tipo_de_solicitante">5.9. Buscar por Tipo de Solicitante</a></li>
+                    <li><a href="#_buscar_por_tipo_de_atención_o_solicitante">5.10. Buscar por Tipo de Atención o Solicitante</a></li>
+                    <li><a href="#_buscar_atención_por_id">5.11. Buscar Atención por ID</a></li>
+                    <li><a href="#_buscar_por_nombre_o_apellido">5.12. Buscar por Nombre o Apellido</a></li>
+                    <li><a href="#_buscar_atención_simple_por_id">5.13. Buscar Atención Simple por ID</a></li>
+                    <li><a href="#_obtener_patrones_por_trabajador">5.14. Obtener Patrones por Trabajador</a></li>
+                    <li><a href="#_obtener_patrones_por_filtro">5.15. Obtener Patrones por Filtro</a></li>
+                    <li><a href="#_listar_atenciones_con_paginación">5.16. Listar Atenciones con Paginación</a></li>
+                    <li><a href="#_listar_atenciones_por_oficina_local">5.17. Listar Atenciones por Oficina Local</a></li>
+                    <li><a href="#_listar_atenciones_por_id_de_personal">5.18. Listar Atenciones por ID de Personal</a></li>
+                    <li><a href="#_actualizar_atención">5.19. Actualizar Atención</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_errores_básico">6. Controlador de Errores Básico</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_manejo_de_errores">6.1. Manejo de Errores</a></li>
+                </ul>
+            </li>
+            <li><a href="#_definiciones">7. Definiciones</a></li>
+            <li><a href="#_contacto">8. Contacto</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <div id="preamble">
+            <div class="sectionbody">
+                <table class="tableblock frame-all grid-all stretch">
+                    <colgroup>
+                        <col style="width: 100%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="tableblock halign-left valign-top"><strong>Información del Documento</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Título</strong>: API del Servicio de Atenciones</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Versión</strong>: {0.0.102}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Fecha de Revisión</strong>: {28 abril 2024}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Contacto</strong>: Angel Darid Diaz (<a href="mailto:angel_diaz_sanchez@wvi.org">angel_diaz_sanchez@wvi.org</a>)</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Host</strong>: prod.svc-attention.ecms.setrass.net</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
+        <div class="sect1">
+            <h2 id="_introducción">Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del <strong>Servicio de Atenciones</strong>, diseñada para gestionar atenciones laborales, incluyendo el registro, actualización y eliminación de atenciones, así como la carga y manejo de archivos asociados.
+                        La API permite realizar búsquedas avanzadas y generar reportes, facilitando la administración de procesos laborales en el sistema SETRASS.</p>
+                </div>
+                <div class="paragraph">
+                    <p>Este documento describe la API del <strong>Servicio de Atenciones</strong>, que gestiona atenciones laborales, incluyendo la creación, actualización y eliminación de registros, así como la carga y manejo de archivos asociados. La API
+                        también permite buscar atenciones por diversos criterios y generar reportes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_descripción_general">Descripción General</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>La API está organizada en los siguientes controladores:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Controlador de Archivos de Atención V1</strong>: Gestiona archivos relacionados con atenciones (carga, actualización, eliminación).</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Archivos de Atención Avanzado V1</strong>: Maneja operaciones de carga y gestión de archivos con soporte para multipart.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Atenciones V1</strong>: Administra registros de atenciones, incluyendo creación, búsqueda y actualización.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Errores Básico</strong>: Gestiona respuestas de error.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paragraph">
+                    <p>Todos los puntos finales son accesibles a través del host <code>prod.svc-attention.ecms.setrass.net/</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_archivos_de_atención_v1">Controlador de Archivos de Atención V1</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador gestiona archivos asociados a atenciones específicas.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_agregar_nuevos_archivos_a_una_atención">Agregar Nuevos Archivos a una Atención</h3>
+                    <div class="paragraph">
+                        <p>Agrega nuevos archivos a una atención existente.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PUT
+                            <strong>Ruta</strong>: <code>/attention-files/v1/add-new-files/{attentionId}</code>
+                            <strong>Resumen</strong>: Agrega archivos a una atención específica.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>attentionFilesDto</code> (Cuerpo, Requerido): Objeto JSON con detalles del archivo (<code>AttentionFilesDto</code>). - <code>attentionId</code> (Ruta, Requerido): ID de la atención (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+  "fileName": "documento.pdf",
+  "fileUrl": "https://storage.example.com/documento.pdf",
+  "tittle": "Contrato Laboral",
+  "status": "CREATED",
+  "active": true
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionFilesDto": {
+    "id": "223e4567-e89b-12d3-a456-426614174001",
+    "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+    "fileName": "documento.pdf",
+    "fileUrl": "https://storage.example.com/documento.pdf",
+    "tittle": "Contrato Laboral",
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-04-28T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_agregar_lista_de_archivos_de_atención">Agregar Lista de Archivos de Atención</h3>
+                    <div class="paragraph">
+                        <p>Registra una lista de archivos para atenciones.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attention-files/v1/add-new-list-attention-files</code>
+                            <strong>Resumen</strong>: Agrega múltiples archivos a atenciones.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>requestDtoList</code> (Cuerpo, Requerido): Lista de objetos JSON con detalles de archivos (<code>AttentionFilesDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+    "fileName": "contrato.pdf",
+    "fileUrl": "https://storage.example.com/contrato.pdf",
+    "tittle": "Contrato Laboral",
+    "status": "CREATED",
+    "active": true
+  },
+  {
+    "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+    "fileName": "recibo.pdf",
+    "fileUrl": "https://storage.example.com/recibo.pdf",
+    "tittle": "Recibo de Pago",
+    "status": "CREATED",
+    "active": true
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "first": [
+    {
+      "id": "223e4567-e89b-12d3-a456-426614174001",
+      "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+      "fileName": "contrato.pdf",
+      "fileUrl": "https://storage.example.com/contrato.pdf",
+      "tittle": "Contrato Laboral",
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-04-28T10:00:00Z"
+    },
+    {
+      "id": "223e4567-e89b-12d3-a456-426614174002",
+      "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+      "fileName": "recibo.pdf",
+      "fileUrl": "https://storage.example.com/recibo.pdf",
+      "tittle": "Recibo de Pago",
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-04-28T10:00:00Z"
+    }
+  ],
+  "second": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_eliminar_archivo_de_atención">Eliminar Archivo de Atención</h3>
+                    <div class="paragraph">
+                        <p>Elimina un archivo de atención por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: DELETE
+                            <strong>Ruta</strong>: <code>/attention-files/v1/deleteAttentionFile/{id}</code>
+                            <strong>Resumen</strong>: Elimina un archivo asociado a una atención.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del archivo (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">DELETE /attention-files/v1/deleteAttentionFile/223e4567-e89b-12d3-a456-426614174001</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Archivo eliminado con éxito"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_obtener_archivos_de_una_atención">Obtener Archivos de una Atención</h3>
+                    <div class="paragraph">
+                        <p>Recupera todos los archivos asociados a una atención.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attention-files/v1/get-files/{attentionId}</code>
+                            <strong>Resumen</strong>: Lista los archivos de una atención específica.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>attentionId</code> (Ruta, Requerido): ID de la atención (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attention-files/v1/get-files/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "223e4567-e89b-12d3-a456-426614174001",
+    "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+    "fileName": "contrato.pdf",
+    "fileUrl": "https://storage.example.com/contrato.pdf",
+    "tittle": "Contrato Laboral",
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-04-28T10:00:00Z"
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_archivo_de_atención">Actualizar Archivo de Atención</h3>
+                    <div class="paragraph">
+                        <p>Actualiza los detalles de un archivo de atención.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/attention-files/v1/update-attention-file/{id}</code>
+                            <strong>Resumen</strong>: Actualiza un archivo existente.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>attentionFilesDto</code> (Cuerpo, Requerido): Objeto JSON con detalles actualizados del archivo (<code>AttentionFilesDto</code>). - <code>id</code> (Ruta, Requerido): ID del archivo (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "fileName": "contrato_actualizado.pdf",
+  "fileUrl": "https://storage.example.com/contrato_actualizado.pdf",
+  "tittle": "Contrato Laboral Actualizado",
+  "status": "UPDATED",
+  "active": true
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionFilesDto": {
+    "id": "223e4567-e89b-12d3-a456-426614174001",
+    "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+    "fileName": "contrato_actualizado.pdf",
+    "fileUrl": "https://storage.example.com/contrato_actualizado.pdf",
+    "tittle": "Contrato Laboral Actualizado",
+    "status": "UPDATED",
+    "active": true,
+    "updatedAt": "2025-04-28T10:30:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_archivos_de_atención_avanzado_v1">Controlador de Archivos de Atención Avanzado V1</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador maneja la carga y gestión de archivos con soporte para multipart/form-data.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_cargar_nuevo_archivo_de_atención">Cargar Nuevo Archivo de Atención</h3>
+                    <div class="paragraph">
+                        <p>Carga un nuevo archivo asociado a una atención.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attention/att-files/v1/add-new-attention-file</code>
+                            <strong>Resumen</strong>: Carga un archivo con metadatos.
+                            <strong>Consume</strong>: <code>multipart/form-data</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>file</code> (FormData, Opcional): Archivo a cargar. - <code>description</code> (FormData, Opcional): Descripción del archivo. - <code>type</code> (FormData, Opcional): Tipo de archivo. -
+                            <code>ownerId</code> (FormData, Opcional): ID del propietario (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">POST /attention/att-files/v1/add-new-attention-file
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="documento.pdf"
+Content-Type: application/pdf
+
+(data binaria del archivo)
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Contrato Laboral
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="type"
+
+PDF
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="ownerId"
+
+123e4567-e89b-12d3-a456-426614174000
+------WebKitFormBoundary7MA4YWxkTrZu0gW--</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attFilesDto": {
+    "id": "223e4567-e89b-12d3-a456-426614174001",
+    "fileName": "documento.pdf",
+    "fileUrl": "https://storage.example.com/documento.pdf",
+    "description": "Contrato Laboral",
+    "type": "PDF",
+    "ownerId": "123e4567-e89b-12d3-a456-426614174000",
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-04-28T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_eliminar_archivo_por_nombre">Eliminar Archivo por Nombre</h3>
+                    <div class="paragraph">
+                        <p>Elimina un archivo por su nombre.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: DELETE
+                            <strong>Ruta</strong>: <code>/attention/att-files/v1/delete-by-file-name</code>
+                            <strong>Resumen</strong>: Elimina un archivo basado en su nombre.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>fileName</code> (Query, Requerido): Nombre del archivo.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">DELETE /attention/att-files/v1/delete-by-file-name?fileName=documento.pdf</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attFilesDto": {
+    "fileName": "documento.pdf",
+    "status": "DELETED"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": ["Archivo eliminado con éxito"]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_archivos_por_id_de_propietario">Buscar Archivos por ID de Propietario</h3>
+                    <div class="paragraph">
+                        <p>Recupera archivos asociados a un propietario.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attention/att-files/v1/find-by-owner-id</code>
+                            <strong>Resumen</strong>: Lista archivos por ID de propietario.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>ownerId</code> (Query, Requerido): ID del propietario (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attention/att-files/v1/find-by-owner-id?ownerId=123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attFilesDtoList": [
+    {
+      "id": "223e4567-e89b-12d3-a456-426614174001",
+      "fileName": "documento.pdf",
+      "description": "Contrato Laboral",
+      "type": "PDF",
+      "ownerId": "123e4567-e89b-12d3-a456-426614174000",
+      "status": "CREATED",
+      "active": true
+    }
+  ],
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_carga_múltiple_de_archivos_de_atención">Carga Múltiple de Archivos de Atención</h3>
+                    <div class="paragraph">
+                        <p>Carga múltiples archivos asociados a una atención.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attention/att-files/v1/multi-carga-attention-files</code>
+                            <strong>Resumen</strong>: Carga múltiples archivos con metadatos.
+                            <strong>Consume</strong>: <code>multipart/form-data</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>files</code> (FormData, Opcional): Lista de archivos. - <code>description</code> (FormData, Opcional): Lista de descripciones. - <code>type</code> (FormData, Opcional): Lista de tipos de
+                            archivo. - <code>ownerId</code> (FormData, Opcional): ID del propietario (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">POST /attention/att-files/v1/multi-carga-attention-files
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="doc1.pdf"
+Content-Type: application/pdf
+
+(data binaria del archivo 1)
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="doc2.pdf"
+Content-Type: application/pdf
+
+(data binaria del archivo 2)
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Contrato Laboral
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Recibo de Pago
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="type"
+
+PDF
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="type"
+
+PDF
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="ownerId"
+
+123e4567-e89b-12d3-a456-426614174000
+------WebKitFormBoundary7MA4YWxkTrZu0gW--</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attFilesMultiCargaDto": [
+    {
+      "id": "223e4567-e89b-12d3-a456-426614174001",
+      "fileName": "doc1.pdf",
+      "description": "Contrato Laboral",
+      "type": "PDF",
+      "ownerId": "123e4567-e89b-12d3-a456-426614174000",
+      "status": "CREATED",
+      "active": true
+    },
+    {
+      "id": "223e4567-e89b-12d3-a456-426614174002",
+      "fileName": "doc2.pdf",
+      "description": "Recibo de Pago",
+      "type": "PDF",
+      "ownerId": "123e4567-e89b-12d3-a456-426614174000",
+      "status": "CREATED",
+      "active": true
+    }
+  ],
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_archivo_de_atención_2">Actualizar Archivo de Atención</h3>
+                    <div class="paragraph">
+                        <p>Actualiza un archivo existente con nuevos datos.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attention/att-files/v1/update-attention-file</code>
+                            <strong>Resumen</strong>: Actualiza un archivo con nuevos metadatos o contenido.
+                            <strong>Consume</strong>: <code>multipart/form-data</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>fileName</code> (FormData, Opcional): Nombre del archivo existente. - <code>newFile</code> (FormData, Opcional): Nuevo archivo a cargar. - <code>description</code> (FormData, Opcional):
+                            Nueva descripción. - <code>fileUrl</code> (FormData, Opcional): Nueva URL del archivo. - <code>type</code> (FormData, Opcional): Nuevo tipo de archivo. - <code>ownerId</code> (FormData, Opcional): ID del propietario (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">POST /attention/att-files/v1/update-attention-file
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="fileName"
+
+documento.pdf
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="newFile"; filename="documento_actualizado.pdf"
+Content-Type: application/pdf
+
+(data binaria del archivo)
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Contrato Laboral Actualizado
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="type"
+
+PDF
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="ownerId"
+
+123e4567-e89b-12d3-a456-426614174000
+------WebKitFormBoundary7MA4YWxkTrZu0gW--</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attFilesDto": {
+    "id": "223e4567-e89b-12d3-a456-426614174001",
+    "fileName": "documento_actualizado.pdf",
+    "description": "Contrato Laboral Actualizado",
+    "type": "PDF",
+    "ownerId": "123e4567-e89b-12d3-a456-426614174000",
+    "status": "UPDATED",
+    "active": true,
+    "updatedAt": "2025-04-28T10:30:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_atenciones_v1">Controlador de Atenciones V1</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador gestiona los registros de atenciones laborales.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_registrar_conciliación_desde_una_atención">Registrar Conciliación desde una Atención</h3>
+                    <div class="paragraph">
+                        <p>Registra una conciliación para una atención existente.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/attentions/v1/ConciliationFromAttention/{AttentionId}</code>
+                            <strong>Resumen</strong>: Agrega un registro de conciliación a una atención.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>AttentionId</code> (Ruta, Requerido): ID de la atención (UUID). - <code>commentRecord</code> (Cuerpo, Requerido): Objeto JSON con detalles de la conciliación (<code>CommentRecord</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "comment": "Conciliación acordada con el empleador",
+  "assignedStaffId": "323e4567-e89b-12d3-a456-426614174000",
+  "localOffice": "Oficina Central",
+  "regionalOffice": "Región Norte",
+  "sentByStaffId": "423e4567-e89b-12d3-a456-426614174000"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "status": "CONCILIATED",
+    "comment": "Conciliación acordada con el empleador"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_imprimir_atención">Imprimir Atención</h3>
+                    <div class="paragraph">
+                        <p>Genera un reporte imprimible para una atención.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/PrintAttentions/{attentionId}</code>
+                            <strong>Resumen</strong>: Obtiene un reporte imprimible de una atención.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>attentionId</code> (Ruta, Requerido): ID de la atención (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/PrintAttentions/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionDto": {
+    "applicantName": "Juan Perez",
+    "applicantIdentity": "123456789",
+    "applicantType": "TRABAJADOR",
+    "companyName": "Acme Corp",
+    "attentionDetails": "Consulta sobre despido",
+    "status": "PENDING",
+    "updatedAt": "2025-04-28T10:00:00Z"
+  },
+  "codeQR": "https://example.com/qr/123e4567-e89b-12d3-a456-426614174000",
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_registrar_comentario_desde_una_atención">Registrar Comentario desde una Atención</h3>
+                    <div class="paragraph">
+                        <p>Agrega un comentario a una atención existente.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/attentions/v1/RecordFromAttention/{AttentionId}</code>
+                            <strong>Resumen</strong>: Registra un comentario en una atención.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>AttentionId</code> (Ruta, Requerido): ID de la atención (UUID). - <code>commentRecord</code> (Cuerpo, Requerido): Objeto JSON con detalles del comentario (<code>CommentRecord</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "comment": "Reunión programada con el empleador",
+  "assignedStaffId": "323e4567-e89b-12d3-a456-426614174000",
+  "localOffice": "Oficina Central",
+  "regionalOffice": "Región Norte",
+  "sentByStaffId": "423e4567-e89b-12d3-a456-426614174000"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "status": "PENDING",
+    "comment": "Reunión programada con el empleador"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_agregar_nueva_atención">Agregar Nueva Atención</h3>
+                    <div class="paragraph">
+                        <p>Crea una nueva atención.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attentions/v1/add-new</code>
+                            <strong>Resumen</strong>: Registra una nueva atención laboral.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>attentionDto</code> (Cuerpo, Requerido): Objeto JSON con detalles de la atención (<code>AttentionDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "applicantType": "TRABAJADOR",
+  "attentionTypeList": ["523e4567-e89b-12d3-a456-426614174000"],
+  "ageApplicant": 30,
+  "genderApplicant": "MALE",
+  "localOffice": "Oficina Central",
+  "regionalOffice": "Región Norte",
+  "details": "Consulta sobre despido injustificado",
+  "applicantIdentity": "123456789",
+  "workerFirstName": "Juan",
+  "workerLastName": "Perez",
+  "companyName": "Acme Corp",
+  "reason": "DESPIDO"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "applicantType": "TRABAJADOR",
+    "attentionTypeList": ["523e4567-e89b-12d3-a456-426614174000"],
+    "status": "PENDING",
+    "details": "Consulta sobre despido injustificado",
+    "createdAt": "2025-04-28T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_obtener_todos_los_tipos_de_solicitantes">Obtener Todos los Tipos de Solicitantes</h3>
+                    <div class="paragraph">
+                        <p>Recupera todos los tipos de solicitantes disponibles.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/applicantType/all</code>
+                            <strong>Resumen</strong>: Lista todos los tipos de solicitantes.
+                            <strong>Produce</strong>: <code><strong>/</strong></code></p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/applicantType/all</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "623e4567-e89b-12d3-a456-426614174000",
+    "name": "TRABAJADOR"
+  },
+  {
+    "id": "723e4567-e89b-12d3-a456-426614174000",
+    "name": "PATRONO"
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_obtener_todos_los_tipos_de_atención">Obtener Todos los Tipos de Atención</h3>
+                    <div class="paragraph">
+                        <p>Recupera todos los tipos de atención disponibles.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/attentionType/all</code>
+                            <strong>Resumen</strong>: Lista todos los tipos de atención.
+                            <strong>Produce</strong>: <code><strong>/</strong></code></p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/attentionType/all</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "523e4567-e89b-12d3-a456-426614174000",
+    "name": "CONSULTA LABORAL"
+  },
+  {
+    "id": "823e4567-e89b-12d3-a456-426614174000",
+    "name": "CONCILIACIÓN"
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_eliminar_atención_lógicamente">Eliminar Atención Lógicamente</h3>
+                    <div class="paragraph">
+                        <p>Elimina una atención de forma lógica (cambia su estado).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: DELETE
+                            <strong>Ruta</strong>: <code>/attentions/v1/deleteLogicAttention/{id}</code>
+                            <strong>Resumen</strong>: Marca una atención como eliminada.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID de la atención (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">DELETE /attentions/v1/deleteLogicAttention/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Atención eliminada lógicamente"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_imprimir_atención_con_código_qr">Imprimir Atención con Código QR</h3>
+                    <div class="paragraph">
+                        <p>Genera un reporte imprimible con un código QR.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attentions/v1/findAttentionWithQR/{attentionId}</code>
+                            <strong>Resumen</strong>: Obtiene un reporte de atención con un código QR.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>attentionId</code> (Ruta, Requerido): ID de la atención (UUID). - <code>link</code> (Cuerpo, Requerido): Enlace para el código QR (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">"https://example.com/attention/123e4567-e89b-12d3-a456-426614174000"</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionDto": {
+    "applicantName": "Juan Perez",
+    "applicantType": "TRABAJADOR",
+    "attentionDetails": "Consulta sobre despido",
+    "status": "PENDING"
+  },
+  "codeQR": "https://example.com/qr/123e4567-e89b-12d3-a456-426614174000",
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_por_tipo_de_solicitante">Buscar por Tipo de Solicitante</h3>
+                    <div class="paragraph">
+                        <p>Busca atenciones por tipo de solicitante y otros criterios.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/findByApplicantType/{identity}/{applicantType}/{rtn}/{representedType}</code>
+                            <strong>Resumen</strong>: Busca solicitantes por tipo, identidad, RTN o tipo de representación.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>applicantType</code> (Query, Requerido): Tipo de solicitante. - <code>identity</code> (Query, Opcional): Identidad del solicitante. - <code>rtn</code> (Query, Opcional): RTN del empleador.
+                            - <code>representedType</code> (Query, Opcional): Tipo de representación.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/findByApplicantType?applicantType=TRABAJADOR&amp;identity=123456789</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerResponseList": {
+    "workerWrapperResponseList": [
+      {
+        "id": "923e4567-e89b-12d3-a456-426614174000",
+        "name": "Juan",
+        "lastName": "Perez",
+        "identitynumber": "123456789"
+      }
+    ],
+    "totalRow": 1
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_por_tipo_de_atención_o_solicitante">Buscar por Tipo de Atención o Solicitante</h3>
+                    <div class="paragraph">
+                        <p>Busca atenciones por filtros avanzados.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attentions/v1/findByAttentionTypeOrApplicantType/{localOffice}/{page}/{size}</code>
+                            <strong>Resumen</strong>: Busca atenciones por tipo de atención, solicitante u otros filtros.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>filterRequest</code> (Cuerpo, Requerido): Objeto JSON con filtros (<code>FilterRequest</code>). - <code>localOffice</code> (Ruta, Requerido): Oficina local. - <code>page</code> (Ruta, Requerido):
+                            Número de página (entero). - <code>size</code> (Ruta, Requerido): Tamaño de página (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "applicantType": "623e4567-e89b-12d3-a456-426614174000",
+  "attentionType": "523e4567-e89b-12d3-a456-426614174000",
+  "startDate": "2025-01-01T00:00:00Z",
+  "endDate": "2025-12-31T23:59:59Z"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionToGridDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "applicantName": "Juan Perez",
+      "applicantTypeName": "TRABAJADOR",
+      "attentionCode": "ATT-001",
+      "status": "PENDING"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_atención_por_id">Buscar Atención por ID</h3>
+                    <div class="paragraph">
+                        <p>Recupera detalles completos de una atención por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/findById/{id}</code>
+                            <strong>Resumen</strong>: Obtiene una atención específica.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID de la atención (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/findById/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "applicantType": "TRABAJADOR",
+    "details": "Consulta sobre despido",
+    "status": "PENDING"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_por_nombre_o_apellido">Buscar por Nombre o Apellido</h3>
+                    <div class="paragraph">
+                        <p>Busca atenciones por nombre o apellido del solicitante.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/findByNameOrLastName/{filters}/{localOffice}</code>
+                            <strong>Resumen</strong>: Busca atenciones por nombre o apellido en una oficina local.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>filters</code> (Ruta, Requerido): Filtro de nombre o apellido. - <code>localOffice</code> (Ruta, Requerido): Oficina local.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/findByNameOrLastName/Juan%20Perez/Oficina%20Central</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionToGridDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "applicantName": "Juan Perez",
+      "applicantTypeName": "TRABAJADOR",
+      "status": "PENDING"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_atención_simple_por_id">Buscar Atención Simple por ID</h3>
+                    <div class="paragraph">
+                        <p>Recupera una versión simplificada de una atención por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/findSimpleAttentionById/{id}</code>
+                            <strong>Resumen</strong>: Obtiene detalles básicos de una atención.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID de la atención (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/findSimpleAttentionById/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "simpleAttention": {
+    "attentionId": "123e4567-e89b-12d3-a456-426614174000",
+    "attentionNumber": "ATT-001",
+    "attentionStatus": "PENDING",
+    "attentionType": "CONSULTA LABORAL",
+    "createdBy": "Admin",
+    "created_at": "2025-04-28T10:00:00Z"
+  },
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_obtener_patrones_por_trabajador">Obtener Patrones por Trabajador</h3>
+                    <div class="paragraph">
+                        <p>Recupera registros de patrones asociados a un trabajador.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/getPatronosWorker/{userId}/{applicant}/{page}/{size}</code>
+                            <strong>Resumen</strong>: Lista patrones de un trabajador con paginación.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>userId</code> (Ruta, Requerido): ID del usuario (UUID). - <code>applicant</code> (Ruta, Requerido): Tipo de solicitante. - <code>page</code> (Ruta, Requerido): Número de página (entero).
+                            - <code>size</code> (Ruta, Requerido): Tamaño de página (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/getPatronosWorker/923e4567-e89b-12d3-a456-426614174000/TRABAJADOR/0/10</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  },
+  "listRecordsByPatronos": {
+    "recordByPatronosList": [
+      {
+        "patronoCompanyName": "Acme Corp",
+        "rtn": "987654321",
+        "attentionId": "123e4567-e89b-12d3-a456-426614174000"
+      }
+    ],
+    "totalRow": 1
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_obtener_patrones_por_filtro">Obtener Patrones por Filtro</h3>
+                    <div class="paragraph">
+                        <p>Busca patrones de un trabajador con filtros específicos.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/attentions/v1/getPatronosWorkerByFilter/{userId}/{applicant}</code>
+                            <strong>Resumen</strong>: Busca patrones con filtros avanzados.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>userId</code> (Ruta, Requerido): ID del usuario (UUID). - <code>applicant</code> (Ruta, Requerido): Tipo de solicitante. - <code>filterRequest</code> (Cuerpo, Requerido): Objeto JSON con
+                            filtros (<code>VirtualSecretaryFilterRequest</code>). - <code>page</code> (Query, Opcional): Número de página (entero, por defecto 0). - <code>size</code> (Query, Opcional): Tamaño de página (entero, por defecto 10).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "search": "Acme Corp",
+  "status": "ACTIVE",
+  "type": "PATRONO"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  },
+  "listRecordsByPatronos": {
+    "recordByPatronosList": [
+      {
+        "patronoCompanyName": "Acme Corp",
+        "rtn": "987654321",
+        "attentionId": "123e4567-e89b-12d3-a456-426614174000"
+      }
+    ],
+    "totalRow": 1
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_listar_atenciones_con_paginación">Listar Atenciones con Paginación</h3>
+                    <div class="paragraph">
+                        <p>Lista atenciones con paginación.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/listAttentions/{page}/{size}</code>
+                            <strong>Resumen</strong>: Obtiene una lista paginada de atenciones.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>page</code> (Ruta, Requerido): Número de página (entero). - <code>size</code> (Ruta, Requerido): Tamaño de página (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/listAttentions/0/10</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionToGridDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "applicantName": "Juan Perez",
+      "applicantTypeName": "TRABAJADOR",
+      "attentionCode": "ATT-001",
+      "status": "PENDING"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_listar_atenciones_por_oficina_local">Listar Atenciones por Oficina Local</h3>
+                    <div class="paragraph">
+                        <p>Lista atenciones de una oficina local con paginación.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/listAttentionsByLocalOffice/{localOffice}/{page}/{size}</code>
+                            <strong>Resumen</strong>: Obtiene atenciones de una oficina local.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>localOffice</code> (Ruta, Requerido): Oficina local. - <code>page</code> (Ruta, Requerido): Número de página (entero). - <code>size</code> (Ruta, Requerido): Tamaño de página (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/listAttentionsByLocalOffice/Oficina%20Central/0/10</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionToGridDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "applicantName": "Juan Perez",
+      "applicantTypeName": "TRABAJADOR",
+      "attentionCode": "ATT-001",
+      "status": "PENDING"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_listar_atenciones_por_id_de_personal">Listar Atenciones por ID de Personal</h3>
+                    <div class="paragraph">
+                        <p>Lista atenciones asignadas a un miembro del personal.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/attentions/v1/listAttentionsByStaffId/{staffId}/{page}/{size}</code>
+                            <strong>Resumen</strong>: Obtiene atenciones asignadas a un personal específico.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffId</code> (Ruta, Requerido): ID del personal (UUID). - <code>page</code> (Ruta, Requerido): Número de página (entero). - <code>size</code> (Ruta, Requerido): Tamaño de página (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /attentions/v1/listAttentionsByStaffId/323e4567-e89b-12d3-a456-426614174000/0/10</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionToGridDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "applicantName": "Juan Perez",
+      "applicantTypeName": "TRABAJADOR",
+      "attentionCode": "ATT-001",
+      "status": "PENDING"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_atención">Actualizar Atención</h3>
+                    <div class="paragraph">
+                        <p>Actualiza los detalles de una atención existente.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/attentions/v1/update/{AttentionId}</code>
+                            <strong>Resumen</strong>: Actualiza una atención específica.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>attentionDto</code> (Cuerpo, Requerido): Objeto JSON con detalles actualizados (<code>AttentionDto</code>). - <code>AttentionId</code> (Ruta, Requerido): ID de la atención (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "applicantType": "TRABAJADOR",
+  "attentionTypeList": ["523e4567-e89b-12d3-a456-426614174000"],
+  "details": "Consulta sobre despido injustificado actualizada",
+  "status": "IN_PROGRESS"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "attentionDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "applicantType": "TRABAJADOR",
+    "details": "Consulta sobre despido injustificado actualizada",
+    "status": "IN_PROGRESS",
+    "updatedAt": "2025-04-28T10:30:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_errores_básico">Controlador de Errores Básico</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador maneja las respuestas de error de la API.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_manejo_de_errores">Manejo de Errores</h3>
+                    <div class="paragraph">
+                        <p>Gestiona errores y devuelve una respuesta genérica.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Métodos HTTP</strong>: GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH
+                            <strong>Ruta</strong>: <code>/error</code>
+                            <strong>Resumen</strong>: Devuelve una respuesta de error para solicitudes inválidas.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Consume</strong>: <code>application/json</code> (para métodos aplicables)</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "error": "Solicitud Incorrecta",
+  "status": "BAD_REQUEST",
+  "message": "Parámetro inválido"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_definiciones">Definiciones</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>La API utiliza los siguientes modelos de datos, definidos en el esquema Swagger:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>AttentionDto</strong>: Representa una atención laboral con detalles del solicitante y empleador.</p>
+                        </li>
+                        <li>
+                            <p><strong>AttentionFilesDto</strong> y <strong>AttFilesDto</strong>: Modelos para gestionar archivos asociados a atenciones.</p>
+                        </li>
+                        <li>
+                            <p><strong>CommentRecord</strong>: Estructura para comentarios o registros de conciliación.</p>
+                        </li>
+                        <li>
+                            <p><strong>FilterRequest</strong> y <strong>VirtualSecretaryFilterRequest</strong>: Modelos para búsquedas avanzadas.</p>
+                        </li>
+                        <li>
+                            <p><strong>ResponseAdvisor</strong>: Estructura común para respuestas con información de estado.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paragraph">
+                    <p>Para definiciones detalladas del esquema, consulte la especificación JSON de Swagger.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_contacto">Contacto</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Para soporte, contacte a Angel Darid Diaz en <a href="mailto:angel_diaz_sanchez@wvi.org">angel_diaz_sanchez@wvi.org</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Last updated 2025-04-28 14:45:53 -0600
+        </div>
+    </div>
+</body>
+
+</html>

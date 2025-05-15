@@ -1,0 +1,213 @@
+=== Tabla: tbl_assignment
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre del Campo |Descripción |Tipo de Dato |Restricciones |Observaciones
+
+|id
+|Identificador único de la asignación
+|uuid
+|PK, NOT NULL
+|
+
+|staff_id
+|Identificador del empleado asignado
+|uuid
+|
+|
+
+|assignment_status
+|Estado de la asignación
+|character varying(200)
+|
+|
+
+|active
+|Indica si está activo
+|boolean
+|DEFAULT: true
+|
+
+|status
+|Estado del registro
+|character varying(15)
+|DEFAULT: 'CREATED'
+|
+
+|created_at
+|Fecha de creación
+|timestamp
+|
+|
+
+|updated_at
+|Fecha de última actualización
+|timestamp
+|
+|
+
+|assignment_type
+|Tipo de asignación
+|character varying(20)
+|
+|
+
+|regional_office_id
+|ID de oficina regional
+|character varying(20)
+|
+|
+
+|local_office_id
+|ID de oficina local
+|character varying(20)
+|
+|
+|===
+
+=== Tabla: tbl_audits
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre del Campo |Descripción |Tipo de Dato |Restricciones |Observaciones
+
+|id
+|Identificador de auditoría
+|uuid
+|PK, NOT NULL
+|
+
+|type
+|Tipo de auditoría
+|character varying(50)
+|NOT NULL
+|
+
+|type_id
+|Identificador de la entidad auditada
+|uuid
+|NOT NULL
+|
+
+|staff_id
+|Empleado que realizó la acción
+|uuid
+|NOT NULL
+|
+
+|date_time
+|Fecha y hora del evento
+|timestamp
+|
+|
+
+|action
+|Acción realizada
+|character varying(50)
+|NOT NULL
+|
+
+|details
+|Detalles de la acción
+|character varying(255)
+|
+|
+|===
+
+=== Tabla: tbl_inspections_type
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre del Campo |Descripción |Tipo de Dato |Restricciones |Observaciones
+
+|id
+|Identificador del tipo de inspección
+|uuid
+|PK, NOT NULL
+|
+
+|assignment_id
+|Referencia a la asignación
+|uuid
+|
+|
+
+|inspection_type
+|Tipo de inspección
+|character varying(300)
+|
+|
+
+|active
+|Indica si está activo
+|boolean
+|DEFAULT: true
+|
+
+|status
+|Estado del registro
+|character varying(15)
+|DEFAULT: 'CREATED'
+|
+
+|created_at
+|Fecha de creación
+|timestamp
+|
+|
+
+|updated_at
+|Fecha de última actualización
+|timestamp
+|
+|
+|===
+
+=== Tabla: tbl_roles
+
+[cols="1,2,1,1,2", options="header"]
+|===
+|Nombre del Campo |Descripción |Tipo de Dato |Restricciones |Observaciones
+
+|id
+|Identificador del rol
+|uuid
+|PK, NOT NULL
+|
+
+|assignment_id
+|Referencia a la asignación
+|uuid
+|
+|
+
+|role
+|Nombre del rol asignado
+|character varying(300)
+|
+|
+
+|active
+|Indica si está activo
+|boolean
+|DEFAULT: true
+|
+
+|status
+|Estado del registro
+|character varying(15)
+|DEFAULT: 'CREATED'
+|
+
+|created_at
+|Fecha de creación
+|timestamp
+|
+|
+
+|updated_at
+|Fecha de última actualización
+|timestamp
+|
+|
+|===

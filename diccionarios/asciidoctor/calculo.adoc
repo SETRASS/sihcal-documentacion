@@ -1,0 +1,53 @@
+== Diccionario de Datos: Cálculo de Prestaciones
+
+=== Tabla: tbl_calculo_prestaciones_requests
+
+[cols="1,2,1,2", options="header"]
+|===
+|Campo |Tipo |Clave |Descripción
+|id |bigint |PK |Identificador único de la solicitud
+|calculo_prestaciones_request_type |character varying(255) | |Tipo de solicitud
+|date_created |timestamp | |Fecha de creación
+|date_updated |timestamp | |Fecha de actualización
+|worker_person_id |character varying(255) |FK |Referencia al trabajador
+|localization_id |character varying(255) | |Identificador de localización
+|termination_contract_type |character varying(255) | |Tipo de terminación del contrato
+|start_date |date | |Fecha de inicio laboral
+|dismissal_date |date | |Fecha de despido
+|fixed_salary |boolean | |Indica si tiene salario fijo
+|salary_in_kind_type |character varying(50) | |Tipo de salario en especie
+|salary_in_kind_options_type |character varying(50) | |Opciones del salario en especie
+|comments |text | |Comentarios adicionales
+|company_id |text |FK |Referencia a la compañía
+|===
+
+=== Tabla: tbl_companies
+
+[cols="1,2,1,2", options="header"]
+|===
+|Campo |Tipo |Clave |Descripción
+|id |uuid |PK |Identificador único de la empresa
+|company_name |character varying(255) | |Nombre de la empresa
+|identification_type |character varying(50) | |Tipo de identificación
+|identification_number |character varying(255) | |Número de identificación
+|person_type |character varying(255) | |Tipo de persona jurídica o natural
+|economic_activity |character varying(255) | |Actividad económica
+|company_size |bigint | |Tamaño de la empresa
+|===
+
+=== Tabla: tbl_worker_persons
+
+[cols="1,2,1,2", options="header"]
+|===
+|Campo |Tipo |Clave |Descripción
+|id |uuid |PK |Identificador único del trabajador
+|first_name |character varying(35) | |Nombres del trabajador
+|last_name |character varying(35) | |Apellidos del trabajador
+|gender |character varying(255) | |Género
+|age |integer | |Edad
+|identification_type |character varying(255) | |Tipo de documento de identidad
+|identification_number |character varying(20) | |Número de documento
+|phone_number |character varying(15) | |Número de teléfono
+|email |character varying(64) | |Correo electrónico
+|employer_id |character varying(255) | |Identificador del empleador
+|===

@@ -1,0 +1,420 @@
+= Diccionario de Datos de las Tablas
+
+== Tabla "report_findings_recommendations"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la tabla "tbl_acta_general_info".
+| assigned_staff_id          | uuid                            | Referencia al personal asignado.
+| date_application           | date                            | Fecha de aplicación.
+| observations               | text                            | Observaciones generales.
+| table_findings_recommendations | text                        | Recomendaciones de la mesa.
+| rescheduling               | boolean                         | Indica si hay reprogramación.
+| deadline_granted           | character varying(255)          | Fecha de vencimiento concedida.
+| attention_type             | character varying(255)          | Tipo de atención.
+| date                       | date                            | Fecha de registro.
+| start_time                 | timestamp                       | Hora de inicio.
+| end_time                   | timestamp                       | Hora de finalización.
+| details                    | text                            | Detalles adicionales.
+| reprogramming_comment      | text                            | Comentario de reprogramación.
+| duration                   | character varying(255)          | Duración.
+| report_findings_recommendations_status | character varying(255) | Estado de las recomendaciones.
+| status                     | character varying(255)          | Estado.
+| active                     | boolean                         | Estado de actividad.
+| created_at                 | timestamp                       | Fecha de creación.
+| updated_at                 | timestamp                       | Fecha de actualización.
+| document_type              | character varying(30)           | Tipo de documento.
+|===
+
+== Tabla "tbl_ac_attended_at_io"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la tabla "tbl_acta_general_info".
+| inspection_date            | date                            | Fecha de inspección.
+| inspection_hour            | character varying(255)          | Hora de inspección.
+| company_articles_incorporation | boolean                      | Indica si se incorporaron artículos de la empresa.
+| operations_permit          | boolean                         | Permiso de operación.
+| personal_files_workers     | boolean                         | Archivos personales de los trabajadores.
+| internal_regulations       | boolean                         | Reglamento interno.
+| delegate_hygiene_safety_commission | boolean                  | Comisión de higiene y seguridad delegada.
+| list_of_workers            | boolean                         | Lista de trabajadores.
+| ihss_forms                 | boolean                         | Formularios del IHSS.
+| thirteenth_salary_payment  | boolean                         | Pago del decimotercer salario.
+| fourteenth_salary_payment  | boolean                         | Pago del decimocuarto salario.
+| vacation_payment_form      | boolean                         | Formulario de pago de vacaciones.
+| payment_sheets             | boolean                         | Hojas de pago.
+| attendance_checks          | boolean                         | Cheques de asistencia.
+| copy_individual_contracts  | boolean                         | Copia de contratos individuales.
+| accredited_foreign_employees | boolean                       | Empleados extranjeros acreditados.
+| employee_registration_book | boolean                         | Libro de registro de empleados.
+| proof_fire_action_plan     | boolean                         | Prueba de plan de acción contra incendios.
+| rescheduling               | boolean                         | Reprogramación.
+| attention_type             | character varying(255)          | Tipo de atención.
+| date                       | date                            | Fecha de registro.
+| duration                   | character varying(255)          | Duración.
+| deadline                   | date                            | Fecha límite.
+| closing_time               | character varying(255)          | Hora de cierre.
+| status                     | character varying(255)          | Estado.
+| active                     | boolean                         | Estado de actividad.
+| created_at                 | timestamp                       | Fecha de creación.
+| updated_at                 | timestamp                       | Fecha de actualización.
+| has_more_establishments    | boolean                         | Si hay más establecimientos.
+| has_union_organization     | boolean                         | Si hay organización sindical.
+| acta_book_hygiene_and_safety_commission | boolean            | Acta de la comisión de higiene y seguridad.
+| educational_bonus_form_last_two_years | boolean             | Formulario de bonificación educativa de los últimos dos años.
+| start_time                 | timestamp                       | Hora de inicio.
+| end_time                   | timestamp                       | Hora de finalización.
+| details                    | text                            | Detalles adicionales.
+| reprogramming_comment      | text                            | Comentario de reprogramación.
+| statements                 | text                            | Declaraciones.
+| inspector_observation      | text                            | Observación del inspector.
+| family_business            | boolean                         | Negocio familiar.
+| applicant_is_present       | boolean                         | Si el solicitante está presente.
+| inspected_is_present       | boolean                         | Si el inspeccionado está presente.
+|===
+
+== Tabla "tbl_ac_attended_ie"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la tabla "tbl_acta_general_info".
+| inspection_date            | date                            | Fecha de inspección.
+| inspection_hour            | character varying(255)          | Hora de inspección.
+| deadline                   | date                            | Fecha límite.
+| closing_time               | character varying(255)          | Hora de cierre.
+| status                     | character varying(255)          | Estado.
+| active                     | boolean                         | Estado de actividad.
+| created_at                 | timestamp                       | Fecha de creación.
+| updated_at                 | timestamp                       | Fecha de actualización.
+| rescheduling               | boolean                         | Reprogramación.
+| attention_type             | character varying(75)           | Tipo de atención.
+| date                       | date                            | Fecha de registro.
+| duration                   | character varying(50)           | Duración.
+| start_time                 | timestamp                       | Hora de inicio.
+| end_time                   | timestamp                       | Hora de finalización.
+| details                    | text                            | Detalles adicionales.
+| reprogramming_comment      | text                            | Comentario de reprogramación.
+| statements                 | text                            | Declaraciones.
+| inspector_observation      | text                            | Observación del inspector.
+| applicant_is_present       | boolean                         | Si el solicitante está presente.
+| inspected_is_present       | boolean                         | Si el inspeccionado está presente.
+|===
+
+== Tabla "tbl_ac_attended_reschedule_at_io"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la tabla "tbl_acta_general_info".
+| inspection_date            | date                            | Fecha de inspección.
+| inspection_hour            | character varying(255)          | Hora de inspección.
+| statement_inspected        | text                            | Declaración del inspeccionado.
+| inspector_certificate      | text                            | Certificado del inspector.
+| deadline                   | date                            | Fecha límite.
+| closing_time               | character varying(255)          | Hora de cierre.
+| status                     | character varying(255)          | Estado.
+| active                     | boolean                         | Estado de actividad.
+| created_at                 | timestamp                       | Fecha de creación.
+| updated_at                 | timestamp                       | Fecha de actualización.
+| applicant_is_present       | boolean                         | Si el solicitante está presente.
+| inspected_is_present       | boolean                         | Si el inspeccionado está presente.
+|===
+
+== Tabla "tbl_ac_inspected_or_company_incorrect"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la información general del acta.
+| inspection_date            | date                            | Fecha de la inspección.
+| inspection_hour            | character varying(255)          | Hora de la inspección.
+| statements                 | text                            | Declaraciones de la inspección.
+| inspector_statement        | text                            | Declaración del inspector.
+| deadline                   | date                            | Fecha límite para cumplir los requisitos.
+| closing_time               | character varying(255)          | Hora de cierre de la inspección.
+| rescheduling               | boolean                         | Indica si hubo reprogramación.
+| attention_type             | character varying(75)           | Tipo de atención de la inspección.
+| date                       | date                            | Fecha del evento.
+| duration                   | character varying(50)           | Duración de la inspección.
+| start_time                 | timestamp                       | Hora de inicio de la inspección.
+| end_time                   | timestamp                       | Hora de finalización de la inspección.
+| details                    | text                            | Detalles adicionales de la inspección.
+| reprogramming_comment      | text                            | Comentario sobre la reprogramación.
+| status                     | character varying(255)          | Estado de la inspección.
+| active                     | boolean                         | Indica si el registro está activo.
+| created_at                 | timestamp                       | Fecha de creación del registro.
+| updated_at                 | timestamp                       | Fecha de actualización del registro.
+| applicant_is_present       | boolean                         | Indica si el solicitante estuvo presente.
+| inspected_is_present       | boolean                         | Indica si el inspeccionado estuvo presente.
+|===
+
+== Tabla "tbl_ac_not_attended_justified"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la información general del acta.
+| inspection_date            | date                            | Fecha de la inspección.
+| inspection_hour            | character varying(255)          | Hora de la inspección.
+| attention_type             | character varying(255)          | Tipo de atención de la inspección.
+| date                       | date                            | Fecha del evento.
+| duration                   | character varying(255)          | Duración de la inspección.
+| deadline                   | date                            | Fecha límite para cumplir los requisitos.
+| closing_time               | character varying(255)          | Hora de cierre de la inspección.
+| status                     | character varying(255)          | Estado de la inspección.
+| active                     | boolean                         | Indica si el registro está activo.
+| created_at                 | timestamp                       | Fecha de creación del registro.
+| updated_at                 | timestamp                       | Fecha de actualización del registro.
+| start_time                 | timestamp                       | Hora de inicio de la inspección.
+| end_time                   | timestamp                       | Hora de finalización de la inspección.
+| details                    | text                            | Detalles adicionales de la inspección.
+| reprogramming_comment      | text                            | Comentario sobre la reprogramación.
+| rescheduling               | boolean                         | Indica si hubo reprogramación.
+| statements                 | text                            | Declaraciones de la inspección.
+| inspector_observation      | text                            | Observaciones del inspector.
+| applicant_is_present       | boolean                         | Indica si el solicitante estuvo presente.
+| inspected_is_present       | boolean                         | Indica si el inspeccionado estuvo presente.
+|===
+
+== Tabla "tbl_ac_not_attended_unjustified"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la información general del acta.
+| inspection_date            | date                            | Fecha de la inspección.
+| inspection_hour            | character varying(255)          | Hora de la inspección.
+| conscious_refusal          | text                            | Razón de la negativa consciente.
+| deadline                   | date                            | Fecha límite para cumplir los requisitos.
+| closing_time               | character varying(255)          | Hora de cierre de la inspección.
+| status                     | character varying(255)          | Estado de la inspección.
+| active                     | boolean                         | Indica si el registro está activo.
+| created_at                 | timestamp                       | Fecha de creación del registro.
+| updated_at                 | timestamp                       | Fecha de actualización del registro.
+| statements                 | text                            | Declaraciones de la inspección.
+| inspector_observation      | text                            | Observaciones del inspector.
+| applicant_is_present       | boolean                         | Indica si el solicitante estuvo presente.
+| inspected_is_present       | boolean                         | Indica si el inspeccionado estuvo presente.
+|===
+
+== Tabla "tbl_ac_voluntary_appearance"
+|===
+| Campo                     | Tipo                            | Descripción
+| id                         | uuid                            | Identificador único del registro.
+| general_info_acta_id       | uuid                            | Referencia a la información general del acta.
+| inspection_date            | date                            | Fecha de la inspección.
+| inspection_hour            | character varying(255)          | Hora de la inspección.
+| deadline                   | date                            | Fecha límite para cumplir los requisitos.
+| closing_time               | character varying(255)          | Hora de cierre de la inspección.
+| status                     | character varying(255)          | Estado de la inspección.
+| active                     | boolean                         | Indica si el registro está activo.
+| created_at                 | timestamp                       | Fecha de creación del registro.
+| updated_at                 | timestamp                       | Fecha de actualización del registro.
+| statements                 | text                            | Declaraciones de la inspección.
+| inspector_observation      | text                            | Observaciones del inspector.
+| applicant_is_present       | boolean                         | Indica si el solicitante estuvo presente.
+| inspected_is_present       | boolean                         | Indica si el inspeccionado estuvo presente.
+|===
+
+
+== Tabla "tbl_acr_iee_extra_general_info"
+|===
+| Campo                        | Tipo                            | Descripción
+| id                            | uuid                            | Identificador único del registro.
+| general_info_acta_id          | uuid                            | Referencia a la información general del acta.
+| ac_inspected_or_company_incorrect_id | uuid                     | Referencia a la inspección o empresa incorrecta.
+| new_inspected_name            | character varying(100)          | Nombre del nuevo inspeccionado.
+| new_inspected_last_name       | character varying(100)          | Apellido del nuevo inspeccionado.
+| new_condition_of_inspected    | character varying(75)           | Condición del nuevo inspeccionado.
+| new_work_center               | character varying(255)          | Nuevo centro de trabajo.
+| new_work_center_address       | character varying(300)          | Dirección del nuevo centro de trabajo.
+| status                        | character varying(255)          | Estado de la información.
+| active                        | boolean                         | Indica si el registro está activo.
+| created_at                    | timestamp                       | Fecha de creación del registro.
+| updated_at                    | timestamp                       | Fecha de actualización del registro.
+|===
+
+== Tabla "tbl_acta_arraignment"
+|===
+| Campo                        | Tipo                            | Descripción
+| id                            | uuid                            | Identificador único del registro.
+| general_info_acta_id          | uuid                            | Referencia a la información general del acta.
+| inspection_date               | date                            | Fecha de la inspección.
+| verified_facts                | text                            | Hechos verificados de la inspección.
+| infringement_details           | text                            | Detalles de la infracción.
+| legal_sustenance              | text                            | Fundamento legal de la inspección.
+| deadline_granted              | character varying(255)          | Plazo otorgado para cumplir los requisitos.
+| attention_type                | character varying(255)          | Tipo de atención de la inspección.
+| date                          | date                            | Fecha del evento.
+| duration                      | character varying(255)          | Duración de la inspección.
+| statement_of_inspected        | text                            | Declaración del inspeccionado.
+| status                        | character varying(255)          | Estado de la inspección.
+| active                        | boolean                         | Indica si el registro está activo.
+| created_at                    | timestamp                       | Fecha de creación del registro.
+| updated_at                    | timestamp                       | Fecha de actualización del registro.
+| start_time                    | timestamp                       | Hora de inicio de la inspección.
+| end_time                      | timestamp                       | Hora de finalización de la inspección.
+| details                       | text                            | Detalles adicionales de la inspección.
+| reprogramming_comment         | text                            | Comentario sobre la reprogramación.
+| rescheduling                  | boolean                         | Indica si hubo reprogramación.
+| acta_arraignment_status       | character varying(100)          | Estado del acta de arraigo.
+| acta_num                      | character varying(100)          | Número de acta.
+| new_acta_type                 | character varying(100)          | Tipo de nuevo acta.
+| acta_specific_type           | character varying(100)          | Tipo específico del acta.
+| record_id                     | uuid                            | Identificador del registro relacionado.
+|===
+
+== Tabla "tbl_acta_files"
+|===
+| Campo                        | Tipo                            | Descripción
+| id                            | uuid                            | Identificador único del archivo.
+| owner_id                      | uuid                            | Identificador del propietario del archivo.
+| description                   | character varying(255)          | Descripción del archivo.
+| file_url                      | character varying(255)          | URL del archivo.
+| file_name                     | character varying(255)          | Nombre del archivo.
+| status                        | character varying(255)          | Estado del archivo.
+| active                        | boolean                         | Indica si el archivo está activo.
+| created_at                    | timestamp                       | Fecha de creación del archivo.
+| updated_at                    | timestamp                       | Fecha de actualización del archivo.
+| type                          | character varying(25)           | Tipo de archivo.
+|===
+
+== Tabla "tbl_acta_general_info"
+|===
+| Campo                                      | Tipo                            | Descripción
+| id                                          | uuid                            | Identificador único del registro.
+| acta_type                                   | character varying(255)          | Tipo de acta.
+| record_num                                  | character varying(255)          | Número del registro.
+| applicant_name                              | character varying(255)          | Nombre del solicitante.
+| applicant_last_name                         | character varying(255)          | Apellido del solicitante.
+| applicant_condition                         | character varying(255)          | Condición del solicitante.
+| type_legal_representative_applicant         | character varying(255)          | Tipo de representante legal del solicitante.
+| name_legal_representative_applicant         | character varying(255)          | Nombre del representante legal del solicitante.
+| last_name_legal_representative_applicant    | character varying(255)          | Apellido del representante legal del solicitante.
+| work_center                                 | character varying(255)          | Centro de trabajo.
+| number_employees                            | character varying(255)          | Número de empleados.
+| union_organization                          | character varying(255)          | Organización sindical.
+| inspection_type                             | character varying(255)          | Tipo de inspección.
+| inspected_name                              | character varying(255)          | Nombre del inspeccionado.
+| inspected_last_name                         | character varying(255)          | Apellido del inspeccionado.
+| condition_of_inspected                      | character varying(255)          | Condición del inspeccionado.
+| identification_type                         | character varying(255)          | Tipo de identificación.
+| identification_num                          | character varying(255)          | Número de identificación.
+| email_delivered_to                          | character varying(255)          | Correo electrónico al que se entregó el acta.
+| email_received_by                           | character varying(255)          | Correo electrónico que recibió el acta.
+| acta_status                                 | character varying(255)          | Estado del acta.
+| status                                      | character varying(255)          | Estado del registro.
+| active                                      | boolean                         | Indica si el registro está activo.
+| created_at                                  | timestamp                       | Fecha de creación del registro.
+| updated_at                                  | timestamp                       | Fecha de actualización del registro.
+| assigned_staff_id                           | uuid                            | Identificador del personal asignado.
+| record_id                                   | uuid                            | Identificador del registro relacionado.
+| is_temporary_employer                       | boolean                         | Indica si el empleador es temporal.
+| company_rtn                                 | character varying(25)           | RTN de la empresa.
+| company_phone_number                        | character varying(25)           | Número de teléfono de la empresa.
+| visit_type                                  | character varying(75)           | Tipo de visita.
+| acta_num                                    | character varying(55)           | Número de acta.
+| acta_specific_type                         | character varying(55)           | Tipo específico de acta.
+| identification_type_applicant               | character varying(75)           | Tipo de identificación del solicitante.
+| identification_num_applicant                | character varying(75)           | Número de identificación del solicitante.
+| represent_type_inspected                    | character varying(100)          | Tipo de representante del inspeccionado.
+| name_represent_inspected                    | character varying(200)          | Nombre del representante del inspeccionado.
+| last_name_represent_inspected               | character varying(200)          | Apellido del representante del inspeccionado.
+| department                                  | character varying(75)           | Departamento de la empresa.
+| municipality                                | character varying(75)           | Municipio de la empresa.
+| application_registration_date               | timestamp                       | Fecha de registro de la solicitud.
+| number_establishments                        | character varying(75)           | Número de establecimientos.
+| regional_office_id                          | character varying(75)           | Identificador de la oficina regional.
+| local_office_id                             | character varying(75)           | Identificador de la oficina local.
+| cedula_id                                   | uuid                            | Identificador único de la cédula.
+| rescheduling_acta                           | boolean                         | Indica si hubo reprogramación del acta.
+| reschedule_from_appointment                 | boolean                         | Indica si la reprogramación fue desde una cita previa.
+| economic_activity                           | uuid                            | Identificador de la actividad económica.
+| constancy_of_extremes                       | text                            | Constancia de los extremos.
+| final_record_analysis                       | text                            | Análisis final del registro.
+| work_center_address                         | text                            | Dirección del centro de trabajo.
+| is_arraignment                              | boolean                         | Indica si se trata de un arraigo.
+| is_acta_verification                        | boolean                         | Indica si es una verificación de acta.
+| attention_registration_date                 | timestamp                       | Fecha de registro de la atención.
+| providence_registration_date                | timestamp                       | Fecha de registro de la providencia.
+| regional_or_local_head                      | uuid                            | Identificador del jefe regional o local.
+| approval_inspection_order                   | timestamp                       | Fecha de aprobación de la orden de inspección.
+| is_diligence_request                        | boolean                         | Indica si es una solicitud de diligencia.
+| is_report_findings_recommendations          | boolean                         | Indica si se trata de un informe de hallazgos y recomendaciones.
+|===
+
+== Tabla "tbl_acta_verification"
+|===
+| Campo                               | Tipo                            | Descripción
+| id                                   | uuid                            | Identificador único del registro.
+| general_info_acta_id                 | uuid                            | Identificador de la información general del acta.
+| inspection_date                       | date                            | Fecha de la inspección.
+| inspection_hour                       | character varying(255)          | Hora de la inspección.
+| record_facts_inspector                | text                            | Hechos registrados por el inspector.
+| workers_declaration                   | text                            | Declaración de los trabajadores.
+| accredited_support_documentation      | text                            | Documentación de soporte acreditada.
+| status                                | character varying(255)          | Estado del registro.
+| active                                | boolean                         | Indica si el registro está activo.
+| created_at                            | timestamp                       | Fecha de creación del registro.
+| updated_at                            | timestamp                       | Fecha de actualización del registro.
+| acta_verification_status              | character varying(100)          | Estado de verificación del acta.
+| acta_num                              | character varying(100)          | Número del acta.
+| new_acta_type                         | character varying(100)          | Nuevo tipo de acta.
+| acta_specific_type                   | character varying(100)          | Tipo específico del acta.
+| rescheduling                          | boolean                         | Indica si hubo reprogramación.
+| attention_type                        | character varying(100)          | Tipo de atención.
+| date                                  | date                            | Fecha asociada a la inspección.
+| start_time                            | timestamp                       | Hora de inicio.
+| end_time                              | timestamp                       | Hora de finalización.
+| details                               | text                            | Detalles adicionales.
+| reprogramming_comment                 | text                            | Comentario de reprogramación.
+| duration                              | character varying(75)           | Duración de la inspección.
+| statement_of_inspected                | text                            | Declaración del inspeccionado.
+| record_id                             | uuid                            | Identificador del registro relacionado.
+| is_informe_hallazgos                  | boolean                         | Indica si es un informe de hallazgos.
+|===
+
+== Tabla "tbl_acta_workers"
+|===
+| Campo                               | Tipo                            | Descripción
+| id                                   | uuid                            | Identificador único del registro.
+| general_info_acta_id                 | uuid                            | Identificador de la información general del acta.
+| acta_num                              | character varying(75)           | Número del acta.
+| worker_name                           | character varying(255)          | Nombre del trabajador.
+| worker_last_name                      | character varying(255)          | Apellido del trabajador.
+| worker_identification_type            | character varying(50)           | Tipo de identificación del trabajador.
+| worker_identification_num             | character varying(25)           | Número de identificación del trabajador.
+| status                                | character varying(75)           | Estado del registro.
+| active                                | boolean                         | Indica si el registro está activo.
+| created_at                            | timestamp                       | Fecha de creación del registro.
+| updated_at                            | timestamp                       | Fecha de actualización del registro.
+| condition_appearance                  | character varying(100)          | Condición de la apariencia.
+| acta_specific_type_id                 | uuid                            | Identificador del tipo específico de acta.
+|===
+
+== Tabla "tbl_audits"
+|===
+| Campo                               | Tipo                            | Descripción
+| id                                   | uuid                            | Identificador único del registro.
+| type                                 | character varying(255)          | Tipo de auditoría.
+| type_id                              | uuid                            | Identificador relacionado con el tipo de auditoría.
+| assigned_staff_id                    | uuid                            | Identificador del personal asignado.
+| date_time                            | timestamp                       | Fecha y hora de la auditoría.
+| action                               | character varying(255)          | Acción realizada durante la auditoría.
+| details                              | character varying(255)          | Detalles de la auditoría.
+|===
+
+== Tabla "tbl_diligence_request"
+|===
+| Campo                               | Tipo                            | Descripción
+| id                                   | uuid                            | Identificador único del registro.
+| general_info_acta_id                 | uuid                            | Identificador de la información general del acta.
+| assigned_staff_id                    | uuid                            | Identificador del personal asignado.
+| date_application                      | date                            | Fecha de la solicitud.
+| request_type                          | character varying(255)          | Tipo de solicitud.
+| inspector_observation                 | text                            | Observación del inspector.
+| diligence_request_status              | character varying(255)          | Estado de la solicitud de diligencia.
+| status                                | character varying(255)          | Estado del registro.
+| active                                | boolean                         | Indica si el registro está activo.
+| created_at                            | timestamp                       | Fecha de creación del registro.
+| updated_at                            | timestamp                       | Fecha de actualización del registro.
+| document_type                         | character varying(30)           | Tipo de documento relacionado.
+|===
+

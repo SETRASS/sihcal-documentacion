@@ -1,0 +1,114 @@
+== Diccionario de Datos: Base de Empleados
+
+=== Tabla: tbl_audits
+[cols="1,3,2", options="header"]
+|===
+|Campo |Descripción |Tipo
+
+|id |Identificador único del registro |UUID (PK)
+|staff_id |Identificador del empleado relacionado |UUID (FK)
+|date_time |Fecha y hora del evento auditado |timestamp
+|type |Tipo de entidad afectada (ej. archivo, personal, etc.) |character varying(50)
+|type_id |ID del registro afectado |UUID
+|action |Acción realizada (ej. CREATE, UPDATE, DELETE) |character varying(50)
+|details |Detalles adicionales sobre la acción |character varying(255)
+|===
+
+=== Tabla: tbl_jobs
+[cols="1,3,2", options="header"]
+|===
+|Campo |Descripción |Tipo
+
+|id |Identificador único del registro |UUID (PK)
+|staff_id |ID del empleado |UUID (FK)
+|regional_office_id |ID de la oficina regional |character varying(25)
+|local_office_id |ID de la oficina local |character varying(50)
+|general_office_id |ID de la oficina general |character varying(50)
+|job_unit_id |ID de la unidad de trabajo |character varying(50)
+|modality_job_id |ID de la modalidad de empleo |character varying(10)
+|nominal_job_id |ID del puesto nominal |character varying(75)
+|funcional_job_id |ID del puesto funcional |character varying(55)
+|start_date |Fecha de inicio del empleo |date
+|end_date |Fecha de finalización del empleo |date
+|created_at |Fecha de creación del registro |timestamp
+|updated_at |Fecha de actualización del registro |timestamp
+|employee_code |Código del empleado |character varying(15)
+|monthly_salary |Salario mensual |numeric
+|created_status_job |Estado de creación del registro |character varying(15)
+|===
+
+=== Tabla: tbl_reference_files
+[cols="1,3,2", options="header"]
+|===
+|Campo |Descripción |Tipo
+
+|id |Identificador único del registro |UUID (PK)
+|staff_id |ID del empleado relacionado |UUID (FK)
+|file_name |Nombre del archivo |character varying(255)
+|file_url |URL del archivo |character varying(255)
+|full_name |Nombre completo de la referencia |character varying(100)
+|company |Empresa de la referencia |character varying(150)
+|phone_number |Teléfono de contacto |character varying(100)
+|profession |Profesión de la referencia |character varying(100)
+|active |Indica si el archivo está activo |boolean (default: true)
+|status |Estado del archivo |character varying(15) (default: 'CREATED')
+|created_at |Fecha de creación del registro |timestamp
+|updated_at |Fecha de actualización del registro |timestamp
+|===
+
+=== Tabla: tbl_staff
+[cols="1,3,2", options="header"]
+|===
+|Campo |Descripción |Tipo
+
+|id |ID del empleado |UUID (PK)
+|name |Nombre |character varying(30)
+|last_name |Apellido |character varying(30)
+|sex |Sexo |character varying(10)
+|birth |Fecha de nacimiento |date
+|identification_type |Tipo de identificación |character varying(30)
+|identification_num |Número de identificación |character varying(15)
+|rtn |RTN del empleado |character varying(14)
+|disability_type |Tipo de discapacidad |character varying(40)
+|ethnic_group |Grupo étnico |character varying(15)
+|municipality |Municipio |character varying(50)
+|address |Dirección |character varying(255)
+|personal_email |Correo personal |character varying(255)
+|institutional_email |Correo institucional |character varying(255)
+|phone |Teléfono personal |character varying(15)
+|emergency_phone |Teléfono de emergencia |character varying(15)
+|emergency_contact_name |Nombre del contacto de emergencia |character varying(255)
+|education_level_id |ID del nivel educativo |character varying(30)
+|profesion |Profesión |character varying(255)
+|collegiate |¿Está colegiado? |boolean (default: false)
+|college_number |Número de colegiación |character varying(30)
+|status |Estado laboral |character varying(15) (default: 'Activo')
+|active |Indica si está activo |boolean (default: true)
+|created_at |Fecha de creación |timestamp
+|updated_at |Fecha de actualización |timestamp
+|status_staff |Estado del registro |character varying(15)
+|country |País |character varying(75) (default: '8B2FC2A0-42E3-45FD-8DA9-297E4036817A')
+|assigned |¿Asignado? |boolean (default: false)
+|user_id |ID del usuario |character varying(75)
+|user_name |Nombre del usuario |character varying(75)
+|assigned_conciliation |¿Asignado a conciliación? |boolean (default: false)
+|===
+
+=== Tabla: tbl_tbl_staff_filesstaff
+[cols="1,3,2", options="header"]
+|===
+|Campo |Descripción |Tipo
+
+|id |Identificador del archivo |bigint (PK)
+|staff_id |ID del empleado asociado |UUID
+|title |Título del archivo |character varying(255)
+|file_name |Nombre del archivo |character varying(1000)
+|file_url |URL del archivo |character varying(1000)
+|created_status |Estado de creación |character varying(255)
+|date_created |Fecha de creación |timestamp
+|date_updated |Fecha de actualización |timestamp
+|date_realization |Fecha de realización |date
+|training_center |Centro de capacitación |character varying(250)
+|type |Tipo de archivo |character varying(50)
+|===
+

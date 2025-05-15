@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <meta name="author" content="Marvin Toro">
+    <title>Assignments Service API Documentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="article toc2 toc-left">
+    <div id="header">
+        <h1>Assignments Service API Documentation</h1>
+        <div class="details">
+            <span id="author" class="author">Marvin Toro</span><br>
+            <span id="email" class="email"><a href="mailto:marvin_toro@wvi.org.com">marvin_toro@wvi.org.com</a></span><br>
+            <span id="revnumber">version 1.0.0.34,</span>
+            <span id="revdate">2025-05-06</span>
+        </div>
+        <div id="toc" class="toc2">
+            <div id="toctitle">Table of Contents</div>
+            <ul class="sectlevel1">
+                <li><a href="#_introducción">1. Introducción</a></li>
+                <li><a href="#_información_general">2. Información General</a></li>
+                <li><a href="#_endpoints">3. Endpoints</a>
+                    <ul class="sectlevel2">
+                        <li><a href="#_assignment_controller">3.1. Assignment Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_agregar_nueva_asignación">3.1.1. Agregar Nueva Asignación</a></li>
+                                <li><a href="#_agregar_lista_de_asignaciones">3.1.2. Agregar Lista de Asignaciones</a></li>
+                                <li><a href="#_actualizar_lista_de_asignaciones">3.1.3. Actualizar Lista de Asignaciones</a></li>
+                                <li><a href="#_eliminar_asignación_lógicamente">3.1.4. Eliminar Asignación Lógicamente</a></li>
+                                <li><a href="#_filtrar_asignaciones">3.1.5. Filtrar Asignaciones</a></li>
+                                <li><a href="#_obtener_asignación_por_id_de_personal">3.1.6. Obtener Asignación por ID de Personal</a></li>
+                                <li><a href="#_buscar_asignaciones_por_roles_o_tipo_de_inspección_y_oficina_local">3.1.7. Buscar Asignaciones por Roles o Tipo de Inspección y Oficina Local</a></li>
+                                <li><a href="#_buscar_asignaciones_de_conciliación_por_roles_o_tipo_de_inspección_y_oficina_local">3.1.8. Buscar Asignaciones de Conciliación por Roles o Tipo de Inspección y Oficina Local</a></li>
+                                <li><a href="#_obtener_asignación_por_id">3.1.9. Obtener Asignación por ID</a></li>
+                                <li><a href="#_buscar_asignaciones_por_roles_o_tipo_de_inspección">3.1.10. Buscar Asignaciones por Roles o Tipo de Inspección</a></li>
+                                <li><a href="#_obtener_todas_las_asignaciones_de_inspectores_de_trabajo">3.1.11. Obtener Todas las Asignaciones de Inspectores de Trabajo</a></li>
+                                <li><a href="#_obtener_asignaciones_de_conciliación_por_oficina_local">3.1.12. Obtener Asignaciones de Conciliación por Oficina Local</a></li>
+                                <li><a href="#_obtener_voluntarios_asignados">3.1.13. Obtener Voluntarios Asignados</a></li>
+                                <li><a href="#_obtener_asignaciones_por_oficina_regional_o_local">3.1.14. Obtener Asignaciones por Oficina Regional o Local</a></li>
+                                <li><a href="#_obtener_supervisor_aleatorio_para_inspección_anónima">3.1.15. Obtener Supervisor Aleatorio para Inspección Anónima</a></li>
+                                <li><a href="#_obtener_conciliador_aleatorio_por_oficina_regional_o_local">3.1.16. Obtener Conciliador Aleatorio por Oficina Regional o Local</a></li>
+                                <li><a href="#_obtener_inspector_de_trabajo_aleatorio_por_oficina_regional_o_local">3.1.17. Obtener Inspector de Trabajo Aleatorio por Oficina Regional o Local</a></li>
+                                <li><a href="#_obtener_oficial_legal_aleatorio_por_oficina_local">3.1.18. Obtener Oficial Legal Aleatorio por Oficina Local</a></li>
+                                <li><a href="#_obtener_supervisor_aleatorio_para_atención_por_oficina_local">3.1.19. Obtener Supervisor Aleatorio para Atención por Oficina Local</a></li>
+                                <li><a href="#_listar_asignaciones_paginadas_por_oficina_local">3.1.20. Listar Asignaciones Paginadas por Oficina Local</a></li>
+                                <li><a href="#_listar_asignaciones_de_conciliación_paginadas_por_oficina_local">3.1.21. Listar Asignaciones de Conciliación Paginadas por Oficina Local</a></li>
+                                <li><a href="#_listar_todas_las_asignaciones_paginadas">3.1.22. Listar Todas las Asignaciones Paginadas</a></li>
+                                <li><a href="#_actualizar_asignación">3.1.23. Actualizar Asignación</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_audit_controller">3.2. Audit Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_listar_auditorías_filtradas">3.2.1. Listar Auditorías Filtradas</a></li>
+                                <li><a href="#_listar_auditorías_con_filtros">3.2.2. Listar Auditorías con Filtros</a></li>
+                                <li><a href="#_listar_auditorías_paginadas">3.2.3. Listar Auditorías Paginadas</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="sect1">
+            <h2 id="_introducción">
+                <a class="anchor" href="#_introducción"></a>1. Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del servicio <code>Assignments Service</code>, que proporciona endpoints para gestionar asignaciones de inspecciones y conciliaciones, así como auditorías relacionadas. Conforme a la especificación Swagger
+                        2.0.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_información_general">
+                <a class="anchor" href="#_información_general"></a>2. Información General</h2>
+            <div class="sectionbody">
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Versión</strong>: 1.0.0.34</p>
+                        </li>
+                        <li>
+                            <p><strong>Contacto</strong>: Marvin Toro (<a href="mailto:marvin_toro@wvi.org.com">marvin_toro@wvi.org.com</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Servidor</strong>: <a href="https://prod.svc-assignment.ecms.setrass.net" class="bare">https://prod.svc-assignment.ecms.setrass.net</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_endpoints">
+                <a class="anchor" href="#_endpoints"></a>3. Endpoints</h2>
+            <div class="sectionbody">
+                <div class="sect2">
+                    <h3 id="_assignment_controller">
+                        <a class="anchor" href="#_assignment_controller"></a>3.1. Assignment Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_agregar_nueva_asignación">
+                            <a class="anchor" href="#_agregar_nueva_asignación"></a>3.1.1. Agregar Nueva Asignación</h4>
+                        <div class="paragraph">
+                            <p><strong>Agrega una nueva asignación al sistema.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/add-new-assignment</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>assignmentDto</code> (body, AssignmentDto, required): Datos de la asignación</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": []
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_agregar_lista_de_asignaciones">
+                            <a class="anchor" href="#_agregar_lista_de_asignaciones"></a>3.1.2. Agregar Lista de Asignaciones</h4>
+                        <div class="paragraph">
+                            <p><strong>Agrega una lista de asignaciones al sistema.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/add-new-list-assignments</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>assignmentDtoList</code> (body, array[AssignmentDto], required): Lista de asignaciones</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "regionalOfficeId": "REG123",
+      "regionalOffice": "Oficina Regional",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_lista_de_asignaciones">
+                            <a class="anchor" href="#_actualizar_lista_de_asignaciones"></a>3.1.3. Actualizar Lista de Asignaciones</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza una lista de asignaciones existentes.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/add-new-list-assignments-PUT</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PUT</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>assignmentDtoList</code> (body, array[AssignmentDto], required): Lista de asignaciones actualizadas</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "regionalOfficeId": "REG123",
+      "regionalOffice": "Oficina Regional",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "UPDATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T11:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_asignación_lógicamente">
+                            <a class="anchor" href="#_eliminar_asignación_lógicamente"></a>3.1.4. Eliminar Asignación Lógicamente</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina una asignación de forma lógica por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/deleteLogic/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID de la asignación (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": []
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_filtrar_asignaciones">
+                            <a class="anchor" href="#_filtrar_asignaciones"></a>3.1.5. Filtrar Asignaciones</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene asignaciones filtradas por tipo de inspección, oficina local, oficina regional o rol.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/filter-assignment</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>inspectionType</code> (query, string, optional): Tipo de inspección - <code>localOfficeId</code> (query, string, optional): ID de la oficina local - <code>regionalOfficeId</code> (query,
+                                string, optional): ID de la oficina regional - <code>role</code> (query, string, optional): Rol</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "regionalOfficeId": "REG123",
+      "regionalOffice": "Oficina Regional",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_asignación_por_id_de_personal">
+                            <a class="anchor" href="#_obtener_asignación_por_id_de_personal"></a>3.1.6. Obtener Asignación por ID de Personal</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una asignación por el ID del personal.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/find-assignment-by-staff-id/{staffId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>staffId</code> (path, string, required): ID del personal (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "regionalOfficeId": "REG123",
+    "regionalOffice": "Oficina Regional",
+    "nominalJob": "Inspector",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["INSPECTOR"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_asignaciones_por_roles_o_tipo_de_inspección_y_oficina_local">
+                            <a class="anchor" href="#_buscar_asignaciones_por_roles_o_tipo_de_inspección_y_oficina_local"></a>3.1.7. Buscar Asignaciones por Roles o Tipo de Inspección y Oficina Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene asignaciones filtradas por roles o tipo de inspección y ID de oficina local.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/find-by-roles-or-inspection-type-and-local-office-id/{filter}/{localOfficeId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro (roles o tipo de inspección) - <code>localOfficeId</code> (path, string, required): ID de la oficina local</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_asignaciones_de_conciliación_por_roles_o_tipo_de_inspección_y_oficina_local">
+                            <a class="anchor" href="#_buscar_asignaciones_de_conciliación_por_roles_o_tipo_de_inspección_y_oficina_local"></a>3.1.8. Buscar Asignaciones de Conciliación por Roles o Tipo de Inspección y Oficina Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene asignaciones de conciliación filtradas por roles o tipo de inspección y ID de oficina local.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/find-conciliation-by-roles-or-inspection-type-and-local-office-id/{filter}/{localOfficeId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro (roles o tipo de inspección) - <code>localOfficeId</code> (path, string, required): ID de la oficina local</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Conciliador",
+      "assignmentType": "CONCILIACION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["CONCILIATOR"],
+      "inspectionsTypeList": [],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_asignación_por_id">
+                            <a class="anchor" href="#_obtener_asignación_por_id"></a>3.1.9. Obtener Asignación por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una asignación por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/findById/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID de la asignación (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "regionalOfficeId": "REG123",
+    "regionalOffice": "Oficina Regional",
+    "nominalJob": "Inspector",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["INSPECTOR"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_asignaciones_por_roles_o_tipo_de_inspección">
+                            <a class="anchor" href="#_buscar_asignaciones_por_roles_o_tipo_de_inspección"></a>3.1.10. Buscar Asignaciones por Roles o Tipo de Inspección</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene asignaciones filtradas por roles o tipo de inspección.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/findByRolesOrInspectionType/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro (roles o tipo de inspección)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todas_las_asignaciones_de_inspectores_de_trabajo">
+                            <a class="anchor" href="#_obtener_todas_las_asignaciones_de_inspectores_de_trabajo"></a>3.1.11. Obtener Todas las Asignaciones de Inspectores de Trabajo</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las asignaciones relacionadas con inspectores de trabajo.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-all-assignments-by-inspector-de-trabajo</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_asignaciones_de_conciliación_por_oficina_local">
+                            <a class="anchor" href="#_obtener_asignaciones_de_conciliación_por_oficina_local"></a>3.1.12. Obtener Asignaciones de Conciliación por Oficina Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todas las asignaciones de conciliación asociadas a una oficina local.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-all-assignments-conciliation-by-local-office-id/{localOfficeId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>localOfficeId</code> (path, string, required): ID de la oficina local</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Conciliador",
+      "assignmentType": "CONCILIACION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["CONCILIATOR"],
+      "inspectionsTypeList": [],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_voluntarios_asignados">
+                            <a class="anchor" href="#_obtener_voluntarios_asignados"></a>3.1.13. Obtener Voluntarios Asignados</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene voluntarios asignados según un filtro.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-assignedVoluntier/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro para buscar voluntarios</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "nominalJob": "Voluntario",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["VOLUNTEER"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_asignaciones_por_oficina_regional_o_local">
+                            <a class="anchor" href="#_obtener_asignaciones_por_oficina_regional_o_local"></a>3.1.14. Obtener Asignaciones por Oficina Regional o Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene asignaciones según un filtro de oficinas regionales o locales.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-assignments-ByRegLocOffice/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Filtro para oficinas regionales o locales</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "regionalOfficeId": "REG123",
+    "regionalOffice": "Oficina Regional",
+    "nominalJob": "Inspector",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["INSPECTOR"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_supervisor_aleatorio_para_inspección_anónima">
+                            <a class="anchor" href="#_obtener_supervisor_aleatorio_para_inspección_anónima"></a>3.1.15. Obtener Supervisor Aleatorio para Inspección Anónima</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un supervisor asignado aleatoriamente para una inspección anónima.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-random-assigned-for-anonymous-inspection/{localOfficeId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>localOfficeId</code> (path, string, required): ID de la oficina local</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "nominalJob": "Supervisor",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["SUPERVISOR"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_conciliador_aleatorio_por_oficina_regional_o_local">
+                            <a class="anchor" href="#_obtener_conciliador_aleatorio_por_oficina_regional_o_local"></a>3.1.16. Obtener Conciliador Aleatorio por Oficina Regional o Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un conciliador asignado aleatoriamente según un filtro y tipo de solicitud.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-random-conciliator-by-reg-Loc-office/{filter}/{requestType}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>excludedUuids</code> (body, array[string], required): Lista de UUIDs a excluir - <code>filter</code> (path, string, required): Filtro para oficinas regionales o locales - <code>requestType</code>                                (path, string, required): Tipo de solicitud</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "nominalJob": "Conciliador",
+    "assignmentType": "CONCILIACION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["CONCILIATOR"],
+    "inspectionsTypeList": [],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_inspector_de_trabajo_aleatorio_por_oficina_regional_o_local">
+                            <a class="anchor" href="#_obtener_inspector_de_trabajo_aleatorio_por_oficina_regional_o_local"></a>3.1.17. Obtener Inspector de Trabajo Aleatorio por Oficina Regional o Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un inspector de trabajo asignado aleatoriamente según un filtro y tipo de solicitud.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-random-idt-ByRegLocOffice/{filter}/{requestType}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>excludedUuids</code> (body, array[string], required): Lista de UUIDs a excluir - <code>filter</code> (path, string, required): Filtro para oficinas regionales o locales - <code>requestType</code>                                (path, string, required): Tipo de solicitud</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "nominalJob": "Inspector",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["INSPECTOR"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_oficial_legal_aleatorio_por_oficina_local">
+                            <a class="anchor" href="#_obtener_oficial_legal_aleatorio_por_oficina_local"></a>3.1.18. Obtener Oficial Legal Aleatorio por Oficina Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un oficial legal asignado aleatoriamente por ID de oficina local.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-random-legal-officer-by-local-office-id/{localOfficeId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>localOfficeId</code> (path, string, required): ID de la oficina local</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "nominalJob": "Oficial Legal",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["LEGAL_OFFICER"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_supervisor_aleatorio_para_atención_por_oficina_local">
+                            <a class="anchor" href="#_obtener_supervisor_aleatorio_para_atención_por_oficina_local"></a>3.1.19. Obtener Supervisor Aleatorio para Atención por Oficina Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene un supervisor asignado aleatoriamente para atención por ID de oficina local.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/get-random-supervisor-for-attention-by-local-office/{localOfficeId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>localOfficeId</code> (path, string, required): ID de la oficina local</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "assignmentDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "staffId": "223e4567-e89b-12d3-a456-426614174001",
+    "fullName": "Juan Pérez",
+    "localOfficeId": "OFF123",
+    "localOffice": "Oficina Central",
+    "nominalJob": "Supervisor",
+    "assignmentType": "INSPECCION",
+    "assignmentStatus": "ACTIVE",
+    "roleList": ["SUPERVISOR"],
+    "inspectionsTypeList": ["LABORAL"],
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_listar_asignaciones_paginadas_por_oficina_local">
+                            <a class="anchor" href="#_listar_asignaciones_paginadas_por_oficina_local"></a>3.1.20. Listar Asignaciones Paginadas por Oficina Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Lista asignaciones de forma paginada por ID de oficina local.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/listPage-assignments-by-local-office-id/{localOfficeId}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>localOfficeId</code> (path, string, required): ID de la oficina local - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño
+                                de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_listar_asignaciones_de_conciliación_paginadas_por_oficina_local">
+                            <a class="anchor" href="#_listar_asignaciones_de_conciliación_paginadas_por_oficina_local"></a>3.1.21. Listar Asignaciones de Conciliación Paginadas por Oficina Local</h4>
+                        <div class="paragraph">
+                            <p><strong>Lista asignaciones de conciliación de forma paginada por ID de oficina local.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/listPage-assignments-conciliation-by-local-office-id/{localOfficeId}/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>localOfficeId</code> (path, string, required): ID de la oficina local - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño
+                                de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Conciliador",
+      "assignmentType": "CONCILIACION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["CONCILIATOR"],
+      "inspectionsTypeList": [],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_listar_todas_las_asignaciones_paginadas">
+                            <a class="anchor" href="#_listar_todas_las_asignaciones_paginadas"></a>3.1.22. Listar Todas las Asignaciones Paginadas</h4>
+                        <div class="paragraph">
+                            <p><strong>Lista todas las asignaciones de forma paginada.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/listPage-assignments/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "assignmentDtoList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "fullName": "Juan Pérez",
+      "localOfficeId": "OFF123",
+      "localOffice": "Oficina Central",
+      "nominalJob": "Inspector",
+      "assignmentType": "INSPECCION",
+      "assignmentStatus": "ACTIVE",
+      "roleList": ["INSPECTOR"],
+      "inspectionsTypeList": ["LABORAL"],
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_asignación">
+                            <a class="anchor" href="#_actualizar_asignación"></a>3.1.23. Actualizar Asignación</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza una asignación existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment-data/v1/update-assignment/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID de la asignación (UUID) - <code>assignmentDto</code> (body, AssignmentDto, required): Datos actualizados de la asignación</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": []
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_audit_controller">
+                        <a class="anchor" href="#_audit_controller"></a>3.2. Audit Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_listar_auditorías_filtradas">
+                            <a class="anchor" href="#_listar_auditorías_filtradas"></a>3.2.1. Listar Auditorías Filtradas</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene auditorías filtradas por un criterio específico.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment/audits/v1/list-filter-search/{filter}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filter</code> (path, string, required): Criterio de filtro</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "totalRow": 1,
+  "auditDto": [
+    {
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "type": "ASSIGNMENT",
+      "typeId": "123e4567-e89b-12d3-a456-426614174000",
+      "action": "CREATION",
+      "details": "Asignación creada para inspección laboral",
+      "dateTime": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_listar_auditorías_con_filtros">
+                            <a class="anchor" href="#_listar_auditorías_con_filtros"></a>3.2.2. Listar Auditorías con Filtros</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene auditorías aplicando filtros específicos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment/audits/v1/list-filters-search</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filters</code> (body, AuditDto, required): Filtros para la búsqueda</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "totalRow": 1,
+  "auditDto": [
+    {
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "type": "ASSIGNMENT",
+      "typeId": "123e4567-e89b-12d3-a456-426614174000",
+      "action": "CREATION",
+      "details": "Asignación creada para inspección laboral",
+      "dateTime": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_listar_auditorías_paginadas">
+                            <a class="anchor" href="#_listar_auditorías_paginadas"></a>3.2.3. Listar Auditorías Paginadas</h4>
+                        <div class="paragraph">
+                            <p><strong>Lista auditorías de forma paginada.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/assignment/audits/v1/listAudits/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "auditList": [
+    {
+      "staffId": "223e4567-e89b-12d3-a456-426614174001",
+      "type": "ASSIGNMENT",
+      "typeId": "123e4567-e89b-12d3-a456-426614174000",
+      "action": "CREATION",
+      "details": "Asignación creada para inspección laboral",
+      "dateTime": "2025-05-06T10:00:00Z"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Version 1.0.0.34<br> Last updated 2025-05-07 11:03:55 -0600
+        </div>
+    </div>
+    <div class="back-button">
+        <a href="../sihcal-documentation.html">REGRESAR</a>
+    </div>
+</body>
+
+</html>

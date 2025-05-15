@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <meta name="author" content="Angel Diaz">
+    <title>Workers Service API Documentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="article toc2 toc-left">
+    <div id="header">
+        <h1>Workers Service API Documentation</h1>
+        <div class="details">
+            <span id="author" class="author">Angel Diaz</span><br>
+            <span id="email" class="email"><a href="mailto:Angel_Diaz_Sanchez@wvi.org">Angel_Diaz_Sanchez@wvi.org</a></span><br>
+            <span id="revnumber">version 0.0.23,</span>
+            <span id="revdate">2025-05-06</span>
+        </div>
+        <div id="toc" class="toc2">
+            <div id="toctitle">Table of Contents</div>
+            <ul class="sectlevel1">
+                <li><a href="#_introducción">1. Introducción</a></li>
+                <li><a href="#_información_general">2. Información General</a></li>
+                <li><a href="#_endpoints">3. Endpoints</a>
+                    <ul class="sectlevel2">
+                        <li><a href="#_workers_controller">3.1. Workers Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_agregar_nuevo_trabajador">3.1.1. Agregar Nuevo Trabajador</a></li>
+                                <li><a href="#_aprobar_trabajador">3.1.2. Aprobar Trabajador</a></li>
+                                <li><a href="#_verificar_existencia_de_trabajador">3.1.3. Verificar Existencia de Trabajador</a></li>
+                                <li><a href="#_obtener_todos_los_trabajadores">3.1.4. Obtener Todos los Trabajadores</a></li>
+                                <li><a href="#_buscar_trabajadores_por_filtros">3.1.5. Buscar Trabajadores por Filtros</a></li>
+                                <li><a href="#_obtener_información_general_por_id">3.1.6. Obtener Información General por ID</a></li>
+                                <li><a href="#_obtener_trabajador_por_id">3.1.7. Obtener Trabajador por ID</a></li>
+                                <li><a href="#_buscar_trabajador_por_número_de_identidad">3.1.8. Buscar Trabajador por Número de Identidad</a></li>
+                                <li><a href="#_buscar_trabajadores_por_nombre_o_apellido">3.1.9. Buscar Trabajadores por Nombre o Apellido</a></li>
+                                <li><a href="#_buscar_trabajador_por_id_de_usuario">3.1.10. Buscar Trabajador por ID de Usuario</a></li>
+                                <li><a href="#_obtener_datos_de_trabajador_por_id_de_usuario">3.1.11. Obtener Datos de Trabajador por ID de Usuario</a></li>
+                                <li><a href="#_listar_trabajadores_paginados">3.1.12. Listar Trabajadores Paginados</a></li>
+                                <li><a href="#_actualizar_id_de_usuario">3.1.13. Actualizar ID de Usuario</a></li>
+                                <li><a href="#_actualizar_trabajador">3.1.14. Actualizar Trabajador</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_worker_files_controller">3.2. Worker Files Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_agregar_nueva_lista_de_archivos">3.2.1. Agregar Nueva Lista de Archivos</a></li>
+                                <li><a href="#_eliminar_archivo_de_trabajador">3.2.2. Eliminar Archivo de Trabajador</a></li>
+                                <li><a href="#_obtener_archivos_de_trabajador">3.2.3. Obtener Archivos de Trabajador</a></li>
+                                <li><a href="#_actualizar_archivo_de_trabajador">3.2.4. Actualizar Archivo de Trabajador</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#_excel_multiple_upload_controller">3.3. Excel Multiple Upload Controller</a>
+                            <ul class="sectlevel3">
+                                <li><a href="#_cargar_archivo_excel">3.3.1. Cargar Archivo Excel</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="sect1">
+            <h2 id="_introducción">
+                <a class="anchor" href="#_introducción"></a>1. Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del servicio <code>Workers Service</code>, que proporciona endpoints para gestionar datos de trabajadores, archivos de trabajadores, y carga masiva de datos mediante archivos Excel. Conforme a la especificación
+                        Swagger 2.0.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_información_general">
+                <a class="anchor" href="#_información_general"></a>2. Información General</h2>
+            <div class="sectionbody">
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Versión</strong>: 0.0.23</p>
+                        </li>
+                        <li>
+                            <p><strong>Contacto</strong>: Angel Diaz (<a href="mailto:Angel_Diaz_Sanchez@wvi.org">Angel_Diaz_Sanchez@wvi.org</a>)</p>
+                        </li>
+                        <li>
+                            <p><strong>Servidor</strong>: <a href="https://prod.svc-workers.ecms.setrass.net" class="bare">https://prod.svc-workers.ecms.setrass.net</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_endpoints">
+                <a class="anchor" href="#_endpoints"></a>3. Endpoints</h2>
+            <div class="sectionbody">
+                <div class="sect2">
+                    <h3 id="_workers_controller">
+                        <a class="anchor" href="#_workers_controller"></a>3.1. Workers Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_agregar_nuevo_trabajador">
+                            <a class="anchor" href="#_agregar_nuevo_trabajador"></a>3.1.1. Agregar Nuevo Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Agrega un nuevo trabajador al sistema.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/add-new</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>workerDTO</code> (body, WorkerDto, required): Datos del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "workerDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Juan",
+    "lastName": "Pérez",
+    "identitynumber": "123456789",
+    "email": "juan.perez@example.com",
+    "phone": "+1234567890",
+    "address": "Calle Principal 123",
+    "gender": "MALE",
+    "civilStatus": "SOLTERO",
+    "birthday": "1990-01-01T00:00:00Z",
+    "country": "País Ejemplo",
+    "departamento": "Departamento Central",
+    "municipio": "Municipio Central",
+    "educationLevel": "Universitario",
+    "profession": "Ingeniero",
+    "ethnicGroup": "No especificado",
+    "disability": "Ninguna",
+    "identityType": "DNI",
+    "rtn": "12345678901234",
+    "status": "ACTIVE",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z",
+    "userId": "223e4567-e89b-12d3-a456-426614174001"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_aprobar_trabajador">
+                            <a class="anchor" href="#_aprobar_trabajador"></a>3.1.2. Aprobar Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Aprueba un trabajador existente por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/approved-worker/{workerId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>workerId</code> (path, string, required): ID del trabajador (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": []
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_verificar_existencia_de_trabajador">
+                            <a class="anchor" href="#_verificar_existencia_de_trabajador"></a>3.1.3. Verificar Existencia de Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Verifica si un trabajador existe por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/check-ExistenceStaff/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID del trabajador (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">true</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_todos_los_trabajadores">
+                            <a class="anchor" href="#_obtener_todos_los_trabajadores"></a>3.1.4. Obtener Todos los Trabajadores</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene una lista de todos los trabajadores.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/find-all</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "listWorkerResponse": {
+    "totalRow": 2,
+    "workerList": [
+      {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "name": "Juan",
+        "lastName": "Pérez",
+        "identitynumber": "123456789",
+        "email": "juan.perez@example.com"
+      }
+    ]
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_trabajadores_por_filtros">
+                            <a class="anchor" href="#_buscar_trabajadores_por_filtros"></a>3.1.5. Buscar Trabajadores por Filtros</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca trabajadores según filtros específicos.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/find-by-search/{filters}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filters</code> (path, string, required): Filtros de búsqueda</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "workerWrapperResponseList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan",
+      "lastName": "Pérez",
+      "identitynumber": "123456789"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_información_general_por_id">
+                            <a class="anchor" href="#_obtener_información_general_por_id"></a>3.1.6. Obtener Información General por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene información general de un trabajador por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/find-simple-worker-by-id/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID del trabajador (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "simpleWorker": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Juan",
+    "lastName": "Pérez"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_trabajador_por_id">
+                            <a class="anchor" href="#_obtener_trabajador_por_id"></a>3.1.7. Obtener Trabajador por ID</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene los detalles completos de un trabajador por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/findById/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID del trabajador (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "workerDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Juan",
+    "lastName": "Pérez",
+    "identitynumber": "123456789",
+    "email": "juan.perez@example.com",
+    "phone": "+1234567890",
+    "address": "Calle Principal 123",
+    "gender": "MALE",
+    "civilStatus": "SOLTERO",
+    "birthday": "1990-01-01T00:00:00Z",
+    "country": "País Ejemplo",
+    "departamento": "Departamento Central",
+    "municipio": "Municipio Central",
+    "educationLevel": "Universitario",
+    "profession": "Ingeniero",
+    "ethnicGroup": "No especificado",
+    "disability": "Ninguna",
+    "identityType": "DNI",
+    "rtn": "12345678901234",
+    "status": "ACTIVE",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z",
+    "userId": "223e4567-e89b-12d3-a456-426614174001"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_trabajador_por_número_de_identidad">
+                            <a class="anchor" href="#_buscar_trabajador_por_número_de_identidad"></a>3.1.8. Buscar Trabajador por Número de Identidad</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca trabajadores por su número de identidad.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/findByIdentityNumber/{identityNumber}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>identityNumber</code> (path, string, required): Número de identidad</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "workerWrapperResponseList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan",
+      "lastName": "Pérez",
+      "identitynumber": "123456789"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_trabajadores_por_nombre_o_apellido">
+                            <a class="anchor" href="#_buscar_trabajadores_por_nombre_o_apellido"></a>3.1.9. Buscar Trabajadores por Nombre o Apellido</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca trabajadores por nombre o apellido.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/findByNameOrLastName/{filters}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>filters</code> (path, string, required): Filtros de nombre o apellido</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 1,
+  "workerWrapperResponseList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan",
+      "lastName": "Pérez",
+      "identitynumber": "123456789"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_buscar_trabajador_por_id_de_usuario">
+                            <a class="anchor" href="#_buscar_trabajador_por_id_de_usuario"></a>3.1.10. Buscar Trabajador por ID de Usuario</h4>
+                        <div class="paragraph">
+                            <p><strong>Busca un trabajador por su ID de usuario.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/findByUserId/{userid}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>userid</code> (path, string, required): ID de usuario (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "worker": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Juan",
+    "lastName": "Pérez",
+    "identitynumber": "123456789",
+    "rtn": "12345678901234",
+    "userId": "223e4567-e89b-12d3-a456-426614174001"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_datos_de_trabajador_por_id_de_usuario">
+                            <a class="anchor" href="#_obtener_datos_de_trabajador_por_id_de_usuario"></a>3.1.11. Obtener Datos de Trabajador por ID de Usuario</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene datos detallados de un trabajador por su ID de usuario.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/findDataByUserId/{userid}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>userid</code> (path, string, required): ID de usuario (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "worker": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Juan",
+    "lastName": "Pérez",
+    "identitynumber": "123456789",
+    "rtn": "12345678901234",
+    "userId": "223e4567-e89b-12d3-a456-426614174001"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_listar_trabajadores_paginados">
+                            <a class="anchor" href="#_listar_trabajadores_paginados"></a>3.1.12. Listar Trabajadores Paginados</h4>
+                        <div class="paragraph">
+                            <p><strong>Lista trabajadores de forma paginada.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/listWorkers/{page}/{size}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>page</code> (path, integer, required): Número de página - <code>size</code> (path, integer, required): Tamaño de página</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalRow": 2,
+  "workerWrapperResponseList": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Juan",
+      "lastName": "Pérez",
+      "identitynumber": "123456789"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_id_de_usuario">
+                            <a class="anchor" href="#_actualizar_id_de_usuario"></a>3.1.13. Actualizar ID de Usuario</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza el ID de usuario asociado a un trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/update-user-id/{worker_id}/{new_user_id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>worker_id</code> (path, string, required): ID del trabajador (UUID) - <code>new_user_id</code> (path, string, required): Nuevo ID de usuario (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": []
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_trabajador">
+                            <a class="anchor" href="#_actualizar_trabajador"></a>3.1.14. Actualizar Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza los datos de un trabajador existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/workers/v1/update/{ApplicantId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>ApplicantId</code> (path, string, required): ID del trabajador (UUID) - <code>workerDTO</code> (body, WorkerDto, required): Datos actualizados del trabajador</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "workerDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Juan",
+    "lastName": "Pérez",
+    "identitynumber": "123456789",
+    "email": "juan.perez@example.com"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_worker_files_controller">
+                        <a class="anchor" href="#_worker_files_controller"></a>3.2. Worker Files Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_agregar_nueva_lista_de_archivos">
+                            <a class="anchor" href="#_agregar_nueva_lista_de_archivos"></a>3.2.1. Agregar Nueva Lista de Archivos</h4>
+                        <div class="paragraph">
+                            <p><strong>Agrega una lista de archivos asociados a un trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/worker-files/v1/add-new-list-worker-files</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>applicantFilesDtoList</code> (body, array[WorkerFilesDto], required): Lista de archivos</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "applicantFilesDtoList": [
+    {
+      "id": "323e4567-e89b-12d3-a456-426614174002",
+      "fileName": "documento.pdf",
+      "fileUrl": "https://example.com/files/documento.pdf",
+      "tittle": "Certificado",
+      "status": "CREATED",
+      "active": true,
+      "createdAt": "2025-05-06T10:00:00Z",
+      "updatedAt": "2025-05-06T10:00:00Z",
+      "workerId": "123e4567-e89b-12d3-a456-426614174000"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_eliminar_archivo_de_trabajador">
+                            <a class="anchor" href="#_eliminar_archivo_de_trabajador"></a>3.2.2. Eliminar Archivo de Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Elimina un archivo de trabajador por su ID.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/worker-files/v1/delete-worker-file/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: DELETE</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID del archivo (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": []
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_obtener_archivos_de_trabajador">
+                            <a class="anchor" href="#_obtener_archivos_de_trabajador"></a>3.2.3. Obtener Archivos de Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Obtiene todos los archivos asociados a un trabajador.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/worker-files/v1/get-files/{workerId}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: GET</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>workerId</code> (path, string, required): ID del trabajador (UUID)</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "323e4567-e89b-12d3-a456-426614174002",
+    "fileName": "documento.pdf",
+    "fileUrl": "https://example.com/files/documento.pdf",
+    "tittle": "Certificado",
+    "status": "APPROVED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T10:00:00Z",
+    "workerId": "123e4567-e89b-12d3-a456-426614174000"
+  }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sect3">
+                        <h4 id="_actualizar_archivo_de_trabajador">
+                            <a class="anchor" href="#_actualizar_archivo_de_trabajador"></a>3.2.4. Actualizar Archivo de Trabajador</h4>
+                        <div class="paragraph">
+                            <p><strong>Actualiza un archivo de trabajador existente.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/inspection/worker-files/v1/update-worker-file/{id}</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: PATCH</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>id</code> (path, string, required): ID del archivo (UUID) - <code>applicantFilesDto</code> (body, WorkerFilesDto, required): Datos actualizados del archivo</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS"
+  },
+  "applicantFilesDto": {
+    "id": "323e4567-e89b-12d3-a456-426614174002",
+    "fileName": "documento_actualizado.pdf",
+    "fileUrl": "https://example.com/files/documento_actualizado.pdf",
+    "tittle": "Certificado Actualizado",
+    "status": "UPDATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z",
+    "updatedAt": "2025-05-06T11:00:00Z",
+    "workerId": "123e4567-e89b-12d3-a456-426614174000"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_excel_multiple_upload_controller">
+                        <a class="anchor" href="#_excel_multiple_upload_controller"></a>3.3. Excel Multiple Upload Controller</h3>
+                    <div class="sect3">
+                        <h4 id="_cargar_archivo_excel">
+                            <a class="anchor" href="#_cargar_archivo_excel"></a>3.3.1. Cargar Archivo Excel</h4>
+                        <div class="paragraph">
+                            <p><strong>Carga un archivo Excel para procesar datos de trabajadores.</strong></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Path</strong>: <code>/workers/excel-multiple-upload/v1/upload-excel-file/</code></p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Method</strong>: POST</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Parameters</strong>: - <code>file</code> (formData, file, optional): Archivo Excel</p>
+                        </div>
+                        <div class="paragraph">
+                            <p><strong>Responses</strong>: - <strong>200 OK</strong>:</p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": []
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Version 0.0.23<br> Last updated 2025-05-06 11:40:59 -0600
+        </div>
+    </div>
+</body>
+
+</html>

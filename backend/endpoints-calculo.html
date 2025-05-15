@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <title>API del Servicio de Cálculo de Prestaciones</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+</head>
+
+<body class="article toc2">
+    <div id="header">
+        <h1>API del Servicio de Cálculo de Prestaciones</h1>
+    </div>
+    <div id="toc" class="toc2">
+        <div id="toctitle">Tabla de Contenidos</div>
+        <ul class="sectlevel1">
+            <li><a href="#_descripción_general">1. Descripción General</a></li>
+            <li><a href="#_controlador_de_solicitudes_de_datos_de_empleados_y_empleadores_v1">2. Controlador de Solicitudes de Datos de Empleados y Empleadores V1</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_agregar_nuevo_registro_de_empleado_y_empleador">2.1. Agregar Nuevo Registro de Empleado y Empleador</a></li>
+                    <li><a href="#_buscar_datos_de_empleado_y_empleador_por_id_de_trabajador">2.2. Buscar Datos de Empleado y Empleador por ID de Trabajador</a></li>
+                    <li><a href="#_buscar_trabajador_por_dni">2.3. Buscar Trabajador por DNI</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_solicitudes_de_indicadores_v1">3. Controlador de Solicitudes de Indicadores V1</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_contar_todos_los_cálculos_de_prestaciones">3.1. Contar Todos los Cálculos de Prestaciones</a></li>
+                    <li><a href="#_contar_por_rango_de_edad">3.2. Contar por Rango de Edad</a></li>
+                    <li><a href="#_contar_por_empresa">3.3. Contar por Empresa</a></li>
+                    <li><a href="#_contar_por_actividad_económica">3.4. Contar por Actividad Económica</a></li>
+                    <li><a href="#_contar_por_género">3.5. Contar por Género</a></li>
+                    <li><a href="#_contar_por_mes">3.6. Contar por Mes</a></li>
+                    <li><a href="#_contar_por_tipo_de_terminación_de_contrato">3.7. Contar por Tipo de Terminación de Contrato</a></li>
+                    <li><a href="#_contar_por_tipo_de_cálculo_de_prestaciones">3.8. Contar por Tipo de Cálculo de Prestaciones</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_solicitudes_de_información_salarial_v1">4. Controlador de Solicitudes de Información Salarial V1</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_calcular_derechos_de_indemnización">4.1. Calcular Derechos de Indemnización</a></li>
+                    <li><a href="#_calcular_antigüedad_del_empleado">4.2. Calcular Antigüedad del Empleado</a></li>
+                    <li><a href="#_calcular_otros_derechos">4.3. Calcular Otros Derechos</a></li>
+                    <li><a href="#_verificar_y_ajustar_salario">4.4. Verificar y Ajustar Salario</a></li>
+                    <li><a href="#_actualizar_comentarios">4.5. Actualizar Comentarios</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_errores_básico">5. Controlador de Errores Básico</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_error_html">5.1. Error HTML</a></li>
+                </ul>
+            </li>
+            <li><a href="#_definiciones">6. Definiciones</a></li>
+            <li><a href="#_contacto">7. Contacto</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <div id="preamble">
+            <div class="sectionbody">
+                <table class="tableblock frame-all grid-all stretch">
+                    <colgroup>
+                        <col style="width: 100%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="tableblock halign-left valign-top"><strong>Información del Documento</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Título</strong>: API del Servicio de Calculo de Prestaciones</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Versión</strong>: {0.0.41}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Fecha de Revisión</strong>: {28 abril 2024}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Contacto</strong>: Emanuel Sosa (<a href="mailto:emanuel@sample.com">emanuel@sample.com</a>)</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Host</strong>: prod.svc-calc-prestaciones.ecms.setrass.net</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="paragraph">
+                    <p>Este documento describe la API del <strong>Servicio de Cálculo de Prestaciones</strong>, que calcula los derechos e indemnizaciones para trabajadores. La API ofrece Endpoints para gestionar datos de empleados y empleadores, información
+                        salarial y generar indicadores relacionados con cálculos laborales.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_descripción_general">Descripción General</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>La API está organizada en los siguientes controladores:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Controlador de Solicitudes de Datos de Empleados y Empleadores V1</strong>: Gestiona la información de empleados y empleadores.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Solicitudes de Indicadores V1</strong>: Proporciona datos estadísticos sobre cálculos laborales por año.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Solicitudes de Información Salarial V1</strong>: Maneja cálculos y ajustes relacionados con salarios.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Errores Básico</strong>: Gestiona las respuestas de error.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paragraph">
+                    <p>Todos los puntos finales son accesibles a través del host <code>prod.svc-calc-prestaciones.ecms.setrass.net/</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_solicitudes_de_datos_de_empleados_y_empleadores_v1">Controlador de Solicitudes de Datos de Empleados y Empleadores V1</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador gestiona el registro y recuperación de datos de empleados y empleadores.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_agregar_nuevo_registro_de_empleado_y_empleador">Agregar Nuevo Registro de Empleado y Empleador</h3>
+                    <div class="paragraph">
+                        <p>Registra un nuevo registro de empleado y empleador.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/employee-and-employer-data/v1/add-new</code>
+                            <strong>Resumen</strong>: Registra una nueva solicitud de empleado y empleador.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>request</code> (Cuerpo, Requerido): Un objeto JSON con detalles del empleado y empleador (<code>WorkerPersonEmployerRequestDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "requestId": 1,
+  "requestType": "WORKER_PERSON",
+  "workerPersonId": "W123",
+  "firstName": "Juan",
+  "lastName": "Perez",
+  "identificationType": "DNI",
+  "identificationNumber": "123456789",
+  "age": 30,
+  "gender": "M",
+  "email": "juan.perez@example.com",
+  "phoneNumber": "+1234567890",
+  "localizationId": "LOC001",
+  "terminationContractType": "RENUNCIA",
+  "employer": {
+    "employerId": "E001",
+    "employerName": "Acme Corp",
+    "identificationType": "RTN",
+    "identificationNumber": "987654321",
+    "personType": "JURIDICA",
+    "companySize": 50,
+    "economicActivity": "Manufactura"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "status": "éxito",
+  "message": "Datos de empleado y empleador registrados con éxito",
+  "requestId": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_datos_de_empleado_y_empleador_por_id_de_trabajador">Buscar Datos de Empleado y Empleador por ID de Trabajador</h3>
+                    <div class="paragraph">
+                        <p>Recupera datos de empleado y empleador por ID de trabajador.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/employee-and-employer-data/v1/find/{workerId}</code>
+                            <strong>Resumen</strong>: Recupera datos de un trabajador específico.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>workerId</code> (Ruta, Requerido): El ID del trabajador (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/employee-and-employer-data/v1/find/W123</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerPersonId": "W123",
+  "firstName": "Juan",
+  "lastName": "Perez",
+  "identificationNumber": "123456789",
+  "age": 30,
+  "gender": "M",
+  "employer": {
+    "employerId": "E001",
+    "employerName": "Acme Corp",
+    "companySize": 50
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_trabajador_por_dni">Buscar Trabajador por DNI</h3>
+                    <div class="paragraph">
+                        <p>Busca un trabajador por su número de identificación.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/employee-and-employer-data/v1/search/worker-person/{identificationNumber}</code>
+                            <strong>Resumen</strong>: Recupera detalles del trabajador por DNI o número de identificación.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>identificationNumber</code> (Ruta, Requerido): El número de identificación del trabajador (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/employee-and-employer-data/v1/search/worker-person/123456789</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "workerPersonId": "W123",
+  "firstName": "Juan",
+  "lastName": "Perez",
+  "identificationNumber": "123456789",
+  "age": 30,
+  "gender": "M"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_solicitudes_de_indicadores_v1">Controlador de Solicitudes de Indicadores V1</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador proporciona indicadores estadísticos para cálculos laborales, agrupados por diversos criterios para un año determinado.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_todos_los_cálculos_de_prestaciones">Contar Todos los Cálculos de Prestaciones</h3>
+                    <div class="paragraph">
+                        <p>Cuenta todos los cálculos laborales para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countAllCalculoPrestaciones/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el número total de cálculos laborales para el año.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countAllCalculoPrestaciones/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "count": 1500
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_por_rango_de_edad">Contar por Rango de Edad</h3>
+                    <div class="paragraph">
+                        <p>Cuenta los cálculos laborales por rangos de edad para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countByAge/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el conteo de cálculos agrupados por rangos de edad.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countByAge/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "firstRange": 200,
+  "secondRange": 500,
+  "lastRange": 300
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_por_empresa">Contar por Empresa</h3>
+                    <div class="paragraph">
+                        <p>Cuenta los cálculos laborales por empresa para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countByCompany/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el conteo de cálculos agrupados por empresa.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countByCompany/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "companyName": "Acme Corp",
+    "companySize": 50,
+    "companyCount": 300
+  },
+  {
+    "companyName": "Beta Inc",
+    "companySize": 20,
+    "companyCount": 150
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_por_actividad_económica">Contar por Actividad Económica</h3>
+                    <div class="paragraph">
+                        <p>Cuenta los cálculos laborales por actividad económica para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countByEconomicActivity/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el conteo de cálculos agrupados por actividad económica.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countByEconomicActivity/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "type": "Manufactura",
+    "count": 600
+  },
+  {
+    "type": "Comercio",
+    "count": 400
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_por_género">Contar por Género</h3>
+                    <div class="paragraph">
+                        <p>Cuenta los cálculos laborales por género para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countByGender/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el conteo de cálculos agrupados por género.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countByGender/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "type": "M",
+    "count": 800
+  },
+  {
+    "type": "F",
+    "count": 700
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_por_mes">Contar por Mes</h3>
+                    <div class="paragraph">
+                        <p>Cuenta los cálculos laborales por mes para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countByMonth/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el conteo de cálculos agrupados por mes.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countByMonth/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "month": 1,
+    "count": 120
+  },
+  {
+    "month": 2,
+    "count": 130
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_por_tipo_de_terminación_de_contrato">Contar por Tipo de Terminación de Contrato</h3>
+                    <div class="paragraph">
+                        <p>Cuenta los cálculos laborales por tipo de terminación de contrato para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countByTerminationContractType/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el conteo de cálculos agrupados por tipo de terminación.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countByTerminationContractType/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "type": "DESPIDO",
+    "count": 900
+  },
+  {
+    "type": "RENUNCIA",
+    "count": 600
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_contar_por_tipo_de_cálculo_de_prestaciones">Contar por Tipo de Cálculo de Prestaciones</h3>
+                    <div class="paragraph">
+                        <p>Cuenta los cálculos laborales por tipo para un año específico.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/indicators-data/v1/countByTypeCalculoPrestaciones/{year}</code>
+                            <strong>Resumen</strong>: Devuelve el conteo de cálculos agrupados por tipo.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>year</code> (Ruta, Requerido): El año a consultar (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /calculo-prestaciones/indicators-data/v1/countByTypeCalculoPrestaciones/2023</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "type": "Indemnización",
+    "count": 1000
+  },
+  {
+    "type": "Otros Derechos",
+    "count": 500
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_solicitudes_de_información_salarial_v1">Controlador de Solicitudes de Información Salarial V1</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador maneja cálculos relacionados con salarios, incluyendo indemnizaciones, otros derechos y ajustes.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_calcular_derechos_de_indemnización">Calcular Derechos de Indemnización</h3>
+                    <div class="paragraph">
+                        <p>Calcula los derechos de indemnización para un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/salary-info-req/v1/compensations-rights/compute</code>
+                            <strong>Resumen</strong>: Calcula los derechos de indemnización basados en detalles salariales y laborales.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>salaryEmployeeInfo</code> (Cuerpo, Requerido): Un objeto JSON con detalles salariales y laborales (<code>SalaryEmployeeInfoDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "requestId": 1,
+  "workerPersonId": "W123",
+  "employerId": "E001",
+  "salary": 2000.00,
+  "fixedSalary": true,
+  "startDate": "2020-01-01",
+  "dismissalDate": "2023-12-31",
+  "terminationContractType": "DESPIDO",
+  "salaryInKindType": "NONE",
+  "lastSixMonthsSalary": [2000.00, 2000.00, 2000.00, 2000.00, 2000.00, 2000.00],
+  "lastSixMonthsBonusPayment": [100.00, 100.00, 100.00, 100.00, 100.00, 100.00],
+  "compensationRightsRequest": {
+    "hasForewarningNotice": true,
+    "hasTakeVacationTimeLastYear": false
+  },
+  "comments": "Terminación estándar"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "compensationRightSubTotal": 5000.00,
+  "compensationRights": {
+    "forewarningNotice": {
+      "amount": 2000.00,
+      "currency": "USD",
+      "itemName": "Preaviso"
+    },
+    "proportionalVacation": {
+      "amount": 3000.00,
+      "currency": "USD",
+      "itemName": "Vacaciones Proporcionales"
+    }
+  },
+  "totalAmountToPay": 5000.00
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_calcular_antigüedad_del_empleado">Calcular Antigüedad del Empleado</h3>
+                    <div class="paragraph">
+                        <p>Calcula la antigüedad laboral de un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/salary-info-req/v1/employee/old</code>
+                            <strong>Resumen</strong>: Calcula la antigüedad de un empleado basado en fechas de empleo.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>laborOldDto</code> (Cuerpo, Requerido): Un objeto JSON con fechas de inicio y fin (<code>LaborOldDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "startDate": "2015-01-01",
+  "endDate": "2023-12-31"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "years": 8,
+  "months": 11,
+  "days": 30,
+  "totalWorkedDays": 3285
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_calcular_otros_derechos">Calcular Otros Derechos</h3>
+                    <div class="paragraph">
+                        <p>Calcula otros derechos para un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/salary-info-req/v1/other-rights/compute</code>
+                            <strong>Resumen</strong>: Calcula derechos adicionales como pagos adeudados o beneficios.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>salaryEmployeeInfo</code> (Cuerpo, Requerido): Un objeto JSON con detalles salariales y de derechos (<code>SalaryEmployeeInfoDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "requestId": 1,
+  "workerPersonId": "W123",
+  "employerId": "E001",
+  "salary": 2000.00,
+  "fixedSalary": true,
+  "startDate": "2020-01-01",
+  "dismissalDate": "2023-12-31",
+  "terminationContractType": "DESPIDO",
+  "otherRightsRequest": {
+    "haveSchoolAgeChildren": true,
+    "owedBonusVacationsRequest": {
+      "owedBonusVacations": true,
+      "owedBonusVacationsAmount": 500.00
+    },
+    "pregnantRequest": {
+      "owedBreastfeedingHours": true,
+      "breastfeedingPaidHours": 40
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "otherRightSubTotal": 2500.00,
+  "otherRights": {
+    "owedBonusVacations": {
+      "amount": 500.00,
+      "currency": "USD",
+      "itemName": "Bonificación de Vacaciones Adeudada"
+    },
+    "owedBreastfeedingHours": {
+      "amount": 2000.00,
+      "currency": "USD",
+      "itemName": "Horas de Lactancia Adeudadas"
+    }
+  },
+  "totalAmountToPay": 2500.00
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_verificar_y_ajustar_salario">Verificar y Ajustar Salario</h3>
+                    <div class="paragraph">
+                        <p>Verifica y ajusta el salario de un empleado según los datos proporcionados.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/salary-info-req/v1/salary/verifyAndAdjustSalary</code>
+                            <strong>Resumen</strong>: Verifica y ajusta cálculos salariales.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>salaryVerifyAndAdjustDto</code> (Cuerpo, Requerido): Un objeto JSON con detalles de verificación salarial (<code>SalaryVerifyAndAdjustDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "salary": 2000.00,
+  "fixedSalary": true,
+  "startDate": "2020-01-01",
+  "dismissalDate": "2023-12-31",
+  "companySize": 50,
+  "economicActivityId": "MAN001",
+  "lastSixMonthsSalary": [2000.00, 2000.00, 2000.00, 2000.00, 2000.00, 2000.00]
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "message": "Salario verificado y ajustado",
+  "salary": 2100.00,
+  "wasUpdated": true
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_comentarios">Actualizar Comentarios</h3>
+                    <div class="paragraph">
+                        <p>Actualiza los comentarios asociados con una solicitud salarial.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/calculo-prestaciones/salary-info-req/v1/updateComments</code>
+                            <strong>Resumen</strong>: Actualiza los comentarios de una solicitud salarial.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>updateCommentDto</code> (Cuerpo, Requerido): Un objeto JSON con detalles de los comentarios (<code>UpdateCommentDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "requestId": 1,
+  "comments": "Cálculo actualizado debido a nuevos datos de horas extras"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "message": "Comentarios actualizados con éxito",
+  "wasUpdated": true
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_errores_básico">Controlador de Errores Básico</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador maneja las respuestas de error de la API.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_error_html">Error HTML</h3>
+                    <div class="paragraph">
+                        <p>Maneja errores y devuelve una respuesta en HTML.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Métodos HTTP</strong>: GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH
+                            <strong>Ruta</strong>: <code>/error</code>
+                            <strong>Resumen</strong>: Devuelve una página de error para solicitudes inválidas.
+                            <strong>Produce</strong>: <code>text/html</code>
+                            <strong>Consume</strong>: <code>application/json</code> (para métodos aplicables)</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "viewName": "error",
+  "model": {
+    "error": "Solicitud Incorrecta",
+    "status": 400
+  },
+  "status": "BAD_REQUEST"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_definiciones">Definiciones</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>La API utiliza los siguientes modelos de datos, definidos en el esquema Swagger:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>WorkerPersonEmployerRequestDto</strong>: Representa datos de empleados y empleadores.</p>
+                        </li>
+                        <li>
+                            <p><strong>SalaryEmployeeInfoDto</strong>: Contiene detalles salariales y laborales para cálculos.</p>
+                        </li>
+                        <li>
+                            <p><strong>CalculoPrestacionesResponseDto</strong>: Estructura de respuesta para cálculos de indemnizaciones y otros derechos.</p>
+                        </li>
+                        <li>
+                            <p><strong>AgeRangeDto</strong>, <strong>CompanyDto</strong>, <strong>CountByTypeDto</strong>, <strong>CountByMonthDto</strong>: Usados para respuestas de indicadores.</p>
+                        </li>
+                        <li>
+                            <p><strong>LaborOldDto</strong>, <strong>SalaryVerifyAndAdjustDto</strong>, <strong>UpdateCommentDto</strong>: Modelos de entrada para operaciones específicas.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paragraph">
+                    <p>Para definiciones detalladas del esquema, consulte la especificación JSON de Swagger.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_contacto">Contacto</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Para soporte, contacte a Emanuel Sosa en <a href="mailto:emanuel@sample.com">emanuel@sample.com</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Last updated 2025-04-28 15:24:46 -0600
+        </div>
+    </div>
+</body>
+
+</html>

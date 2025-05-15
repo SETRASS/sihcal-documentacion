@@ -1,0 +1,740 @@
+== tbl_appointments
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID del registro
+
+| staff_id
+| uuid
+| ID del personal asignado
+
+| appointment_type
+| character varying(30)
+| Tipo de cita
+
+| date_appointment
+| date
+| Fecha de la cita
+
+| start_hour
+| time
+| Hora de inicio de la cita
+
+| end_hour
+| time
+| Hora de finalización de la cita
+
+| status_appointment
+| character varying(30)
+| Estado de la cita
+
+| reprogramming
+| character varying(500)
+| Comentarios sobre la reprogramación
+
+| status
+| character varying(30)
+| Estado
+
+| active
+| boolean
+| Estado activo (por defecto: true)
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+|===
+
+== tbl_appointments_type
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| appointment_id
+| uuid
+| ID de la cita
+
+| status_appointment_type
+| character varying(30)
+| Tipo de estado de la cita
+
+| text_editor
+| text
+| Texto descriptivo
+
+| active
+| boolean
+| Estado activo (por defecto: true)
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+|===
+
+== tbl_assigned_inspectors
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID del registro
+
+| staff_id
+| uuid
+| ID del inspector asignado
+
+| active
+| boolean
+| Estado activo
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+
+| is_leader
+| boolean
+| Indica si el inspector es el líder
+
+| providence_id
+| uuid
+| ID de la providencia asociada
+|===
+
+== tbl_attention_type
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| name
+| character varying(50)
+| Nombre del tipo de atención
+|===
+
+== tbl_audits
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| type
+| character varying(50)
+| Tipo de auditoría
+
+| type_id
+| uuid
+| ID relacionado al tipo de auditoría
+
+| staff_id
+| uuid
+| ID del personal que realizó la auditoría
+
+| date_time
+| timestamp
+| Fecha y hora de la auditoría
+
+| action
+| character varying(50)
+| Acción realizada
+
+| details
+| character varying(255)
+| Detalles de la auditoría
+|===
+
+== tbl_causes
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| name
+| character varying(250)
+| Nombre de la causa
+
+| active
+| boolean
+| Estado activo
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+|===
+
+== tbl_company_activities
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| name
+| character varying(250)
+| Nombre de la actividad de la empresa
+
+| active
+| boolean
+| Estado activo (por defecto: true)
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+|===
+
+== tbl_inspection_start_orders
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID del registro
+
+| staff_id
+| uuid
+| ID del personal asignado
+
+| approved_staff_id
+| uuid
+| ID del personal que aprobó
+
+| staffs_list
+| text[]
+| Lista de IDs de los empleados asignados
+
+| format_type
+| bigint
+| Tipo de formato de la orden
+
+| editor_order
+| text
+| Texto del editor para la orden
+
+| status_order
+| character varying(255)
+| Estado de la orden
+
+| file_name
+| text
+| Nombre del archivo asociado
+
+| file_url
+| text
+| URL del archivo
+
+| status
+| character varying(50)
+| Estado
+
+| active
+| boolean
+| Estado activo
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+|===
+
+== tbl_objetives
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| types_request
+| uuid
+| ID del tipo de solicitud
+
+| name
+| character varying(250)
+| Nombre del objetivo
+
+| active
+| boolean
+| Estado activo
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+
+| num_order
+| integer
+| Número de orden (por defecto: 4)
+|===
+
+== tbl_providence_files
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| owner_id
+| uuid
+| ID del propietario
+
+| file_name
+| character varying(255)
+| Nombre del archivo
+
+| file_url
+| character varying(255)
+| URL del archivo
+
+| title
+| character varying(255)
+| Título del archivo
+
+| description
+| character varying(255)
+| Descripción del archivo
+
+| status
+| character varying(255)
+| Estado del archivo
+
+| active
+| boolean
+| Estado activo
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+|===
+
+== tbl_record_causes
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID del registro
+
+| cause_id
+| uuid
+| ID de la causa
+|===
+
+== tbl_record_cedulas
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID del registro
+
+| appointment_type
+| character varying(255)
+| Tipo de cita
+
+| appointment_date
+| date
+| Fecha de la cita
+
+| appointment_start_hour
+| time
+| Hora de inicio
+
+| appointment_end_hour
+| time
+| Hora de finalización
+
+| appointment_details
+| text
+| Detalles de la cita
+
+| reprogramming_comment
+| text
+| Comentarios sobre la reprogramación
+
+| cancel_comment
+| text
+| Comentarios sobre la cancelación
+
+| appointment_status
+| character varying(255)
+| Estado de la cita
+
+| is_last_appointment
+| boolean
+| Indica si es la última cita
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+
+| is_active_to_actas
+| boolean
+| Estado activo para actas (por defecto: false)
+
+| is_reschedule
+| boolean
+| Indica si es una reprogramación (por defecto: false)
+
+| acta_id_to_reschedule
+| uuid
+| ID del acta a reprogramar
+
+| providence_id
+| uuid
+| ID de la providencia
+
+| reschedule_acta_type_origin
+| character varying(255)
+| Tipo de origen de acta para reprogramación
+|===
+
+== tbl_record_inspectors
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID del registro
+
+| inspector_id
+| uuid
+| ID del inspector asignado
+|===
+
+== tbl_record_providences
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| record_id
+| uuid
+| ID del registro
+
+| providence_type
+| character varying(255)
+| Tipo de providencia
+
+| comment
+| text
+| Comentarios sobre la providencia
+
+| status
+| character varying(255)
+| Estado de la providencia
+
+| close_date
+| date
+| Fecha de cierre
+
+| is_last_providence
+| boolean
+| Indica si es la última providencia
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+
+| active
+| boolean
+| Estado activo
+
+| reject_comment
+| text
+| Comentarios sobre el rechazo
+
+| reassign_comment
+| text
+| Comentarios sobre la reasignación
+
+| is_reassigned
+| boolean
+| Indica si ha sido reasignado (por defecto: false)
+
+| providence_origin_reassigned_id
+| uuid
+| ID de la providencia original reasignada
+
+| acta_id
+| uuid
+| ID del acta
+|===
+
+
+== tbl_records
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| worker_id
+| uuid
+| ID del trabajador
+
+| employer_id
+| uuid
+| ID del empleador
+
+| record_number
+| character varying(255)
+| Número de registro
+
+| type_request
+| uuid
+| ID del tipo de solicitud
+
+| objective
+| uuid
+| ID del objetivo
+
+| record_description
+| text
+| Descripción del registro
+
+| status
+| character varying(50)
+| Estado del registro
+
+| active
+| boolean
+| Estado activo
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+
+| is_temporary_employer
+| boolean
+| Indica si el empleador es temporal
+
+| attention_id
+| uuid
+| ID de atención
+
+| origin
+| character varying(255)
+| Origen del registro
+
+| applicant_type
+| uuid
+| Tipo de solicitante
+
+| assigned_staff_id
+| uuid
+| ID del personal asignado
+
+| stage
+| character varying(255)
+| Etapa del registro
+
+| order_inspection_format_type
+| bigint
+| Tipo de formato de inspección
+
+| order_inspection_comment
+| text
+| Comentarios sobre la orden de inspección
+
+| regional_office
+| character varying(255)
+| Oficina regional
+
+| local_office
+| character varying(255)
+| Oficina local
+
+| is_started_in_attention
+| boolean
+| Indica si se ha iniciado en atención
+
+| worker_first_name
+| character varying(255)
+| Nombre del trabajador
+
+| worker_last_name
+| character varying(255)
+| Apellido del trabajador
+
+| company_name
+| character varying(255)
+| Nombre de la empresa
+
+| company_address
+| text
+| Dirección de la empresa
+
+| employer_first_name
+| character varying(255)
+| Nombre del empleador
+
+| employer_last_name
+| character varying(255)
+| Apellido del empleador
+
+| applicant_condition
+| character varying(255)
+| Condición del solicitante
+
+| inspected_condition
+| character varying(255)
+| Condición inspeccionada
+
+| inspected_identity
+| character varying(255)
+| Identidad inspeccionada
+
+| attention_comment
+| text
+| Comentarios sobre la atención
+
+| attention_details
+| text
+| Detalles de la atención
+
+| attention_reason
+| character varying(255)
+| Razón de la atención
+
+| represented_type
+| character varying(255)
+| Tipo de representado
+
+| representant_first_name
+| character varying(255)
+| Nombre del representante
+
+| representant_last_name
+| character varying(255)
+| Apellido del representante
+
+| date_received
+| date
+| Fecha de recepción
+
+| is_final
+| boolean
+| Indica si el registro es final
+|===
+
+== tbl_type_requests
+[cols="1,1,5"]
+|===
+| Campo | Tipo de Dato | Descripción
+
+| id
+| uuid
+| Clave primaria, no nulo
+
+| name
+| character varying(250)
+| Nombre del tipo de solicitud, no nulo
+
+| active
+| boolean
+| Estado activo (por defecto: true)
+
+| created_at
+| timestamp
+| Fecha de creación
+
+| updated_at
+| timestamp
+| Fecha de actualización
+|===

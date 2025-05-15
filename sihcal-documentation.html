@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación SIHCAL</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="#">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a href="#">Historias de Usuario</a>
+                <ul class="submenu">
+                    <li class="module-item">
+                        <a href="backend/endpoints-staff.html">STAFF</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-parametrizacion.html">PARAMETRIZACIÓN</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-workers.html">WORKERS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-calculo.html">CÁLCULO</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-inspeccion.html">INSPECCIÓN</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-fichas.html">FICHAS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-actas.html">ACTAS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-atenciones.html">ATENCIONES</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Diseños</a>
+                <ul class="submenu">
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=3927-4866" target="_blank">STAFF</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=8589-14717" target="_blank">PARAMETRIZACIÓN</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=6530-14254" target="_blank">WORKERS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=442-511" target="_blank">CÁLCULO</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=4251-6176" target="_blank">INSPECCIÓN</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=4251-6176" target="_blank">FICHAS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=7936-8918" target="_blank">ACTAS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=4592-7314&t=CJOkjS9SQdBzK6Qz-4" target="_blank">ATENCIONES</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=1766-3380" target="_blank">PATRONOS</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Diagramas de Base de Datos</a>
+                <ul class="submenu">
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-staff.html">STAFF</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-parametrizacion.html">PARAMETRIZACIÓN</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-workers.html">WORKERS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-calculo.html">CÁLCULO</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-inspeccion.html">INSPECCIÓN</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-fichas.html">FICHAS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-actas.html">ACTAS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-lookups.html">LOOKUPS</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-salary-history.html">SALARY HISTORY</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-atenciones.html">ATENCIONES</a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diagramas/diagrama-patronos.html">PATRONOS</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Diccionario de Datos</a>
+                <ul class="submenu">
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/staff.html">
+                            <span class="module-name">STAFF</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/parametrizacion.html">
+                            <span class="module-name">PARAMETRIZACIÓN</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/workers.html">
+                            <span class="module-name">WORKERS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/calculo.html">
+                            <span class="module-name">CÁLCULO</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/inspeccion.html">
+                            <span class="module-name">INSPECCIÓN</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/fichas.html">
+                            <span class="module-name">FICHAS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/actas.html">
+                            <span class="module-name">ACTAS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/lookups.html">
+                            <span class="module-name">LOOKUPS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/salary-history.html">
+                            <span class="module-name">SALARY HISTORY</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/atenciones.html">
+                            <span class="module-name">ATENCIONES</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="diccionarios/asciidoctor/patronos.html">
+                            <span class="module-name">PATRONOS</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Backend</a>
+                <ul class="submenu">
+                    <li class="module-item">
+                        <a href="backend/endpoints-staff.html">
+                            <span class="module-name">STAFF</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-parametrizacion.html">
+                            <span class="module-name">PARAMETRIZACIÓN</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-workers.html">
+                            <span class="module-name">WORKERS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-calculo.html">
+                            <span class="module-name">CÁLCULO</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-inspeccion.html">
+                            <span class="module-name">INSPECCIÓN</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-fichas.html">
+                            <span class="module-name">FICHAS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-actas.html">
+                            <span class="module-name">ACTAS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-lookups.html">
+                            <span class="module-name">LOOKUPS</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-salary_history.html">
+                            <span class="module-name">SALARY HISTORY</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-atenciones.html">
+                            <span class="module-name">ATENCIONES</span>
+                        </a>
+                    </li>
+                    <li class="module-item">
+                        <a href="backend/endpoints-patronos.html">
+                            <span class="module-name">PATRONOS</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Frontend</a>
+                <ul class="submenu">
+                    <li class="module-item">STAFF</li>
+                    <li class="module-item">PARAMETRIZACIÓN</li>
+                    <li class="module-item">WORKERS</li>
+                    <li class="module-item">CÁLCULO</li>
+                    <li class="module-item">INSPECCIÓN</li>
+                    <li class="module-item">FICHAS</li>
+                    <li class="module-item">ACTAS</li>
+                    <li class="module-item">LOOKUPS</li>
+                    <li class="module-item">SALARY HISTORY</li>
+                    <li class="module-item">ATENCIONES</li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <header>
+        <h1>SIHCAL</h1>
+        <p class="subtitle">Sistema Hondureño de Casos Laborales</p>
+    </header>
+
+    <div class="container">
+        <div class="categories">
+            <!-- Categoría 1: Historias de Usuario -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">📝</span>Historias de Usuario
+                </div>
+                <div class="modules-list">
+                    <a href="HU/HU_STAFF.pdf" download>
+                        <div class="module-item">
+                            <span class="module-name">STAFF</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="HU/HU_PARAMETRIZACION_DE_EQUIPOS_DE_INSPECCION.pdf" download>
+                        <div class="module-item">
+                            <span class="module-name">PARAMETRIZACIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="HU/HU_TRABAJADORES.zip" download>
+                        <div class="module-item">
+                            <span class="module-name">WORKERS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="HU/HU_Calculo_de_Prestaciones.zip" download>
+                        <div class="module-item">
+                            <span class="module-name">CÁLCULO</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="HU/HU_INSPECCION.zip" download>
+                        <div class="module-item">
+                            <span class="module-name">INSPECCIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="HU/HU_FICHAS.zip" download>
+                        <div class="module-item">
+                            <span class="module-name">FICHAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="HU/HU_ACTAS.zip" download>
+                        <div class="module-item">
+                            <span class="module-name">ACTAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="HU/HU_ATENCIONES.zip" download>
+                        <div class="module-item">
+                            <span class="module-name">ATENCIONES</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Categoría 2: Diseños / Mockups -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">🎨</span>Diseños / Mockups
+                </div>
+                <div class="modules-list">
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=3927-4866" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">STAFF</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=8589-14717" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">PARAMETRIZACIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=6530-14254" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">WORKERS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=442-511" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">CÁLCULO</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=4251-6176" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">INSPECCIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=4251-6176" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">FICHAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=7936-8918" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">ACTAS</span>
+                        <span class="arrow-icon">→</span>
+                    </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=4592-7314&t=CJOkjS9SQdBzK6Qz-4" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">ATENCIONES</span>
+                        <span class="arrow-icon">→</span>
+                    </div>
+                    </a>
+                    <a href="https://www.figma.com/design/eQdQAMk86qucsmHT0fMjfA/SIHCAL?node-id=1766-3380" target="_blank">
+                        <div class="module-item">
+                            <span class="module-name">PATRONOS</span>
+                        <span class="arrow-icon">→</span>
+                    </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Categoría 3: Diagramas de Base de Datos -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">🗄️</span>Diagramas de Base de Datos
+                </div>
+                <div class="modules-list">
+                    <a href="diagramas/diagrama-staff.html">
+                        <div class="module-item">
+                            <span class="module-name">STAFF</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-parametrizacion.html">
+                        <div class="module-item">
+                            <span class="module-name">PARAMETRIZACIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-workers.html">
+                        <div class="module-item">
+                            <span class="module-name">WORKERS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-calculo.html">
+                        <div class="module-item">
+                            <span class="module-name">CÁLCULO</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-inspeccion.html">
+                        <div class="module-item">
+                            <span class="module-name">INSPECCIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-fichas.html">
+                        <div class="module-item">
+                            <span class="module-name">FICHAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-actas.html">
+                        <div class="module-item">
+                            <span class="module-name">ACTAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-lookups.html">
+                        <div class="module-item">
+                            <span class="module-name">LOOKUPS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-salary-history.html">
+                        <div class="module-item">
+                            <span class="module-name">SALARY HISTORY</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-atenciones.html">
+                        <div class="module-item">
+                            <span class="module-name">ATENCIONES</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diagramas/diagrama-patronos.html">
+                        <div class="module-item">
+                            <span class="module-name">PATRONOS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Categoría 4: Diccionario de Datos -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">📚</span>Diccionario de Datos
+                </div>
+                <div class="modules-list">
+                    <a href="diccionarios/asciidoctor/staff.html">
+                        <div class="module-item">
+                            <span class="module-name">STAFF</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/parametrizacion.html">
+                        <div class="module-item">
+                            <span class="module-name">PARAMETRIZACIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/workers.html">
+                        <div class="module-item">
+                            <span class="module-name">WORKERS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/calculo.html">
+                        <div class="module-item">
+                            <span class="module-name">CÁLCULO</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/inspeccion.html">
+                        <div class="module-item">
+                            <span class="module-name">INSPECCIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/fichas.html">
+                        <div class="module-item">
+                            <span class="module-name">FICHAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/actas.html">
+                        <div class="module-item">
+                            <span class="module-name">ACTAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/lookups.html">
+                        <div class="module-item">
+                            <span class="module-name">LOOKUPS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/salary-history.html">
+                        <div class="module-item">
+                            <span class="module-name">SALARY HISTORY</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/atenciones.html">
+                        <div class="module-item">
+                            <span class="module-name">ATENCIONES</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="diccionarios/asciidoctor/patronos.html">
+                        <div class="module-item">
+                            <span class="module-name">PATRONOS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Categoría 5: Documentación de Backend -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">⚙️</span>Documentación de Backend
+                </div>
+                <div class="modules-list">
+                    <a href="backend/endpoints-staff.html">
+                        <div class="module-item">
+                            <span class="module-name">STAFF</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-parametrizacion.html">
+                        <div class="module-item">
+                            <span class="module-name">PARAMETRIZACIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-workers.html">
+                        <div class="module-item">
+                            <span class="module-name">WORKERS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-calculo.html">
+                        <div class="module-item">
+                            <span class="module-name">CÁLCULO</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-inspeccion.html">
+                        <div class="module-item">
+                            <span class="module-name">INSPECCIÓN</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-fichas.html">
+                        <div class="module-item">
+                            <span class="module-name">FICHAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-actas.html">
+                        <div class="module-item">
+                            <span class="module-name">ACTAS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-lookups.html">
+                        <div class="module-item">
+                            <span class="module-name">LOOKUPS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-salary_history.html">
+                        <div class="module-item">
+                            <span class="module-name">SALARY HISTORY</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-atenciones.html">
+                        <div class="module-item">
+                            <span class="module-name">ATENCIONES</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                    <a href="backend/endpoints-patronos.html">
+                        <div class="module-item">
+                            <span class="module-name">PATRONOS</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Categoría 6: Documentación de Frontend -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">💻</span>Documentación de Frontend
+                </div>
+                <div class="modules-list">
+                   <a href="frontend/1-overview.html" target="_blank"> 
+                        <div class="module-item">
+                            <span class="module-name">Documentación</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </a>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="footer-text">© 2025 - Documentación SIHCAL</p>
+    </footer>
+
+
+</body>
+
+</html>

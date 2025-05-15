@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Asciidoctor 2.0.23">
+    <meta name="author" content="Equipo de Documentación de SETRASS">
+    <title>API del Servicio de Personal</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link rel="stylesheet" href="endpoints-estyle.css">
+</head>
+
+<body class="article toc2">
+    <div id="header">
+        <h1>API del Servicio de Personal</h1>
+        <div class="details">
+            <span id="author" class="author">Equipo de Documentación de SETRASS</span><br>
+            <span id="revnumber">version v0.0.49,</span>
+            <span id="revdate">2025-05-06</span>
+        </div>
+    </div>
+
+    <div id="toc" class="toc2">
+        <div id="toctitle">Tabla de Contenidos</div>
+        <ul class="sectlevel1">
+            <li><a href="#_introducción">1. Introducción</a></li>
+            <li><a href="#_descripción_general">2. Descripción General</a></li>
+            <li><a href="#_controlador_de_auditorías">3. Controlador de Auditorías</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_listar_auditorías_de_personal">3.1. Listar Auditorías de Personal</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_errores_básico">4. Controlador de Errores Básico</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_manejo_de_errores">4.1. Manejo de Errores</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_puestos">5. Controlador de Puestos</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_crear_nuevo_puesto">5.1. Crear Nuevo Puesto</a></li>
+                    <li><a href="#_buscar_puesto_por_id_de_empleado">5.2. Buscar Puesto por ID de Empleado</a></li>
+                    <li><a href="#_buscar_puesto_para_director_general">5.3. Buscar Puesto para Director General</a></li>
+                    <li><a href="#_buscar_puestos_por_oficina_local">5.4. Buscar Puestos por Oficina Local</a></li>
+                    <li><a href="#_buscar_puestos_por_oficina_regional">5.5. Buscar Puestos por Oficina Regional</a></li>
+                    <li><a href="#_buscar_puesto_para_supervisor">5.6. Buscar Puesto para Supervisor</a></li>
+                    <li><a href="#_buscar_puesto_por_asignación">5.7. Buscar Puesto por Asignación</a></li>
+                    <li><a href="#_actualizar_puesto">5.8. Actualizar Puesto</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_archivos_de_referencia">6. Controlador de Archivos de Referencia</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_agregar_nueva_referencia">6.1. Agregar Nueva Referencia</a></li>
+                    <li><a href="#_eliminar_referencia_lógicamente">6.2. Eliminar Referencia Lógicamente</a></li>
+                    <li><a href="#_obtener_archivos_de_referencia">6.3. Obtener Archivos de Referencia</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_personal">7. Controlador de Personal</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_crear_nuevo_empleado">7.1. Crear Nuevo Empleado</a></li>
+                    <li><a href="#_crear_empleado_para_jefe_de_rrhh">7.2. Crear Empleado para Jefe de RRHH</a></li>
+                    <li><a href="#_asignar_estado_a_lista_de_empleados">7.3. Asignar Estado a Lista de Empleados</a></li>
+                    <li><a href="#_asignar_estado_de_conciliación_a_lista_de_empleados">7.4. Asignar Estado de Conciliación a Lista de Empleados</a></li>
+                    <li><a href="#_verificar_existencia_de_empleado">7.5. Verificar Existencia de Empleado</a></li>
+                    <li><a href="#_eliminar_empleado">7.6. Eliminar Empleado</a></li>
+                    <li><a href="#_eliminar_empleado_lógicamente">7.7. Eliminar Empleado Lógicamente</a></li>
+                    <li><a href="#_buscar_empleados_por_filtros">7.8. Buscar Empleados por Filtros</a></li>
+                    <li><a href="#_buscar_información_completa_por_id">7.9. Buscar Información Completa por ID</a></li>
+                    <li><a href="#_buscar_información_simple_por_id">7.10. Buscar Información Simple por ID</a></li>
+                    <li><a href="#_buscar_información_completa_por_id_de_usuario">7.11. Buscar Información Completa por ID de Usuario</a></li>
+                    <li><a href="#_buscar_empleados_por_oficina_local">7.12. Buscar Empleados por Oficina Local</a></li>
+                    <li><a href="#_buscar_empleados_por_oficina_regional">7.13. Buscar Empleados por Oficina Regional</a></li>
+                    <li><a href="#_buscar_empleado_por_id_para_asignación">7.14. Buscar Empleado por ID para Asignación</a></li>
+                    <li><a href="#_buscar_empleado_por_id">7.15. Buscar Empleado por ID</a></li>
+                    <li><a href="#_buscar_empleados_por_nombre_o_rtn">7.16. Buscar Empleados por Nombre o RTN</a></li>
+                    <li><a href="#_buscar_empleado_por_id_de_usuario">7.17. Buscar Empleado por ID de Usuario</a></li>
+                    <li><a href="#_listar_empleados_con_paginación">7.18. Listar Empleados con Paginación</a></li>
+                    <li><a href="#_actualizar_id_de_usuario_y_nombre_de_usuario">7.19. Actualizar ID de Usuario y Nombre de Usuario</a></li>
+                    <li><a href="#_actualizar_empleado">7.20. Actualizar Empleado</a></li>
+                    <li><a href="#_actualizar_información_de_usuario">7.21. Actualizar Información de Usuario</a></li>
+                    <li><a href="#_actualizar_estado_de_empleado">7.22. Actualizar Estado de Empleado</a></li>
+                    <li><a href="#_actualizar_estado_de_empleado_por_jefe_de_rrhh">7.23. Actualizar Estado de Empleado por Jefe de RRHH</a></li>
+                </ul>
+            </li>
+            <li><a href="#_controlador_de_archivos_de_personal">8. Controlador de Archivos de Personal</a>
+                <ul class="sectlevel2">
+                    <li><a href="#_agregar_nuevo_archivo">8.1. Agregar Nuevo Archivo</a></li>
+                    <li><a href="#_eliminar_archivo">8.2. Eliminar Archivo</a></li>
+                    <li><a href="#_obtener_archivos_de_empleado">8.3. Obtener Archivos de Empleado</a></li>
+                </ul>
+            </li>
+            <li><a href="#_definiciones">9. Definiciones</a></li>
+            <li><a href="#_contacto">10. Contacto</a></li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <div id="preamble">
+            <div class="sectionbody">
+                <table class="tableblock frame-all grid-all stretch">
+                    <colgroup>
+                        <col style="width: 100%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="tableblock halign-left valign-top"><strong>Información del Documento</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Título</strong>: API del Servicio de Personal</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Versión</strong>: v0.0.49</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Fecha de Revisión</strong>: 2025-05-06</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Contacto</strong>: David Ardón (<a href="mailto:angelgonzalez.nl90@gmail.com">angelgonzalez.nl90@gmail.com</a>)</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableblock halign-left valign-top">
+                                <p class="tableblock"><strong>Host</strong>: prod.svc-staff.ecms.setrass.net</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_introducción">Introducción</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este documento describe la API del <strong>Servicio de Personal</strong>, diseñada para gestionar información de empleados, roles, asignaciones, auditorías y archivos relacionados en el sistema SETRASS. La API permite crear, actualizar,
+                        buscar y eliminar registros de personal, así como manejar referencias laborales y archivos asociados.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_descripción_general">Descripción General</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>La API está organizada en los siguientes controladores:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>Controlador de Auditorías</strong>: Gestiona registros de auditoría del personal.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Errores Básico</strong>: Maneja respuestas de error.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Puestos</strong>: Administra información de puestos laborales.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Archivos de Referencia</strong>: Gestiona archivos de referencia laboral.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Personal</strong>: Maneja registros de empleados y sus asignaciones.</p>
+                        </li>
+                        <li>
+                            <p><strong>Controlador de Archivos de Personal</strong>: Administra archivos asociados a empleados.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paragraph">
+                    <p>Todos los puntos finales son accesibles a través del host <code>prod.svc-staff.ecms.setrass.net/</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_auditorías">Controlador de Auditorías</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador gestiona registros de auditoría relacionados con el personal.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_listar_auditorías_de_personal">Listar Auditorías de Personal</h3>
+                    <div class="paragraph">
+                        <p>Recupera una lista paginada de auditorías de personal.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/audits/v1/listStaffAudits/{page}/{size}</code>
+                            <strong>Resumen</strong>: Lista auditorías de personal con paginación.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>page</code> (Ruta, Requerido): Número de página (entero). - <code>size</code> (Ruta, Requerido): Tamaño de página (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/audits/v1/listStaffAudits/0/10</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "auditList": [
+    {
+      "staffId": "123e4567-e89b-12d3-a456-426614174000",
+      "action": "CREATE",
+      "type": "STAFF",
+      "typeId": "123e4567-e89b-12d3-a456-426614174000",
+      "details": "Nuevo empleado registrado",
+      "dateTime": "2025-05-06T10:00:00Z"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_errores_básico">Controlador de Errores Básico</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador maneja las respuestas de error de la API.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_manejo_de_errores">Manejo de Errores</h3>
+                    <div class="paragraph">
+                        <p>Gestiona errores y devuelve una respuesta en formato HTML.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Métodos HTTP</strong>: GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH
+                            <strong>Ruta</strong>: <code>/error</code>
+                            <strong>Resumen</strong>: Devuelve una respuesta de error para solicitudes inválidas.
+                            <strong>Consume</strong>: <code>application/json</code> (para métodos aplicables)
+                            <strong>Produce</strong>: <code>text/html</code></p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Error&lt;/h1&gt;
+    &lt;p&gt;Solicitud Incorrecta: Parámetro inválido&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_puestos">Controlador de Puestos</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador administra información de puestos laborales asignados al personal.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_crear_nuevo_puesto">Crear Nuevo Puesto</h3>
+                    <div class="paragraph">
+                        <p>Registra un nuevo puesto laboral para un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/add-new</code>
+                            <strong>Resumen</strong>: Crea un nuevo registro de puesto.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>requestDataJob</code> (Cuerpo, Requerido): Objeto JSON con detalles del puesto (<code>JobGeneralDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffId": "123e4567-e89b-12d3-a456-426614174000",
+  "employeeCode": "EMP001",
+  "nominalJob": "Analista",
+  "nominalJobId": "223e4567-e89b-12d3-a456-426614174001",
+  "funcionalJob": "Analista Senior",
+  "funcionalJobId": "323e4567-e89b-12d3-a456-426614174002",
+  "localOffice": "Oficina Central",
+  "localOfficeId": "423e4567-e89b-12d3-a456-426614174003",
+  "regionalOffice": "Región Norte",
+  "regionalOfficeId": "523e4567-e89b-12d3-a456-426614174004",
+  "monthlySalary": 25000.00,
+  "startDate": "2025-01-01",
+  "createdStatusJob": "CREATED"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "jobGeneralDto": {
+    "id": "623e4567-e89b-12d3-a456-426614174005",
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "employeeCode": "EMP001",
+    "nominalJob": "Analista",
+    "nominalJobId": "223e4567-e89b-12d3-a456-426614174001",
+    "funcionalJob": "Analista Senior",
+    "funcionalJobId": "323e4567-e89b-12d3-a456-426614174002",
+    "localOffice": "Oficina Central",
+    "localOfficeId": "423e4567-e89b-12d3-a456-426614174003",
+    "regionalOffice": "Región Norte",
+    "regionalOfficeId": "523e4567-e89b-12d3-a456-426614174004",
+    "monthlySalary": 25000.00,
+    "startDate": "2025-01-01",
+    "createdStatusJob": "CREATED",
+    "createdAt": "2025-05-06T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_puesto_por_id_de_empleado">Buscar Puesto por ID de Empleado</h3>
+                    <div class="paragraph">
+                        <p>Recupera información de puestos por ID de empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/findById/{staffId}</code>
+                            <strong>Resumen</strong>: Obtiene los puestos asociados a un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /jobs/general-info/v1/findById/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "jobGeneralDto": {
+    "id": "623e4567-e89b-12d3-a456-426614174005",
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "employeeCode": "EMP001",
+    "nominalJob": "Analista",
+    "localOffice": "Oficina Central",
+    "regionalOffice": "Región Norte",
+    "monthlySalary": 25000.00,
+    "startDate": "2025-01-01",
+    "createdStatusJob": "CREATED",
+    "createdAt": "2025-05-06T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_puesto_para_director_general">Buscar Puesto para Director General</h3>
+                    <div class="paragraph">
+                        <p>Recupera información de puestos para un Director General.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/findByIdForDirectGeneral/{staffId}</code>
+                            <strong>Resumen</strong>: Obtiene puestos asociados a un empleado para Director General.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /jobs/general-info/v1/findByIdForDirectGeneral/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "teamTablesWrapper": {
+    "listStaffGeneralDircGenJL": [
+      {
+        "staffId": "123e4567-e89b-12d3-a456-426614174000",
+        "nominalJob": "Analista"
+      }
+    ],
+    "listStaffGeneralDircGenJR": []
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_puestos_por_oficina_local">Buscar Puestos por Oficina Local</h3>
+                    <div class="paragraph">
+                        <p>Recupera puestos por ID de oficina local para Jefe Local.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/findByIdForJefeLocal/{localOfficeId}</code>
+                            <strong>Resumen</strong>: Obtiene puestos en una oficina local.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>localOfficeId</code> (Ruta, Requerido): ID de la oficina local (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /jobs/general-info/v1/findByIdForJefeLocal/423e4567-e89b-12d3-a456-426614174003</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "teamTablesWrapper": {
+    "listStaffGeneralDircGenJL": [
+      {
+        "staffId": "123e4567-e89b-12d3-a456-426614174000",
+        "nominalJob": "Analista"
+      }
+    ],
+    "listStaffGeneralDircGenJR": []
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_puestos_por_oficina_regional">Buscar Puestos por Oficina Regional</h3>
+                    <div class="paragraph">
+                        <p>Recupera puestos por ID de oficina regional para Jefe Regional.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/findByIdForJefeRegional/{regionalOficeId}</code>
+                            <strong>Resumen</strong>: Obtiene puestos en una oficina regional.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>regionalOficeId</code> (Ruta, Requerido): ID de la oficina regional (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /jobs/general-info/v1/findByIdForJefeRegional/523e4567-e89b-12d3-a456-426614174004</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "teamTablesWrapper": {
+    "listStaffGeneralDircGenJL": [],
+    "listStaffGeneralDircGenJR": [
+      {
+        "staffId": "123e4567-e89b-12d3-a456-426614174000",
+        "nominalJob": "Analista"
+      }
+    ]
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_puesto_para_supervisor">Buscar Puesto para Supervisor</h3>
+                    <div class="paragraph">
+                        <p>Recupera información de puesto para un supervisor.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/findByIdToSupervisor/{staffId}</code>
+                            <strong>Resumen</strong>: Obtiene detalles de puesto para un supervisor.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /jobs/general-info/v1/findByIdToSupervisor/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "jobToSupervisorDto": {
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "staffSupervisorFullName": "Ana Gomez",
+    "nominalJobId": "223e4567-e89b-12d3-a456-426614174001",
+    "localOfficeId": "423e4567-e89b-12d3-a456-426614174003",
+    "regionalOfficeId": "523e4567-e89b-12d3-a456-426614174004"
+  },
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_puesto_por_asignación">Buscar Puesto por Asignación</h3>
+                    <div class="paragraph">
+                        <p>Recupera información de puestos por asignación de empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/findByStaffId-Assignment/{staffId}</code>
+                            <strong>Resumen</strong>: Obtiene puestos asignados a un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /jobs/general-info/v1/findByStaffId-Assignment/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "jobGeneralDto": {
+    "id": "623e4567-e89b-12d3-a456-426614174005",
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "employeeCode": "EMP001",
+    "nominalJob": "Analista",
+    "localOffice": "Oficina Central",
+    "createdStatusJob": "CREATED"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_puesto">Actualizar Puesto</h3>
+                    <div class="paragraph">
+                        <p>Actualiza los detalles de un puesto existente.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/jobs/general-info/v1/updateJob/{Id}</code>
+                            <strong>Resumen</strong>: Actualiza un puesto laboral.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>Id</code> (Ruta, Requerido): ID del puesto (UUID). - <code>requestData</code> (Cuerpo, Requerido): Objeto JSON con detalles actualizados (<code>JobGeneralDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "nominalJob": "Analista Senior",
+  "nominalJobId": "223e4567-e89b-12d3-a456-426614174001",
+  "monthlySalary": 30000.00,
+  "createdStatusJob": "UPDATED"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "jobGeneralDto": {
+    "id": "623e4567-e89b-12d3-a456-426614174005",
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "nominalJob": "Analista Senior",
+    "nominalJobId": "223e4567-e89b-12d3-a456-426614174001",
+    "monthlySalary": 30000.00,
+    "createdStatusJob": "UPDATED",
+    "updatedAt": "2025-05-06T10:30:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_archivos_de_referencia">Controlador de Archivos de Referencia</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador gestiona archivos de referencia laboral asociados a empleados.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_agregar_nueva_referencia">Agregar Nueva Referencia</h3>
+                    <div class="paragraph">
+                        <p>Agrega un nuevo archivo de referencia a un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PUT
+                            <strong>Ruta</strong>: <code>/staff/file-references-staff/v1/add-new-list-file-reference/{staffId}</code>
+                            <strong>Resumen</strong>: Registra un archivo de referencia laboral.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>referenceFilesDto</code> (Cuerpo, Requerido): Objeto JSON con detalles del archivo (<code>ReferenceFilesDto</code>). - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffId": "123e4567-e89b-12d3-a456-426614174000",
+  "fullName": "Juan Perez",
+  "company": "Acme Corp",
+  "profession": "Gerente",
+  "phoneNumber": "+50455555555",
+  "fileName": "referencia.pdf",
+  "fileUrl": "https://storage.example.com/referencia.pdf",
+  "status": "CREATED",
+  "active": true
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "referenceFilesDto": {
+    "id": "723e4567-e89b-12d3-a456-426614174006",
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "fullName": "Juan Perez",
+    "company": "Acme Corp",
+    "profession": "Gerente",
+    "phoneNumber": "+50455555555",
+    "fileName": "referencia.pdf",
+    "fileUrl": "https://storage.example.com/referencia.pdf",
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_eliminar_referencia_lógicamente">Eliminar Referencia Lógicamente</h3>
+                    <div class="paragraph">
+                        <p>Elimina lógicamente un archivo de referencia por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: DELETE
+                            <strong>Ruta</strong>: <code>/staff/file-references-staff/v1/deleteLogic-Reference/{id}</code>
+                            <strong>Resumen</strong>: Marca un archivo de referencia como eliminado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del archivo de referencia (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">DELETE /staff/file-references-staff/v1/deleteLogic-Reference/723e4567-e89b-12d3-a456-426614174006</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Referencia eliminada lógicamente"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_obtener_archivos_de_referencia">Obtener Archivos de Referencia</h3>
+                    <div class="paragraph">
+                        <p>Recupera todos los archivos de referencia de un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/file-references-staff/v1/get-files-references/{staffId}</code>
+                            <strong>Resumen</strong>: Lista los archivos de referencia de un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/file-references-staff/v1/get-files-references/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": "723e4567-e89b-12d3-a456-426614174006",
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "fullName": "Juan Perez",
+    "company": "Acme Corp",
+    "profession": "Gerente",
+    "phoneNumber": "+50455555555",
+    "fileName": "referencia.pdf",
+    "fileUrl": "https://storage.example.com/referencia.pdf",
+    "status": "CREATED",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z"
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_personal">Controlador de Personal</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador gestiona los registros de empleados y sus asignaciones.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_crear_nuevo_empleado">Crear Nuevo Empleado</h3>
+                    <div class="paragraph">
+                        <p>Registra un nuevo empleado en el sistema.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/add-new</code>
+                            <strong>Resumen</strong>: Crea un nuevo registro de empleado.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>requestData</code> (Cuerpo, Requerido): Objeto JSON con detalles del empleado (<code>StaffGeneralInfoDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "firstName": "Ana",
+  "lastName": "Gomez",
+  "identificationNum": "987654321",
+  "identificationType": "DNI",
+  "sex": "FEMALE",
+  "birth": "1990-05-15",
+  "institutionalEmail": "ana.gomez@setrass.net",
+  "status": "CREATED",
+  "statusStaff": "ACTIVO",
+  "localOfficeId": "423e4567-e89b-12d3-a456-426614174003",
+  "active": true
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "firstName": "Ana",
+    "lastName": "Gomez",
+    "identificationNum": "987654321",
+    "identificationType": "DNI",
+    "sex": "FEMALE",
+    "birth": "1990-05-15",
+    "institutionalEmail": "ana.gomez@setrass.net",
+    "status": "CREATED",
+    "statusStaff": "ACTIVO",
+    "localOfficeId": "423e4567-e89b-12d3-a456-426614174003",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_crear_empleado_para_jefe_de_rrhh">Crear Empleado para Jefe de RRHH</h3>
+                    <div class="paragraph">
+                        <p>Registra un nuevo empleado con autorización de Jefe de RRHH.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/add-newStaff-JefeRRHH</code>
+                            <strong>Resumen</strong>: Crea un empleado con información de usuario autorizada.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>requestData</code> (Cuerpo, Requerido): Objeto JSON con detalles del empleado (<code>StaffGeneralInfoDto</code>). - <code>userInfo</code> (Cabecera, Requerido): Información del usuario autorizado
+                            (cadena).
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">POST /staff/general-info/v1/add-newStaff-JefeRRHH
+Content-Type: application/json
+userInfo: admin_rrhh
+
+{
+  "firstName": "Carlos",
+  "lastName": "Lopez",
+  "identificationNum": "123456789",
+  "identificationType": "DNI",
+  "sex": "MALE",
+  "institutionalEmail": "carlos.lopez@setrass.net",
+  "status": "CREATED",
+  "statusStaff": "ACTIVO",
+  "active": true
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": {
+    "id": "823e4567-e89b-12d3-a456-426614174007",
+    "firstName": "Carlos",
+    "lastName": "Lopez",
+    "identificationNum": "123456789",
+    "identificationType": "DNI",
+    "sex": "MALE",
+    "institutionalEmail": "carlos.lopez@setrass.net",
+    "status": "CREATED",
+    "statusStaff": "ACTIVO",
+    "active": true,
+    "createdAt": "2025-05-06T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_asignar_estado_a_lista_de_empleados">Asignar Estado a Lista de Empleados</h3>
+                    <div class="paragraph">
+                        <p>Asigna un estado de asignación a una lista de empleados.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/add-new-list-statusAssigned</code>
+                            <strong>Resumen</strong>: Actualiza el estado de asignación de múltiples empleados.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>newStatus</code> (Query, Requerido): Nuevo estado de asignación (booleano). - <code>staffIds</code> (Cuerpo, Requerido): Lista de IDs de empleados (UUIDs).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">POST /staff/general-info/v1/add-new-list-statusAssigned?newStatus=true
+Content-Type: application/json
+
+[
+  "123e4567-e89b-12d3-a456-426614174000",
+  "823e4567-e89b-12d3-a456-426614174007"
+]</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Estado de asignación actualizado"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_asignar_estado_de_conciliación_a_lista_de_empleados">Asignar Estado de Conciliación a Lista de Empleados</h3>
+                    <div class="paragraph">
+                        <p>Asigna un estado de conciliación a una lista de empleados.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: POST
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/add-new-list-status-assigned-conciliation</code>
+                            <strong>Resumen</strong>: Actualiza el estado de conciliación de múltiples empleados.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>newStatus</code> (Query, Requerido): Nuevo estado de conciliación (booleano). - <code>staffIds</code> (Cuerpo, Requerido): Lista de IDs de empleados (UUIDs).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">POST /staff/general-info/v1/add-new-list-status-assigned-conciliation?newStatus=true
+Content-Type: application/json
+
+[
+  "123e4567-e89b-12d3-a456-426614174000"
+]</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Estado de conciliación actualizado"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_verificar_existencia_de_empleado">Verificar Existencia de Empleado</h3>
+                    <div class="paragraph">
+                        <p>Comprueba si un empleado existe por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/check-ExistenceStaff/{id}</code>
+                            <strong>Resumen</strong>: Verifica la existencia de un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/check-ExistenceStaff/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">true</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_eliminar_empleado">Eliminar Empleado</h3>
+                    <div class="paragraph">
+                        <p>Elimina un empleado por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: DELETE
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/delete/{id}</code>
+                            <strong>Resumen</strong>: Elimina un registro de empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">DELETE /staff/general-info/v1/delete/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Empleado eliminado"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_eliminar_empleado_lógicamente">Eliminar Empleado Lógicamente</h3>
+                    <div class="paragraph">
+                        <p>Marca un empleado como eliminado lógicamente.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: DELETE
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/deleteLogic/{id}</code>
+                            <strong>Resumen</strong>: Cambia el estado de un empleado a eliminado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">DELETE /staff/general-info/v1/deleteLogic/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Empleado eliminado lógicamente"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_empleados_por_filtros">Buscar Empleados por Filtros</h3>
+                    <div class="paragraph">
+                        <p>Busca empleados según múltiples criterios.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/filter-staff</code>
+                            <strong>Resumen</strong>: Filtra empleados por asignación, conciliación, género, etc.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>assigned</code> (Query, Opcional): Estado de asignación (booleano). - <code>assignedConciliation</code> (Query, Opcional): Estado de conciliación (booleano). - <code>disabilityType</code>                            (Query, Opcional): Tipo de discapacidad (cadena). - <code>educationLevelId</code> (Query, Opcional): Nivel educativo (cadena). - <code>ethnicGroup</code> (Query, Opcional): Grupo étnico (cadena). - <code>generalOfficeId</code>                            (Query, Opcional): ID de oficina general (cadena). - <code>jobUnitId</code> (Query, Opcional): ID de unidad laboral (cadena). - <code>localOfficeId</code> (Query, Opcional): ID de oficina local (cadena). - <code>modalityJobId</code>                            (Query, Opcional): ID de modalidad de trabajo (cadena). - <code>nominalJobId</code> (Query, Opcional): ID de puesto nominal (cadena). - <code>regionalOfficeId</code> (Query, Opcional): ID de oficina regional (cadena). - <code>sex</code>                            (Query, Opcional): Género (cadena). - <code>statusStaff</code> (Query, Opcional): Estado del empleado (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/filter-staff?assigned=true&amp;sex=FEMALE&amp;localOfficeId=423e4567-e89b-12d3-a456-426614174003</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "firstName": "Ana",
+      "lastName": "Gomez",
+      "sex": "FEMALE",
+      "institutionalEmail": "ana.gomez@setrass.net",
+      "statusStaff": "ACTIVO",
+      "localOfficeId": "423e4567-e89b-12d3-a456-426614174003"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_información_completa_por_id">Buscar Información Completa por ID</h3>
+                    <div class="paragraph">
+                        <p>Recupera información completa de un empleado por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/find-StaffTotalInfo-ById/{id}</code>
+                            <strong>Resumen</strong>: Obtiene todos los detalles de un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/find-StaffTotalInfo-ById/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "allInfoStaffGeneralWrappers": [
+    {
+      "staffGeneralInfoDto": {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "firstName": "Ana",
+        "lastName": "Gomez",
+        "institutionalEmail": "ana.gomez@setrass.net",
+        "statusStaff": "ACTIVO"
+      },
+      "jobGeneralDto": {
+        "id": "623e4567-e89b-12d3-a456-426614174005",
+        "nominalJob": "Analista",
+        "localOffice": "Oficina Central"
+      }
+    }
+  ],
+  "totalRow": 1,
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_información_simple_por_id">Buscar Información Simple por ID</h3>
+                    <div class="paragraph">
+                        <p>Recupera información básica de un empleado por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/find-simple-staff-by-id/{id}</code>
+                            <strong>Resumen</strong>: Obtiene detalles básicos de un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/find-simple-staff-by-id/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "simpleStaff": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Ana",
+    "lastName": "Gomez",
+    "nominalJob": "Analista",
+    "nominalJobId": "223e4567-e89b-12d3-a456-426614174001"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_información_completa_por_id_de_usuario">Buscar Información Completa por ID de Usuario</h3>
+                    <div class="paragraph">
+                        <p>Recupera información completa de un empleado por su ID de usuario.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/find-staff-total-info-by-userid/{userId}</code>
+                            <strong>Resumen</strong>: Obtiene todos los detalles de un empleado por ID de usuario.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>userId</code> (Ruta, Requerido): ID de usuario (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/find-staff-total-info-by-userid/user123</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "allInfoStaffGeneralWrappers": [
+    {
+      "staffGeneralInfoDto": {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "firstName": "Ana",
+        "lastName": "Gomez",
+        "userId": "user123",
+        "statusStaff": "ACTIVO"
+      },
+      "jobGeneralDto": {
+        "id": "623e4567-e89b-12d3-a456-426614174005",
+        "nominalJob": "Analista"
+      }
+    }
+  ],
+  "totalRow": 1,
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_empleados_por_oficina_local">Buscar Empleados por Oficina Local</h3>
+                    <div class="paragraph">
+                        <p>Recupera empleados por filtro de oficina local.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/findAll-StaffByOficinaLocal/{filter}</code>
+                            <strong>Resumen</strong>: Lista empleados en una oficina local según filtro.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>filter</code> (Ruta, Requerido): Filtro de búsqueda (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/findAll-StaffByOficinaLocal/Oficina%20Central</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "allInfoStaffGeneralWrappers": [
+    {
+      "staffGeneralInfoDto": {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "firstName": "Ana",
+        "lastName": "Gomez",
+        "statusStaff": "ACTIVO"
+      }
+    }
+  ],
+  "totalRow": 1,
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_empleados_por_oficina_regional">Buscar Empleados por Oficina Regional</h3>
+                    <div class="paragraph">
+                        <p>Recupera empleados por filtro de oficina regional.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/findAll-StaffByOficinaRegional/{filter}</code>
+                            <strong>Resumen</strong>: Lista empleados en una oficina regional según filtro.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>filter</code> (Ruta, Requerido): Filtro de búsqueda (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/findAll-StaffByOficinaRegional/Región%20Norte</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "allInfoStaffGeneralWrappers": [
+    {
+      "staffGeneralInfoDto": {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "firstName": "Ana",
+        "lastName": "Gomez",
+        "statusStaff": "ACTIVO"
+      }
+    }
+  ],
+  "totalRow": 1,
+  "advisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_empleado_por_id_para_asignación">Buscar Empleado por ID para Asignación</h3>
+                    <div class="paragraph">
+                        <p>Recupera información de un empleado para asignación.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/findById-for-assignment/{id}</code>
+                            <strong>Resumen</strong>: Obtiene detalles de un empleado para asignación.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/findById-for-assignment/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "firstName": "Ana",
+    "lastName": "Gomez",
+    "statusStaff": "ACTIVO",
+    "assigned": false
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_empleado_por_id">Buscar Empleado por ID</h3>
+                    <div class="paragraph">
+                        <p>Recupera información general de un empleado por su ID.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/findById/{id}</code>
+                            <strong>Resumen</strong>: Obtiene detalles de un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/findById/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "firstName": "Ana",
+    "lastName": "Gomez",
+    "institutionalEmail": "ana.gomez@setrass.net",
+    "statusStaff": "ACTIVO"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_empleados_por_nombre_o_rtn">Buscar Empleados por Nombre o RTN</h3>
+                    <div class="paragraph">
+                        <p>Busca empleados por nombre o RTN.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/findByNameOrRTN/{filter}</code>
+                            <strong>Resumen</strong>: Lista empleados según nombre o RTN.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>filter</code> (Ruta, Requerido): Filtro de nombre o RTN (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/findByNameOrRTN/Ana%20Gomez</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "firstName": "Ana",
+      "lastName": "Gomez",
+      "statusStaff": "ACTIVO"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_buscar_empleado_por_id_de_usuario">Buscar Empleado por ID de Usuario</h3>
+                    <div class="paragraph">
+                        <p>Recupera información de un empleado por su ID de usuario.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/findByStaffUserId/{id}</code>
+                            <strong>Resumen</strong>: Obtiene detalles de un empleado por ID de usuario.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del usuario (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <<code class="language-http" data-lang="http">GET /staff/general-info/v1/findByStaffUserId/923e4567-e89b-12d3-a456-426614174008</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "createUserGeneralInfoDto": {
+    "educationLevelId": "PREGRADO",
+    "profesion": "Ingeniería",
+    "collegiate": true,
+    "collegeNumber": "12345",
+    "status": "CREATED"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_listar_empleados_con_paginación">Listar Empleados con Paginación</h3>
+                    <div class="paragraph">
+                        <p>Recupera una lista paginada de empleados.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/listGeneralInStaff/{page}/{size}</code>
+                            <strong>Resumen</strong>: Lista empleados con paginación.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>page</code> (Ruta, Requerido): Número de página (entero). - <code>size</code> (Ruta, Requerido): Tamaño de página (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/general-info/v1/listGeneralInStaff/0/10</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "firstName": "Ana",
+      "lastName": "Gomez",
+      "statusStaff": "ACTIVO"
+    }
+  ],
+  "totalRow": 1
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_id_de_usuario_y_nombre_de_usuario">Actualizar ID de Usuario y Nombre de Usuario</h3>
+                    <div class="paragraph">
+                        <p>Actualiza el ID de usuario y nombre de usuario de un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/update-userid-and-username/{id}</code>
+                            <strong>Resumen</strong>: Actualiza el ID de usuario y nombre de usuario.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID). - <code>requestDataUser</code> (Cuerpo, Requerido): Objeto JSON con ID y nombre de usuario (<code>StaffUserIdUserNameDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "userId": "user123",
+  "userName": "ana_gomez"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffUserIdUserNameDto": {
+    "userId": "user123",
+    "userName": "ana_gomez"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_empleado">Actualizar Empleado</h3>
+                    <div class="paragraph">
+                        <p>Actualiza los detalles de un empleado existente.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/updateStaff/{id}</code>
+                            <strong>Resumen</strong>: Actualiza un registro de empleado.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID). - <code>requestData</code> (Cuerpo, Requerido): Objeto JSON con detalles actualizados (<code>StaffGeneralInfoDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "institutionalEmail": "ana.gomez.updated@setrass.net",
+  "statusStaff": "ACTIVO",
+  "sex": "FEMALE"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffGeneralInfoDto": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "firstName": "Ana",
+    "lastName": "Gomez",
+    "institutionalEmail": "ana.gomez.updated@setrass.net",
+    "statusStaff": "ACTIVO",
+    "sex": "FEMALE",
+    "updatedAt": "2025-05-06T10:30:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_información_de_usuario">Actualizar Información de Usuario</h3>
+                    <div class="paragraph">
+                        <p>Actualiza la información de usuario de un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/updateStaffUser/{id}</code>
+                            <strong>Resumen</strong>: Actualiza detalles de usuario de un empleado.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID). - <code>requestDataUser</code> (Cuerpo, Requerido): Objeto JSON con detalles de usuario (<code>CreateUserGeneralInfoDto</code>).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "educationLevelId": "POSGRADO",
+  "profesion": "Administración",
+  "collegiate": true,
+  "collegeNumber": "54321",
+  "status": "UPDATED"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "createUserGeneralInfoDto": {
+    "educationLevelId": "POSGRADO",
+    "profesion": "Administración",
+    "collegiate": true,
+    "collegeNumber": "54321",
+    "status": "UPDATED",
+    "updatedAt": "2025-05-06T10:30:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_estado_de_empleado">Actualizar Estado de Empleado</h3>
+                    <div class="paragraph">
+                        <p>Actualiza el estado de un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/updateStatusStaff/{id}</code>
+                            <strong>Resumen</strong>: Cambia el estado de un empleado.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID). - <code>newStaffStatus</code> (Cuerpo, Requerido): Nuevo estado del empleado (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">"VERIFICADO"</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Estado actualizado a VERIFICADO"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_actualizar_estado_de_empleado_por_jefe_de_rrhh">Actualizar Estado de Empleado por Jefe de RRHH</h3>
+                    <div class="paragraph">
+                        <p>Actualiza el estado de un empleado con autorización de Jefe de RRHH.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PATCH
+                            <strong>Ruta</strong>: <code>/staff/general-info/v1/updateStatusStaff-JefeRRHH/{id}</code>
+                            <strong>Resumen</strong>: Cambia el estado de un empleado con autorización.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del empleado (UUID). - <code>newStaffStatus</code> (Cuerpo, Requerido): Nuevo estado del empleado (cadena). - <code>userInfo</code> (Cabecera, Requerido):
+                            Información del usuario autorizado (cadena).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">PATCH /staff/general-info/v1/updateStatusStaff-JefeRRHH/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+userInfo: admin_rrhh
+
+"VERIFICADO"</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Estado actualizado a VERIFICADO por Jefe de RRHH"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_controlador_de_archivos_de_personal">Controlador de Archivos de Personal</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Este controlador gestiona archivos asociados a empleados.</p>
+                </div>
+                <div class="sect2">
+                    <h3 id="_agregar_nuevo_archivo">Agregar Nuevo Archivo</h3>
+                    <div class="paragraph">
+                        <p>Agrega un nuevo archivo a un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: PUT
+                            <strong>Ruta</strong>: <code>/staff/staff-files-info/v1/add-new-files/{staffId}</code>
+                            <strong>Resumen</strong>: Registra un archivo asociado a un empleado.
+                            <strong>Consume</strong>: <code>application/json</code>
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffFilesDto</code> (Cuerpo, Requerido): Objeto JSON con detalles del archivo (<code>StaffFilesDto</code>). - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffId": "123e4567-e89b-12d3-a456-426614174000",
+  "fileName": "cv.pdf",
+  "fileUrl": "https://storage.example.com/cv.pdf",
+  "title": "Curriculum Vitae",
+  "type": "PDF",
+  "createdStatus": "CREATED",
+  "trainingCenter": "Universidad Nacional"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "staffFilesDto": {
+    "id": 1,
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "fileName": "cv.pdf",
+    "fileUrl": "https://storage.example.com/cv.pdf",
+    "title": "Curriculum Vitae",
+    "type": "PDF",
+    "createdStatus": "CREATED",
+    "trainingCenter": "Universidad Nacional",
+    "dateCreated": "2025-05-06T10:00:00Z"
+  },
+  "responseAdvisor": {
+    "errorCode": 0,
+    "statusError": "SUCCESS",
+    "errorMessages": []
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_eliminar_archivo">Eliminar Archivo</h3>
+                    <div class="paragraph">
+                        <p>Elimina un archivo asociado a un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: DELETE
+                            <strong>Ruta</strong>: <code>/staff/staff-files-info/v1/deleteStaffFile/{id}</code>
+                            <strong>Resumen</strong>: Elimina un archivo por su ID.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>id</code> (Ruta, Requerido): ID del archivo (entero).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">DELETE /staff/staff-files-info/v1/deleteStaffFile/1</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">{
+  "errorCode": 0,
+  "statusError": "SUCCESS",
+  "errorMessages": ["Archivo eliminado"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="sect2">
+                    <h3 id="_obtener_archivos_de_empleado">Obtener Archivos de Empleado</h3>
+                    <div class="paragraph">
+                        <p>Recupera todos los archivos asociados a un empleado.</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Método HTTP</strong>: GET
+                            <strong>Ruta</strong>: <code>/staff/staff-files-info/v1/get-files/{staffId}</code>
+                            <strong>Resumen</strong>: Lista los archivos de un empleado.
+                            <strong>Produce</strong>: <code><strong>/</strong></code>
+                            <strong>Parámetros</strong>: - <code>staffId</code> (Ruta, Requerido): ID del empleado (UUID).</p>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Solicitud</strong>:</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-http" data-lang="http">GET /staff/staff-files-info/v1/get-files/123e4567-e89b-12d3-a456-426614174000</code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p><strong>Ejemplo de Respuesta</strong> (200 OK):</p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="highlight"><code class="language-json" data-lang="json">[
+  {
+    "id": 1,
+    "staffId": "123e4567-e89b-12d3-a456-426614174000",
+    "fileName": "cv.pdf",
+    "fileUrl": "https://storage.example.com/cv.pdf",
+    "title": "Curriculum Vitae",
+    "type": "PDF",
+    "createdStatus": "CREATED",
+    "trainingCenter": "Universidad Nacional",
+    "dateCreated": "2025-05-06T10:00:00Z"
+  }
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_definiciones">Definiciones</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>La API utiliza los siguientes modelos de datos, definidos en el esquema Swagger:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><strong>StaffGeneralInfoDto</strong>: Representa un empleado con detalles personales y laborales.</p>
+                        </li>
+                        <li>
+                            <p><strong>JobGeneralDto</strong>: Modelo para información de puestos laborales.</p>
+                        </li>
+                        <li>
+                            <p><strong>StaffFilesDto</strong> y <strong>ReferenceFilesDto</strong>: Modelos para gestionar archivos asociados a empleados.</p>
+                        </li>
+                        <li>
+                            <p><strong>CreateUserGeneralInfoDto</strong>: Estructura para información de usuario.</p>
+                        </li>
+                        <li>
+                            <p><strong>ResponseAdvisor</strong>: Estructura común para respuestas con información de estado.</p>
+                        </li>
+                        <li>
+                            <p><strong>AuditDto</strong>: Modelo para registros de auditoría.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paragraph">
+                    <p>Para definiciones detalladas del esquema, consulte la especificación JSON de Swagger en <code>prod.svc-staff.ecms.setrass.net/swagger/v1/swagger.json</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="sect1">
+            <h2 id="_contacto">Contacto</h2>
+            <div class="sectionbody">
+                <div class="paragraph">
+                    <p>Para soporte, contacte a David Ardón en <a href="mailto:angelgonzalez.nl90@gmail.com">angelgonzalez.nl90@gmail.com</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-text">
+            Version v0.0.49<br> Last updated 2025-05-06 09:09:12 -0600
+        </div>
+    </div>
+</body>
+
+</html>
